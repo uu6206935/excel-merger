@@ -212,6 +212,15 @@ Round 6: header chip `disk-low-chip` and export-dialog notice (`export-disk-noti
   formula without cached result that cannot be kept is the only way to get an empty cell and is reported (code formulasNoCache).
   After the premerge the merged sheet is an ordinary workbook: column moves / inserts / deletes adjust these formulas with Excel
   semantics (doc + both engines); verified by a real-Excel value-invariance oracle (tests/oracle).
+- **Round 9 (user request, "plan A")**: PremergeOptions.includeSourceSheets copies EVERY sheet of every other (2nd, 3rd …) file into the
+  output after the merged sheet and the base's own other sheets (UI: second checkbox 「他のファイルのシートも含める」 under 「他のシートも
+  出力に含める」, default off). Names: planSheetNames (src/core/xlsx/sheetnames.ts) = "<file name without extension>_<sheet name>", at most
+  31 characters (the file part is shortened first), forbidden characters → "_", and "(1)", "(2)" … appended to the sheet added LATER when a
+  name is taken (case-insensitive, full/half width folded); the merged sheet and the base's sheets are never renamed. Copies are faithful
+  (cells, formulas with renamed sheet refs, styles / dxfs / shared strings re-indexed, names scoped to the copy, CF / DV / merges / cols /
+  hyperlinks, then drawings / charts / images / tables / comments / pivots); what cannot be copied is left out with a 'sheetCopyLimits'
+  warning naming the sheet. Imported formulas (round 8) that read other sheets of their source, or cells the merged table cannot
+  represent, read the COPIES instead and therefore stay formulas. PremergeLayout.addedSheets / MergeReport.addedSheets list the result.
 
 Additional data-testids: `file-excluded-<i>`, `excluded-notice`, `excluded-pick-key-<sourceId>`, `preview-excluded-<sourceId>`,
 `side-excluded`, `key-detail-tab-<sourceId>`, `detail-excluded`, `key-candidates`, `key-row-<candidateId>`,

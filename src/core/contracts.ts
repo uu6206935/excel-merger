@@ -229,6 +229,17 @@ export interface PremergeOptions {
    * Default false at the API level (the app's UI passes true unless the user ticks 「他のシートも出力に含める」).
    */
   dropOtherSheets?: boolean;
+  /**
+   * Copy EVERY sheet (visible and hidden; the source's data sheet too = a full original copy) of every participating other file
+   * (PremergeInput.sources, in that order = the card order) into the output, after the merged sheet and the base's own other
+   * sheets. Names come from planSheetNames (src/core/xlsx/sheetnames.ts): "<file name without extension>_<sheet name>", shortened to
+   * Excel's 31 characters, "(1)", "(2)" … appended to the sheet that is added LATER when a name is taken (case-insensitive).
+   * Formulas of the copied sheets that read other sheets of their own file point at the renamed copies; imported formulas of the
+   * merged sheet that cannot be re-pointed into the merged table read the copies instead (so they stay formulas). Things that cannot
+   * be copied faithfully are left out with a 'sheetCopyLimits' warning that names the sheet. Default false.
+   * Independent of dropOtherSheets (the base's own other sheets).
+   */
+  includeSourceSheets?: boolean;
 }
 
 export interface PremergeInput {
@@ -266,6 +277,20 @@ export interface PremergeLayout {
   /** first appended row, or null */
   appendAt: number | null;
   appended: Array<{ row: number; sourceId: string; sourceRow: number }>;
+  /** includeSourceSheets: the sheets copied from the other files, in output order (undefined / empty = none) */
+  addedSheets?: Array<{
+    sourceId: string;
+    /** the source file name as given (KeySource.book.fileName) */
+    file: string;
+    /** sheet name in the source file */
+    original: string;
+    /** sheet name in the output workbook */
+    name: string;
+    /** true when "(n)" had to be appended because the plain name was already taken */
+    suffixed: boolean;
+    /** false when the copy had to leave things out (see the 'sheetCopyLimits' items) */
+    complete: boolean;
+  }>;
 }
 
 export interface PremergeResult {

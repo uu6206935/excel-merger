@@ -430,6 +430,8 @@ export interface MergeReport {
   formulasToValues: number;
   /** names of the sheets removed by PremergeOptions.dropOtherSheets (undefined / empty = none) */
   droppedSheets?: string[];
+  /** names (in output order) of the sheets copied by PremergeOptions.includeSourceSheets (undefined / empty = none) */
+  addedSheets?: string[];
   /** formulas of the merged sheet turned into values because they read a dropped sheet (dropOtherSheets) */
   formulasDetached?: number;
   /**
