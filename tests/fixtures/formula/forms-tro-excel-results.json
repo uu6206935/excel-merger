@@ -1,0 +1,238 @@
+{
+ "meta": {
+  "description": "Formulas typed into Excel 365 via Range.Formula2, saved as .xlsx; file = stored <f>. Built by tests/fixtures/formula/com/{make-forms-input.mjs,excel-forms.ps1 | make-forms-extra-input.mjs,excel-forms-extra.ps1 ; extract-forms.mjs}.",
+  "generated": "2026-09-30T01:59:14.810Z"
+ },
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "J1",
+   "fn": null,
+   "input": "=SUM(B1:.B10)",
+   "formula2": "=SUM(B1:.B10)",
+   "formula": "=SUM(B1:.B10)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING(B1:B10))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J2",
+   "fn": null,
+   "input": "=SUM(B1.:B10)",
+   "formula2": "=SUM(B1.:B10)",
+   "formula": "=SUM(B1.:B10)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_LEADING(B1:B10))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J3",
+   "fn": null,
+   "input": "=SUM(B1.:.B10)",
+   "formula2": "=SUM(B1.:.B10)",
+   "formula": "=SUM(B1.:.B10)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_ALL(B1:B10))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J4",
+   "fn": null,
+   "input": "=SUM(B:.B)",
+   "formula2": "=SUM(B:.B)",
+   "formula": "=SUM(B:.B)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING(B:B))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J5",
+   "fn": null,
+   "input": "=SUM(B.:C)",
+   "formula2": "=SUM(B.:C)",
+   "formula": "=SUM(B.:C)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_LEADING(B:C))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J6",
+   "fn": null,
+   "input": "=SUM(B.:.C)",
+   "formula2": "=SUM(B.:.C)",
+   "formula": "=SUM(B.:.C)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_ALL(B:C))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J7",
+   "fn": null,
+   "input": "=SUM($1:.$3)",
+   "formula2": "=SUM($1:.$3)",
+   "formula": "=SUM($1:.$3)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING($1:$3))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J8",
+   "fn": null,
+   "input": "=SUM(1.:3)",
+   "formula2": "=SUM(1.:3)",
+   "formula": "=SUM(1.:3)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_LEADING(1:3))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J9",
+   "fn": null,
+   "input": "=SUM(X!B1:.B10)",
+   "formula2": "=SUM(X!B1:.B10)",
+   "formula": "=SUM(X!B1:.B10)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING(X!B1:B10))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J10",
+   "fn": null,
+   "input": "=SUM($B$1:.$B$10)",
+   "formula2": "=SUM($B$1:.$B$10)",
+   "formula": "=SUM($B$1:.$B$10)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING($B$1:$B$10))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J11",
+   "fn": null,
+   "input": "=ROWS(B:.B)",
+   "formula2": "=ROWS(B:.B)",
+   "formula": "=ROWS(B:.B)",
+   "err": null,
+   "file": {
+    "f": "ROWS(_xlfn._TRO_TRAILING(B:B))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J12",
+   "fn": null,
+   "input": "=SUM(B1:.B10,C1.:C3)",
+   "formula2": "=SUM(B1:.B10,C1.:C3)",
+   "formula": "=SUM(B1:.B10,C1.:C3)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING(B1:B10),_xlfn._TRO_LEADING(C1:C3))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J13",
+   "fn": null,
+   "input": "=TRIMRANGE(B1:B10,2,2)",
+   "formula2": "=TRIMRANGE(B1:B10,2,2)",
+   "formula": "=TRIMRANGE(B1:B10,2,2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.TRIMRANGE(B1:B10,2,2)",
+    "t": "array",
+    "ref": "J13",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J14",
+   "fn": null,
+   "input": "=SUM(B1:.B10 B2:B3)",
+   "formula2": "=SUM(B1:.B10 B2:B3)",
+   "formula": "=SUM(B1:.B10 B2:B3)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn._TRO_TRAILING(B1:B10) B2:B3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "M1",
+   "fn": null,
+   "input": "=B1:.C10",
+   "formula2": "=B1:.C10",
+   "formula": "=B1:.C10",
+   "err": null,
+   "file": {
+    "f": "_xlfn._TRO_TRAILING(B1:C10)",
+    "t": "array",
+    "ref": "M1:N4",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "P1",
+   "fn": null,
+   "input": "=LET(r,B1:.B10,ROWS(r))",
+   "formula2": "=LET(r,B1:.B10,ROWS(r))",
+   "formula": "=LET(r,B1:.B10,ROWS(r))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.r,_xlfn._TRO_TRAILING(B1:B10),ROWS(_xlpm.r))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "G3",
+   "fn": null,
+   "input": null,
+   "formula2": "",
+   "formula": "",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "G4",
+   "fn": null,
+   "input": null,
+   "formula2": "",
+   "formula": "",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "F5",
+   "fn": null,
+   "input": null,
+   "formula2": "=SUBTOTAL(109,[金額])",
+   "formula": "=SUBTOTAL(109,[金額])",
+   "err": null,
+   "file": {
+    "f": "SUBTOTAL(109,TblSales[金額])"
+   }
+  }
+ ]
+}

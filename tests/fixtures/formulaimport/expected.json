@@ -1,0 +1,892 @@
+{
+ "g01_samples__shuf.xlsx|cached-default-left": {
+  "total": 570,
+  "kept": 512,
+  "value": 58,
+  "empty": 0,
+  "reasons": {
+   "rowRelation": 58
+  },
+  "widened": 286,
+  "uncached": 286,
+  "substituted": 171
+ },
+ "g01_samples__shuf.xlsx|cached-all-left": {
+  "total": 570,
+  "kept": 512,
+  "value": 58,
+  "empty": 0,
+  "reasons": {
+   "rowRelation": 58
+  },
+  "widened": 286,
+  "uncached": 286,
+  "substituted": 0
+ },
+ "g01_samples__shuf.xlsx|nocache-default-left": {
+  "total": 570,
+  "kept": 512,
+  "value": 0,
+  "empty": 58,
+  "reasons": {
+   "rowRelation": 58
+  },
+  "widened": 286,
+  "uncached": 512,
+  "substituted": 171
+ },
+ "g01_samples__shuf.xlsx|nocache-default-full": {
+  "total": 600,
+  "kept": 542,
+  "value": 0,
+  "empty": 58,
+  "reasons": {
+   "rowRelation": 58
+  },
+  "widened": 301,
+  "uncached": 542,
+  "substituted": 180
+ },
+ "f01_samerow__same.xlsx|cached-default-left": {
+  "total": 216,
+  "kept": 216,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f01_samerow__same.xlsx|cached-all-left": {
+  "total": 216,
+  "kept": 216,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f01_samerow__same.xlsx|nocache-default-left": {
+  "total": 216,
+  "kept": 216,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 216,
+  "substituted": 0
+ },
+ "f01_samerow__same.xlsx|nocache-default-full": {
+  "total": 248,
+  "kept": 248,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 248,
+  "substituted": 0
+ },
+ "f01_samerow__shuf.xlsx|cached-default-left": {
+  "total": 216,
+  "kept": 216,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f01_samerow__shuf.xlsx|cached-all-left": {
+  "total": 216,
+  "kept": 216,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f01_samerow__shuf.xlsx|nocache-default-left": {
+  "total": 216,
+  "kept": 216,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 216,
+  "substituted": 0
+ },
+ "f01_samerow__shuf.xlsx|nocache-default-full": {
+  "total": 248,
+  "kept": 248,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 248,
+  "substituted": 0
+ },
+ "f02_shared__shuf.xlsx|cached-default-left": {
+  "total": 81,
+  "kept": 81,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f02_shared__shuf.xlsx|cached-all-left": {
+  "total": 81,
+  "kept": 81,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f02_shared__shuf.xlsx|nocache-default-left": {
+  "total": 0,
+  "kept": 0,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f02_shared__shuf.xlsx|nocache-default-full": {
+  "total": 0,
+  "kept": 0,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f03_keycol__shuf.xlsx|cached-default-left": {
+  "total": 189,
+  "kept": 162,
+  "value": 27,
+  "empty": 0,
+  "reasons": {
+   "notImported": 27
+  },
+  "widened": 54,
+  "uncached": 54,
+  "substituted": 162
+ },
+ "f03_keycol__shuf.xlsx|cached-all-left": {
+  "total": 189,
+  "kept": 189,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 81,
+  "uncached": 81,
+  "substituted": 0
+ },
+ "f03_keycol__shuf.xlsx|nocache-default-left": {
+  "total": 189,
+  "kept": 162,
+  "value": 0,
+  "empty": 27,
+  "reasons": {
+   "notImported": 27
+  },
+  "widened": 54,
+  "uncached": 162,
+  "substituted": 162
+ },
+ "f03_keycol__shuf.xlsx|nocache-default-full": {
+  "total": 217,
+  "kept": 186,
+  "value": 0,
+  "empty": 31,
+  "reasons": {
+   "notImported": 31
+  },
+  "widened": 62,
+  "uncached": 186,
+  "substituted": 186
+ },
+ "f04_lookups__shuf.xlsx|cached-default-left": {
+  "total": 270,
+  "kept": 270,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 270,
+  "uncached": 270,
+  "substituted": 27
+ },
+ "f04_lookups__shuf.xlsx|cached-all-left": {
+  "total": 270,
+  "kept": 270,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 270,
+  "uncached": 270,
+  "substituted": 0
+ },
+ "f04_lookups__shuf.xlsx|nocache-default-left": {
+  "total": 270,
+  "kept": 270,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 270,
+  "uncached": 270,
+  "substituted": 27
+ },
+ "f04_lookups__shuf.xlsx|nocache-default-full": {
+  "total": 310,
+  "kept": 310,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 310,
+  "uncached": 310,
+  "substituted": 31
+ },
+ "f05_ranges__same.xlsx|cached-default-left": {
+  "total": 270,
+  "kept": 216,
+  "value": 54,
+  "empty": 0,
+  "reasons": {
+   "rowRelation": 54
+  },
+  "widened": 189,
+  "uncached": 189,
+  "substituted": 0
+ },
+ "f05_ranges__same.xlsx|cached-all-left": {
+  "total": 270,
+  "kept": 216,
+  "value": 54,
+  "empty": 0,
+  "reasons": {
+   "rowRelation": 54
+  },
+  "widened": 189,
+  "uncached": 189,
+  "substituted": 0
+ },
+ "f05_ranges__same.xlsx|nocache-default-left": {
+  "total": 270,
+  "kept": 216,
+  "value": 0,
+  "empty": 54,
+  "reasons": {
+   "rowRelation": 54
+  },
+  "widened": 189,
+  "uncached": 216,
+  "substituted": 0
+ },
+ "f05_ranges__same.xlsx|nocache-default-full": {
+  "total": 310,
+  "kept": 248,
+  "value": 0,
+  "empty": 62,
+  "reasons": {
+   "rowRelation": 62
+  },
+  "widened": 217,
+  "uncached": 248,
+  "substituted": 0
+ },
+ "f05_ranges__shuf.xlsx|cached-default-left": {
+  "total": 270,
+  "kept": 216,
+  "value": 54,
+  "empty": 0,
+  "reasons": {
+   "rowRelation": 54
+  },
+  "widened": 189,
+  "uncached": 189,
+  "substituted": 0
+ },
+ "f05_ranges__shuf.xlsx|cached-all-left": {
+  "total": 270,
+  "kept": 216,
+  "value": 54,
+  "empty": 0,
+  "reasons": {
+   "rowRelation": 54
+  },
+  "widened": 189,
+  "uncached": 189,
+  "substituted": 0
+ },
+ "f05_ranges__shuf.xlsx|nocache-default-left": {
+  "total": 270,
+  "kept": 216,
+  "value": 0,
+  "empty": 54,
+  "reasons": {
+   "rowRelation": 54
+  },
+  "widened": 189,
+  "uncached": 216,
+  "substituted": 0
+ },
+ "f05_ranges__shuf.xlsx|nocache-default-full": {
+  "total": 310,
+  "kept": 248,
+  "value": 0,
+  "empty": 62,
+  "reasons": {
+   "rowRelation": 62
+  },
+  "widened": 217,
+  "uncached": 248,
+  "substituted": 0
+ },
+ "f06_running__same.xlsx|cached-default-left": {
+  "total": 243,
+  "kept": 188,
+  "value": 55,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 27,
+   "positional": 27,
+   "rowRelation": 1
+  },
+  "widened": 81,
+  "uncached": 81,
+  "substituted": 27
+ },
+ "f06_running__same.xlsx|cached-all-left": {
+  "total": 243,
+  "kept": 188,
+  "value": 55,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 27,
+   "positional": 27,
+   "rowRelation": 1
+  },
+  "widened": 81,
+  "uncached": 81,
+  "substituted": 0
+ },
+ "f06_running__same.xlsx|nocache-default-left": {
+  "total": 243,
+  "kept": 188,
+  "value": 0,
+  "empty": 55,
+  "reasons": {
+   "externalCell": 27,
+   "positional": 27,
+   "rowRelation": 1
+  },
+  "widened": 81,
+  "uncached": 188,
+  "substituted": 27
+ },
+ "f06_running__same.xlsx|nocache-default-full": {
+  "total": 279,
+  "kept": 210,
+  "value": 0,
+  "empty": 69,
+  "reasons": {
+   "externalCell": 32,
+   "positional": 31,
+   "rowRelation": 6
+  },
+  "widened": 95,
+  "uncached": 210,
+  "substituted": 28
+ },
+ "f06_running__shuf.xlsx|cached-default-left": {
+  "total": 243,
+  "kept": 130,
+  "value": 113,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 28,
+   "positional": 27,
+   "rowRelation": 58
+  },
+  "widened": 83,
+  "uncached": 83,
+  "substituted": 2
+ },
+ "f06_running__shuf.xlsx|cached-all-left": {
+  "total": 243,
+  "kept": 130,
+  "value": 113,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 28,
+   "positional": 27,
+   "rowRelation": 58
+  },
+  "widened": 83,
+  "uncached": 83,
+  "substituted": 0
+ },
+ "f06_running__shuf.xlsx|nocache-default-left": {
+  "total": 243,
+  "kept": 130,
+  "value": 0,
+  "empty": 113,
+  "reasons": {
+   "externalCell": 28,
+   "positional": 27,
+   "rowRelation": 58
+  },
+  "widened": 83,
+  "uncached": 130,
+  "substituted": 2
+ },
+ "f06_running__shuf.xlsx|nocache-default-full": {
+  "total": 279,
+  "kept": 158,
+  "value": 0,
+  "empty": 121,
+  "reasons": {
+   "externalCell": 32,
+   "positional": 31,
+   "rowRelation": 58
+  },
+  "widened": 95,
+  "uncached": 158,
+  "substituted": 2
+ },
+ "f07_othersheet__shuf.xlsx|cached-default-left": {
+  "total": 162,
+  "kept": 54,
+  "value": 108,
+  "empty": 0,
+  "reasons": {
+   "otherSheet": 108
+  },
+  "widened": 27,
+  "uncached": 27,
+  "substituted": 0
+ },
+ "f07_othersheet__shuf.xlsx|cached-all-left": {
+  "total": 162,
+  "kept": 54,
+  "value": 108,
+  "empty": 0,
+  "reasons": {
+   "otherSheet": 108
+  },
+  "widened": 27,
+  "uncached": 27,
+  "substituted": 0
+ },
+ "f07_othersheet__shuf.xlsx|nocache-default-left": {
+  "total": 162,
+  "kept": 54,
+  "value": 0,
+  "empty": 108,
+  "reasons": {
+   "otherSheet": 108
+  },
+  "widened": 27,
+  "uncached": 54,
+  "substituted": 0
+ },
+ "f07_othersheet__shuf.xlsx|nocache-default-full": {
+  "total": 186,
+  "kept": 62,
+  "value": 0,
+  "empty": 124,
+  "reasons": {
+   "otherSheet": 124
+  },
+  "widened": 31,
+  "uncached": 62,
+  "substituted": 0
+ },
+ "f08_names__shuf.xlsx|cached-default-left": {
+  "total": 243,
+  "kept": 162,
+  "value": 81,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 27,
+   "otherSheet": 27,
+   "unresolvedName": 27
+  },
+  "widened": 108,
+  "uncached": 108,
+  "substituted": 0
+ },
+ "f08_names__shuf.xlsx|cached-all-left": {
+  "total": 243,
+  "kept": 162,
+  "value": 81,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 27,
+   "otherSheet": 27,
+   "unresolvedName": 27
+  },
+  "widened": 108,
+  "uncached": 108,
+  "substituted": 0
+ },
+ "f08_names__shuf.xlsx|nocache-default-left": {
+  "total": 243,
+  "kept": 162,
+  "value": 0,
+  "empty": 81,
+  "reasons": {
+   "externalCell": 27,
+   "otherSheet": 27,
+   "unresolvedName": 27
+  },
+  "widened": 108,
+  "uncached": 162,
+  "substituted": 0
+ },
+ "f08_names__shuf.xlsx|nocache-default-full": {
+  "total": 279,
+  "kept": 186,
+  "value": 0,
+  "empty": 93,
+  "reasons": {
+   "externalCell": 31,
+   "otherSheet": 31,
+   "unresolvedName": 31
+  },
+  "widened": 124,
+  "uncached": 186,
+  "substituted": 0
+ },
+ "f09_tables__shuf.xlsx|cached-default-left": {
+  "total": 243,
+  "kept": 216,
+  "value": 27,
+  "empty": 0,
+  "reasons": {
+   "notImported": 27
+  },
+  "widened": 108,
+  "uncached": 108,
+  "substituted": 54
+ },
+ "f09_tables__shuf.xlsx|cached-all-left": {
+  "total": 243,
+  "kept": 243,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 135,
+  "uncached": 135,
+  "substituted": 0
+ },
+ "f09_tables__shuf.xlsx|nocache-default-left": {
+  "total": 243,
+  "kept": 216,
+  "value": 0,
+  "empty": 27,
+  "reasons": {
+   "notImported": 27
+  },
+  "widened": 108,
+  "uncached": 216,
+  "substituted": 54
+ },
+ "f09_tables__shuf.xlsx|nocache-default-full": {
+  "total": 279,
+  "kept": 248,
+  "value": 0,
+  "empty": 31,
+  "reasons": {
+   "notImported": 31
+  },
+  "widened": 124,
+  "uncached": 248,
+  "substituted": 62
+ },
+ "f11_values__shuf.xlsx|cached-default-left": {
+  "total": 189,
+  "kept": 189,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f11_values__shuf.xlsx|cached-all-left": {
+  "total": 189,
+  "kept": 189,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f11_values__shuf.xlsx|nocache-default-left": {
+  "total": 189,
+  "kept": 189,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 189,
+  "substituted": 0
+ },
+ "f11_values__shuf.xlsx|nocache-default-full": {
+  "total": 217,
+  "kept": 217,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 0,
+  "uncached": 217,
+  "substituted": 0
+ },
+ "f12_footer__shuf.xlsx|cached-default-left": {
+  "total": 108,
+  "kept": 54,
+  "value": 54,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 54
+  },
+  "widened": 27,
+  "uncached": 27,
+  "substituted": 0
+ },
+ "f12_footer__shuf.xlsx|cached-all-left": {
+  "total": 108,
+  "kept": 54,
+  "value": 54,
+  "empty": 0,
+  "reasons": {
+   "externalCell": 54
+  },
+  "widened": 27,
+  "uncached": 27,
+  "substituted": 0
+ },
+ "f12_footer__shuf.xlsx|nocache-default-left": {
+  "total": 108,
+  "kept": 54,
+  "value": 0,
+  "empty": 54,
+  "reasons": {
+   "externalCell": 54
+  },
+  "widened": 27,
+  "uncached": 54,
+  "substituted": 0
+ },
+ "f12_footer__shuf.xlsx|nocache-default-full": {
+  "total": 124,
+  "kept": 62,
+  "value": 0,
+  "empty": 62,
+  "reasons": {
+   "externalCell": 62
+  },
+  "widened": 31,
+  "uncached": 62,
+  "substituted": 0
+ },
+ "f13_hyperlink__shuf.xlsx|cached-default-left": {
+  "total": 81,
+  "kept": 54,
+  "value": 27,
+  "empty": 0,
+  "reasons": {
+   "positional": 27
+  },
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 54
+ },
+ "f13_hyperlink__shuf.xlsx|cached-all-left": {
+  "total": 81,
+  "kept": 54,
+  "value": 27,
+  "empty": 0,
+  "reasons": {
+   "positional": 27
+  },
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f13_hyperlink__shuf.xlsx|nocache-default-left": {
+  "total": 81,
+  "kept": 54,
+  "value": 0,
+  "empty": 27,
+  "reasons": {
+   "positional": 27
+  },
+  "widened": 0,
+  "uncached": 54,
+  "substituted": 54
+ },
+ "f13_hyperlink__shuf.xlsx|nocache-default-full": {
+  "total": 93,
+  "kept": 62,
+  "value": 0,
+  "empty": 31,
+  "reasons": {
+   "positional": 31
+  },
+  "widened": 0,
+  "uncached": 62,
+  "substituted": 62
+ },
+ "f16_unsafe__shuf.xlsx|cached-default-left": {
+  "total": 189,
+  "kept": 54,
+  "value": 135,
+  "empty": 0,
+  "reasons": {
+   "otherSheet": 27,
+   "positional": 81,
+   "unsafe": 27
+  },
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f16_unsafe__shuf.xlsx|cached-all-left": {
+  "total": 189,
+  "kept": 54,
+  "value": 135,
+  "empty": 0,
+  "reasons": {
+   "otherSheet": 27,
+   "positional": 81,
+   "unsafe": 27
+  },
+  "widened": 0,
+  "uncached": 0,
+  "substituted": 0
+ },
+ "f16_unsafe__shuf.xlsx|nocache-default-left": {
+  "total": 189,
+  "kept": 27,
+  "value": 0,
+  "empty": 162,
+  "reasons": {
+   "otherSheet": 27,
+   "positional": 81,
+   "unsafe": 27,
+   "unsupported": 27
+  },
+  "widened": 0,
+  "uncached": 27,
+  "substituted": 0
+ },
+ "f16_unsafe__shuf.xlsx|nocache-default-full": {
+  "total": 217,
+  "kept": 31,
+  "value": 0,
+  "empty": 186,
+  "reasons": {
+   "otherSheet": 31,
+   "positional": 93,
+   "unsafe": 31,
+   "unsupported": 31
+  },
+  "widened": 0,
+  "uncached": 31,
+  "substituted": 0
+ },
+ "f14_twoheader__shuf.xlsx|cached-default-left": {
+  "total": 81,
+  "kept": 81,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 27,
+  "uncached": 54,
+  "substituted": 0
+ },
+ "f14_twoheader__shuf.xlsx|cached-all-left": {
+  "total": 81,
+  "kept": 81,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 27,
+  "uncached": 27,
+  "substituted": 0
+ },
+ "f14_twoheader__shuf.xlsx|nocache-default-left": {
+  "total": 81,
+  "kept": 81,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 27,
+  "uncached": 81,
+  "substituted": 0
+ },
+ "f14_twoheader__shuf.xlsx|nocache-default-full": {
+  "total": 93,
+  "kept": 93,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 31,
+  "uncached": 93,
+  "substituted": 0
+ },
+ "f10_arrays__shuf.xlsx|cached-default-left": {
+  "total": 56,
+  "kept": 54,
+  "value": 2,
+  "empty": 0,
+  "reasons": {
+   "array": 2
+  },
+  "widened": 54,
+  "uncached": 54,
+  "substituted": 0
+ },
+ "f10_arrays__shuf.xlsx|cached-all-left": {
+  "total": 56,
+  "kept": 54,
+  "value": 2,
+  "empty": 0,
+  "reasons": {
+   "array": 2
+  },
+  "widened": 54,
+  "uncached": 54,
+  "substituted": 0
+ },
+ "f10_arrays__shuf.xlsx|nocache-default-left": {
+  "total": 56,
+  "kept": 56,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 56,
+  "uncached": 56,
+  "substituted": 0
+ },
+ "f10_arrays__shuf.xlsx|nocache-default-full": {
+  "total": 64,
+  "kept": 64,
+  "value": 0,
+  "empty": 0,
+  "reasons": {},
+  "widened": 64,
+  "uncached": 64,
+  "substituted": 0
+ }
+}

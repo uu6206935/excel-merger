@@ -1,0 +1,494 @@
+{
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "A1",
+   "candidates": [
+    "=FOOBAR(1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A2",
+   "candidates": [
+    "=foobar(B1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A3",
+   "candidates": [
+    "=_xludf.FOO(1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A4",
+   "candidates": [
+    "=SUM(nmSpill#)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A5",
+   "candidates": [
+    "=@nmRange"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A6",
+   "candidates": [
+    "=SUM(@nmRange)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A7",
+   "candidates": [
+    "=B1*nmRate"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A8",
+   "candidates": [
+    "=@TODAY()"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A9",
+   "candidates": [
+    "=@B1"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A10",
+   "candidates": [
+    "=@1"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A11",
+   "candidates": [
+    "=-@B1:B3"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A12",
+   "candidates": [
+    "=SUM( B1:B3 )"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A13",
+   "candidates": [
+    "={1,2,3}"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A14",
+   "candidates": [
+    "=SUM({1,2;3,4})"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A15",
+   "candidates": [
+    "=Z1#+1"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A16",
+   "candidates": [
+    "=ROWS(Z1#)+@Z1#"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A17",
+   "candidates": [
+    "=SUM(TblSales[[#Totals],[a]])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A18",
+   "candidates": [
+    "=SUM(TblSales[[#Data],[#Totals],[a]])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A19",
+   "candidates": [
+    "=COUNTA(TblSales[#Totals])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A20",
+   "candidates": [
+    "=SUM(TblSales[[#Headers],[#Data],[b]])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A21",
+   "candidates": [
+    "=SUM(TblSales[[a]:[b]])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A22",
+   "candidates": [
+    "=XLOOKUP(1,TblSales[a],TblSales[b])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A23",
+   "candidates": [
+    "=LET(x,TblSales[a],SUM(x))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A24",
+   "candidates": [
+    "=SUM(TblSales[金額])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A25",
+   "candidates": [
+    "=LAMBDA(x,x*2)(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A26",
+   "candidates": [
+    "=IFS(B1>0,1,TRUE,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A27",
+   "candidates": [
+    "=SUMPRODUCT((B1:B3>1)*B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A28",
+   "candidates": [
+    "=TEXTJOIN(\",\",TRUE,B1:B3)&CONCAT(\"a\",\"b\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A29",
+   "candidates": [
+    "=UNIQUE(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A30",
+   "candidates": [
+    "=SORTBY(B1:B3,B1:B3,-1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A31",
+   "candidates": [
+    "=FILTER(TblSales[a],TblSales[b]>0,\"\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A32",
+   "candidates": [
+    "=COUNTA(TblSales)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A33",
+   "candidates": [
+    "=X!B1:B3"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A34",
+   "candidates": [
+    "=SUM(X!B1:B3 X!B2:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A35",
+   "candidates": [
+    "=IFERROR(VLOOKUP(1,TblSales,2,FALSE),\"\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A36",
+   "candidates": [
+    "=MAP(B1:B3,LAMBDA(v,IF(v>1,v,\"\")))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A37",
+   "candidates": [
+    "=LET(a,1,b,2,LAMBDA(x,x+a+b)(3))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A38",
+   "candidates": [
+    "=@INDEX(B1:B3,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A39",
+   "candidates": [
+    "=INDEX(B1:B3,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A40",
+   "candidates": [
+    "=CHOOSECOLS(B1:C3,1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A41",
+   "candidates": [
+    "=GROUPBY(B1:B3,B1:B3,SUM)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A42",
+   "candidates": [
+    "=REGEXTEST(\"abc\",\"b\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A43",
+   "candidates": [
+    "=BYCOL(B1:C3,LAMBDA(c,MAX(c)))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A44",
+   "candidates": [
+    "=ISOMITTED(1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A45",
+   "candidates": [
+    "=sum(b1:b3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A46",
+   "candidates": [
+    "=true"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A47",
+   "candidates": [
+    "=iferror(#n/a,1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A48",
+   "candidates": [
+    "=TblSales[[#this row],[a]]"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A49",
+   "candidates": [
+    "=SUM(tblsales[A])"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A57",
+   "candidates": [
+    "=xlookup(1,b1:b3,c1:c3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A58",
+   "candidates": [
+    "=LET(Xy,1,xy+1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A59",
+   "candidates": [
+    "=SUM(b:b)+SUM($b$1:c$3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A60",
+   "candidates": [
+    "=SUM(x!b1:b3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A61",
+   "candidates": [
+    "=nmrange"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A62",
+   "candidates": [
+    "=LET(z99,1,z99+1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A63",
+   "candidates": [
+    "=_XLFN.XLOOKUP(1,B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A50",
+   "candidates": [
+    "=GROUPBY(B1:B3,B1:B3,PERCENTOF)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A51",
+   "candidates": [
+    "=BYROW(B1:C3,SUM)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A52",
+   "candidates": [
+    "=MAP(B1:B3,ABS)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A53",
+   "candidates": [
+    "=PIVOTBY(B1:B3,C1:C3,B1:B3,SUM)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A54",
+   "candidates": [
+    "=GROUPBY(B1:B3,B1:B3,HSTACK(SUM,AVERAGE))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A55",
+   "candidates": [
+    "=LET(f,SUM,f(B1:B3))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A56",
+   "candidates": [
+    "=BYCOL(B1:C3,counta)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A64",
+   "candidates": [
+    "=BYROW(B1:C3,TEXTJOIN)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A65",
+   "candidates": [
+    "=MAP(B1:B3,SUM)+SUM(B1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A66",
+   "candidates": [
+    "=REDUCE(0,B1:B3,SUM)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A67",
+   "candidates": [
+    "=SCAN(0,B1:B3,SUM)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A68",
+   "candidates": [
+    "=BYROW(B1:C3,STDEV.S)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "A69",
+   "candidates": [
+    "=GROUPBY(B1:B3,B1:B3,ARRAYTOTEXT)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "G2",
+   "candidates": [
+    "=[@a]+[@金額]"
+   ]
+  }
+ ]
+}

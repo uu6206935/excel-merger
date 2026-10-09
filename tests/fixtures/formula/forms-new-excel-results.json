@@ -1,0 +1,305 @@
+{
+ "meta": {
+  "description": "Formulas typed into Excel 365 via Range.Formula2, saved as .xlsx; file = stored <f>. Built by tests/fixtures/formula/com/{make-forms-input.mjs,excel-forms.ps1 | make-forms-extra-input.mjs,excel-forms-extra.ps1 ; extract-forms.mjs}.",
+  "generated": "2026-09-30T02:07:03.932Z"
+ },
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "J1",
+   "fn": null,
+   "input": "=IMPORTTEXT(\"c:/x.txt\")",
+   "formula2": "=IMPORTTEXT(\"c:/x.txt\")",
+   "formula": "=IMPORTTEXT(\"c:/x.txt\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.IMPORTTEXT(\"c:/x.txt\")",
+    "t": "array",
+    "ref": "J1",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J5",
+   "fn": null,
+   "input": "=IMPORTCSV(\"c:/x.csv\")",
+   "formula2": "=IMPORTCSV(\"c:/x.csv\")",
+   "formula": "=IMPORTCSV(\"c:/x.csv\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.IMPORTCSV(\"c:/x.csv\")",
+    "t": "array",
+    "ref": "J5",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J9",
+   "fn": null,
+   "input": null,
+   "formula2": null,
+   "formula": null,
+   "err": "Python 数式の作成者アクセス許可がないため、セルに Python 数式を追加できません。",
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "J13",
+   "fn": null,
+   "input": "=TEXTSPLIT(\"a,b\",\",\")",
+   "formula2": "=TEXTSPLIT(\"a,b\",\",\")",
+   "formula": "=TEXTSPLIT(\"a,b\",\",\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.TEXTSPLIT(\"a,b\",\",\")",
+    "t": "array",
+    "ref": "J13:K13",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J17",
+   "fn": null,
+   "input": "=CHOOSECOLS(B1:C3,1)",
+   "formula2": "=CHOOSECOLS(B1:C3,1)",
+   "formula": "=CHOOSECOLS(B1:C3,1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.CHOOSECOLS(B1:C3,1)",
+    "t": "array",
+    "ref": "J17:J19",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J21",
+   "fn": null,
+   "input": "=PERCENTOF(B1:B3,B1:B4)",
+   "formula2": "=PERCENTOF(B1:B3,B1:B4)",
+   "formula": "=PERCENTOF(B1:B3,B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.PERCENTOF(B1:B3,B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J25",
+   "fn": null,
+   "input": "=TRANSLATE(\"a\")",
+   "formula2": "=TRANSLATE(\"a\")",
+   "formula": "=TRANSLATE(\"a\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.TRANSLATE(\"a\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J29",
+   "fn": null,
+   "input": "=DETECTLANGUAGE(\"a\")",
+   "formula2": "=DETECTLANGUAGE(\"a\")",
+   "formula": "=DETECTLANGUAGE(\"a\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.DETECTLANGUAGE(\"a\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J33",
+   "fn": null,
+   "input": "=REGEXTEST(\"a\",\"a\")",
+   "formula2": "=REGEXTEST(\"a\",\"a\")",
+   "formula": "=REGEXTEST(\"a\",\"a\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.REGEXTEST(\"a\",\"a\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J37",
+   "fn": null,
+   "input": "=GROUPBY(B1:B3,C1:C3,SUM)",
+   "formula2": "=GROUPBY(B1:B3,C1:C3,SUM)",
+   "formula": "=GROUPBY(B1:B3,C1:C3,SUM)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.GROUPBY(B1:B3,C1:C3,_xleta.SUM)",
+    "t": "array",
+    "ref": "J37:K40",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J41",
+   "fn": null,
+   "input": "=ECMA.CEILING(1,1)",
+   "formula2": "=ECMA.CEILING(1,1)",
+   "formula": "=ECMA.CEILING(1,1)",
+   "err": null,
+   "file": {
+    "f": "ECMA.CEILING(1,1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J45",
+   "fn": null,
+   "input": "=AGGREGATE(9,6,B1:B3)",
+   "formula2": "=AGGREGATE(9,6,B1:B3)",
+   "formula": "=AGGREGATE(9,6,B1:B3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.AGGREGATE(9,6,B1:B3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J49",
+   "fn": null,
+   "input": "=SHEETS()",
+   "formula2": "=SHEETS()",
+   "formula": "=SHEETS()",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SHEETS()"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J53",
+   "fn": null,
+   "input": "=LAMBDA(x,x+1)(2)",
+   "formula2": "=LAMBDA(x,x+1)(2)",
+   "formula": "=LAMBDA(x,x+1)(2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LAMBDA(_xlpm.x,_xlpm.x+1)(2)",
+    "t": "array",
+    "ref": "J53",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J57",
+   "fn": null,
+   "input": "=MAKEARRAY(2,2,LAMBDA(r,c,r*c))",
+   "formula2": "=MAKEARRAY(2,2,LAMBDA(r,c,r*c))",
+   "formula": "=MAKEARRAY(2,2,LAMBDA(r,c,r*c))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MAKEARRAY(2,2,_xlfn.LAMBDA(_xlpm.r,_xlpm.c,_xlpm.r*_xlpm.c))",
+    "t": "array",
+    "ref": "J57:K58",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J61",
+   "fn": null,
+   "input": "=SUM(B1:B3)+@B1:B3",
+   "formula2": "=SUM(B1:B3)+@B1:B3",
+   "formula": "=SUM(B1:B3)+B1:B3",
+   "err": null,
+   "file": {
+    "f": "SUM(B1:B3)+B1:B3"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J65",
+   "fn": null,
+   "input": "=ISOMITTED(1)",
+   "formula2": "=ISOMITTED(1)",
+   "formula": "=ISOMITTED(1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.ISOMITTED(1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J69",
+   "fn": null,
+   "input": "=TOCOL(B1:C3)",
+   "formula2": "=TOCOL(B1:C3)",
+   "formula": "=TOCOL(B1:C3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.TOCOL(B1:C3)",
+    "t": "array",
+    "ref": "J69",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J73",
+   "fn": null,
+   "input": "=VALUETOTEXT(1)",
+   "formula2": "=VALUETOTEXT(1)",
+   "formula": "=VALUETOTEXT(1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.VALUETOTEXT(1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J77",
+   "fn": null,
+   "input": "=EXPAND(B1,2,2)",
+   "formula2": "=EXPAND(B1,2,2)",
+   "formula": "=EXPAND(B1,2,2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.EXPAND(B1,2,2)",
+    "t": "array",
+    "ref": "J77:K78",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "G3",
+   "fn": null,
+   "input": null,
+   "formula2": "",
+   "formula": "",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "G4",
+   "fn": null,
+   "input": null,
+   "formula2": "",
+   "formula": "",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "F5",
+   "fn": null,
+   "input": null,
+   "formula2": "=SUBTOTAL(109,[金額])",
+   "formula": "=SUBTOTAL(109,[金額])",
+   "err": null,
+   "file": {
+    "f": "SUBTOTAL(109,TblSales[金額])"
+   }
+  }
+ ]
+}

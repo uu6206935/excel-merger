@@ -1,0 +1,991 @@
+{
+ "meta": {
+  "description": "Formulas typed into Excel 365 via Range.Formula2, saved as .xlsx; file = stored <f>. Built by tests/fixtures/formula/com/{make-forms-input.mjs,excel-forms.ps1 | make-forms-extra-input.mjs,excel-forms-extra.ps1 ; extract-forms.mjs}.",
+  "generated": "2026-09-30T02:15:49.954Z"
+ },
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "J1",
+   "fn": null,
+   "input": "=SUMIF(B1:B4,\">1\",C1:C4)",
+   "formula2": "=SUMIF(B1:B4,\">1\",C1:C4)",
+   "formula": "=SUMIF(B1:B4,\">1\",C1:C4)",
+   "err": null,
+   "file": {
+    "f": "SUMIF(B1:B4,\">1\",C1:C4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J6",
+   "fn": null,
+   "input": "=SUMIFS(C1:C4,B1:B4,\">1\",B1:B4,\"<9\")",
+   "formula2": "=SUMIFS(C1:C4,B1:B4,\">1\",B1:B4,\"<9\")",
+   "formula": "=SUMIFS(C1:C4,B1:B4,\">1\",B1:B4,\"<9\")",
+   "err": null,
+   "file": {
+    "f": "SUMIFS(C1:C4,B1:B4,\">1\",B1:B4,\"<9\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J11",
+   "fn": null,
+   "input": "=COUNTIF(B1:B4,\">1\")",
+   "formula2": "=COUNTIF(B1:B4,\">1\")",
+   "formula": "=COUNTIF(B1:B4,\">1\")",
+   "err": null,
+   "file": {
+    "f": "COUNTIF(B1:B4,\">1\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J16",
+   "fn": null,
+   "input": "=COUNTIFS(B1:B4,\">1\",C1:C4,\">1\")",
+   "formula2": "=COUNTIFS(B1:B4,\">1\",C1:C4,\">1\")",
+   "formula": "=COUNTIFS(B1:B4,\">1\",C1:C4,\">1\")",
+   "err": null,
+   "file": {
+    "f": "COUNTIFS(B1:B4,\">1\",C1:C4,\">1\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J21",
+   "fn": null,
+   "input": "=AVERAGEIF(B1:B4,\">1\",C1:C4)",
+   "formula2": "=AVERAGEIF(B1:B4,\">1\",C1:C4)",
+   "formula": "=AVERAGEIF(B1:B4,\">1\",C1:C4)",
+   "err": null,
+   "file": {
+    "f": "AVERAGEIF(B1:B4,\">1\",C1:C4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J26",
+   "fn": null,
+   "input": "=AVERAGEIFS(C1:C4,B1:B4,\">1\")",
+   "formula2": "=AVERAGEIFS(C1:C4,B1:B4,\">1\")",
+   "formula": "=AVERAGEIFS(C1:C4,B1:B4,\">1\")",
+   "err": null,
+   "file": {
+    "f": "AVERAGEIFS(C1:C4,B1:B4,\">1\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J31",
+   "fn": null,
+   "input": "=MAXIFS(C1:C4,B1:B4,\">1\")",
+   "formula2": "=MAXIFS(C1:C4,B1:B4,\">1\")",
+   "formula": "=MAXIFS(C1:C4,B1:B4,\">1\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MAXIFS(C1:C4,B1:B4,\">1\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J36",
+   "fn": null,
+   "input": "=MINIFS(C1:C4,B1:B4,\">1\")",
+   "formula2": "=MINIFS(C1:C4,B1:B4,\">1\")",
+   "formula": "=MINIFS(C1:C4,B1:B4,\">1\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MINIFS(C1:C4,B1:B4,\">1\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J41",
+   "fn": null,
+   "input": "=VLOOKUP(2,B1:C4,2,FALSE)",
+   "formula2": "=VLOOKUP(2,B1:C4,2,FALSE)",
+   "formula": "=VLOOKUP(2,B1:C4,2,FALSE)",
+   "err": null,
+   "file": {
+    "f": "VLOOKUP(2,B1:C4,2,FALSE)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J46",
+   "fn": null,
+   "input": "=HLOOKUP(1,B1:C4,2,FALSE)",
+   "formula2": "=HLOOKUP(1,B1:C4,2,FALSE)",
+   "formula": "=HLOOKUP(1,B1:C4,2,FALSE)",
+   "err": null,
+   "file": {
+    "f": "HLOOKUP(1,B1:C4,2,FALSE)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J51",
+   "fn": null,
+   "input": "=MATCH(2,B1:B4,0)",
+   "formula2": "=MATCH(2,B1:B4,0)",
+   "formula": "=MATCH(2,B1:B4,0)",
+   "err": null,
+   "file": {
+    "f": "MATCH(2,B1:B4,0)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J56",
+   "fn": null,
+   "input": "=XMATCH(2,B1:B4)",
+   "formula2": "=XMATCH(2,B1:B4)",
+   "formula": "=XMATCH(2,B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XMATCH(2,B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J61",
+   "fn": null,
+   "input": "=LOOKUP(2,B1:B4,C1:C4)",
+   "formula2": "=LOOKUP(2,B1:B4,C1:C4)",
+   "formula": "=LOOKUP(2,B1:B4,C1:C4)",
+   "err": null,
+   "file": {
+    "f": "LOOKUP(2,B1:B4,C1:C4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J66",
+   "fn": null,
+   "input": "=INDEX(B1:C4,2,2)",
+   "formula2": "=INDEX(B1:C4,2,2)",
+   "formula": "=INDEX(B1:C4,2,2)",
+   "err": null,
+   "file": {
+    "f": "INDEX(B1:C4,2,2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J71",
+   "fn": null,
+   "input": "=INDEX(B1:B4,MATCH(2,B1:B4,0))",
+   "formula2": "=INDEX(B1:B4,MATCH(2,B1:B4,0))",
+   "formula": "=INDEX(B1:B4,MATCH(2,B1:B4,0))",
+   "err": null,
+   "file": {
+    "f": "INDEX(B1:B4,MATCH(2,B1:B4,0))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J76",
+   "fn": null,
+   "input": "=LARGE(B1:B4,2)",
+   "formula2": "=LARGE(B1:B4,2)",
+   "formula": "=LARGE(B1:B4,2)",
+   "err": null,
+   "file": {
+    "f": "LARGE(B1:B4,2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J81",
+   "fn": null,
+   "input": "=SMALL(B1:B4,2)",
+   "formula2": "=SMALL(B1:B4,2)",
+   "formula": "=SMALL(B1:B4,2)",
+   "err": null,
+   "file": {
+    "f": "SMALL(B1:B4,2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J86",
+   "fn": null,
+   "input": "=RANK.EQ(2,B1:B4)",
+   "formula2": "=RANK.EQ(2,B1:B4)",
+   "formula": "=RANK.EQ(2,B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.RANK.EQ(2,B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J91",
+   "fn": null,
+   "input": "=PERCENTILE.INC(B1:B4,0.5)",
+   "formula2": "=PERCENTILE.INC(B1:B4,0.5)",
+   "formula": "=PERCENTILE.INC(B1:B4,0.5)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.PERCENTILE.INC(B1:B4,0.5)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J96",
+   "fn": null,
+   "input": "=QUARTILE.INC(B1:B4,1)",
+   "formula2": "=QUARTILE.INC(B1:B4,1)",
+   "formula": "=QUARTILE.INC(B1:B4,1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.QUARTILE.INC(B1:B4,1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J101",
+   "fn": null,
+   "input": "=PERCENTRANK.INC(B1:B4,2)",
+   "formula2": "=PERCENTRANK.INC(B1:B4,2)",
+   "formula": "=PERCENTRANK.INC(B1:B4,2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.PERCENTRANK.INC(B1:B4,2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J106",
+   "fn": null,
+   "input": "=TRIMMEAN(B1:B4,0.2)",
+   "formula2": "=TRIMMEAN(B1:B4,0.2)",
+   "formula": "=TRIMMEAN(B1:B4,0.2)",
+   "err": null,
+   "file": {
+    "f": "TRIMMEAN(B1:B4,0.2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J111",
+   "fn": null,
+   "input": "=SUBTOTAL(9,B1:B4)",
+   "formula2": "=SUBTOTAL(9,B1:B4)",
+   "formula": "=SUBTOTAL(9,B1:B4)",
+   "err": null,
+   "file": {
+    "f": "SUBTOTAL(9,B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J116",
+   "fn": null,
+   "input": "=NPV(0.1,B1:B4)",
+   "formula2": "=NPV(0.1,B1:B4)",
+   "formula": "=NPV(0.1,B1:B4)",
+   "err": null,
+   "file": {
+    "f": "NPV(0.1,B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J121",
+   "fn": null,
+   "input": "=IRR(B1:C4)",
+   "formula2": "=IRR(B1:C4)",
+   "formula": "=IRR(B1:C4)",
+   "err": null,
+   "file": {
+    "f": "IRR(B1:C4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J126",
+   "fn": null,
+   "input": "=MIRR(B1:B4,0.1,0.1)",
+   "formula2": "=MIRR(B1:B4,0.1,0.1)",
+   "formula": "=MIRR(B1:B4,0.1,0.1)",
+   "err": null,
+   "file": {
+    "f": "MIRR(B1:B4,0.1,0.1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J131",
+   "fn": null,
+   "input": "=CORREL(B1:B3,C1:C3)",
+   "formula2": "=CORREL(B1:B3,C1:C3)",
+   "formula": "=CORREL(B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "CORREL(B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J136",
+   "fn": null,
+   "input": "=FORECAST.LINEAR(4,B1:B3,C1:C3)",
+   "formula2": "=FORECAST.LINEAR(4,B1:B3,C1:C3)",
+   "formula": "=FORECAST.LINEAR(4,B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.FORECAST.LINEAR(4,B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J141",
+   "fn": null,
+   "input": "=SLOPE(B1:B3,C1:C3)",
+   "formula2": "=SLOPE(B1:B3,C1:C3)",
+   "formula": "=SLOPE(B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "SLOPE(B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J146",
+   "fn": null,
+   "input": "=SUMX2MY2(B1:B3,C1:C3)",
+   "formula2": "=SUMX2MY2(B1:B3,C1:C3)",
+   "formula": "=SUMX2MY2(B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "SUMX2MY2(B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J151",
+   "fn": null,
+   "input": "=MEDIAN(B1:B4)",
+   "formula2": "=MEDIAN(B1:B4)",
+   "formula": "=MEDIAN(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "MEDIAN(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J156",
+   "fn": null,
+   "input": "=MODE.SNGL(B1:B4)",
+   "formula2": "=MODE.SNGL(B1:B4)",
+   "formula": "=MODE.SNGL(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MODE.SNGL(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J161",
+   "fn": null,
+   "input": "=STDEV.S(B1:B4)",
+   "formula2": "=STDEV.S(B1:B4)",
+   "formula": "=STDEV.S(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.STDEV.S(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J166",
+   "fn": null,
+   "input": "=AND(B1:B4)",
+   "formula2": "=AND(B1:B4)",
+   "formula": "=AND(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "AND(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J171",
+   "fn": null,
+   "input": "=OR(B1:B4)",
+   "formula2": "=OR(B1:B4)",
+   "formula": "=OR(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "OR(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J176",
+   "fn": null,
+   "input": "=CONCAT(B1:B4)",
+   "formula2": "=CONCAT(B1:B4)",
+   "formula": "=CONCAT(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.CONCAT(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J181",
+   "fn": null,
+   "input": "=COUNTBLANK(B1:C9)",
+   "formula2": "=COUNTBLANK(B1:C9)",
+   "formula": "=COUNTBLANK(B1:C9)",
+   "err": null,
+   "file": {
+    "f": "COUNTBLANK(B1:C9)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J186",
+   "fn": null,
+   "input": "=AREAS((B1:B2,C1:C2))",
+   "formula2": "=AREAS((B1:B2,C1:C2))",
+   "formula": "=AREAS((B1:B2,C1:C2))",
+   "err": null,
+   "file": {
+    "f": "AREAS((B1:B2,C1:C2))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J191",
+   "fn": null,
+   "input": "=SUMSQ(B1:B4)",
+   "formula2": "=SUMSQ(B1:B4)",
+   "formula": "=SUMSQ(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "SUMSQ(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J196",
+   "fn": null,
+   "input": "=PRODUCT(B1:B4)",
+   "formula2": "=PRODUCT(B1:B4)",
+   "formula": "=PRODUCT(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "PRODUCT(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J201",
+   "fn": null,
+   "input": "=XNPV(0.1,B1:B3,C1:C3)",
+   "formula2": "=XNPV(0.1,B1:B3,C1:C3)",
+   "formula": "=XNPV(0.1,B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "XNPV(0.1,B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J206",
+   "fn": null,
+   "input": "=DSUM(D1:F4,\"a\",D1:D2)",
+   "formula2": "=DSUM(D1:F4,\"a\",D1:D2)",
+   "formula": "=DSUM(D1:F4,\"a\",D1:D2)",
+   "err": null,
+   "file": {
+    "f": "DSUM(D1:F4,\"a\",D1:D2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J211",
+   "fn": null,
+   "input": "=SUMPRODUCT(B1:B3,C1:C3)",
+   "formula2": "=SUMPRODUCT(B1:B3,C1:C3)",
+   "formula": "=SUMPRODUCT(B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "SUMPRODUCT(B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J216",
+   "fn": null,
+   "input": "=GEOMEAN(B1:B4)",
+   "formula2": "=GEOMEAN(B1:B4)",
+   "formula": "=GEOMEAN(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "GEOMEAN(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J221",
+   "fn": null,
+   "input": "=COUNT(B1:C4)+COUNTA(B:B)",
+   "formula2": "=COUNT(B1:C4)+COUNTA(B:B)",
+   "formula": "=COUNT(B1:C4)+COUNTA(B:B)",
+   "err": null,
+   "file": {
+    "f": "COUNT(B1:C4)+COUNTA(B:B)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J226",
+   "fn": null,
+   "input": "=MAX(B:B)-MIN(B:B)",
+   "formula2": "=MAX(B:B)-MIN(B:B)",
+   "formula": "=MAX(B:B)-MIN(B:B)",
+   "err": null,
+   "file": {
+    "f": "MAX(B:B)-MIN(B:B)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J231",
+   "fn": null,
+   "input": "=AVERAGE(B1:B4)",
+   "formula2": "=AVERAGE(B1:B4)",
+   "formula": "=AVERAGE(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "AVERAGE(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J236",
+   "fn": null,
+   "input": "=ROWS(B1:C4)*COLUMNS(B1:C4)",
+   "formula2": "=ROWS(B1:C4)*COLUMNS(B1:C4)",
+   "formula": "=ROWS(B1:C4)*COLUMNS(B1:C4)",
+   "err": null,
+   "file": {
+    "f": "ROWS(B1:C4)*COLUMNS(B1:C4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J241",
+   "fn": null,
+   "input": "=XLOOKUP(2,B1:B4,C1:C4,\"\")",
+   "formula2": "=XLOOKUP(2,B1:B4,C1:C4,\"\")",
+   "formula": "=XLOOKUP(2,B1:B4,C1:C4,\"\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(2,B1:B4,C1:C4,\"\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J246",
+   "fn": null,
+   "input": "=SUMIF(B:B,2,C:C)",
+   "formula2": "=SUMIF(B:B,2,C:C)",
+   "formula": "=SUMIF(B:B,2,C:C)",
+   "err": null,
+   "file": {
+    "f": "SUMIF(B:B,2,C:C)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J251",
+   "fn": null,
+   "input": "=INDEX(B:B,3)",
+   "formula2": "=INDEX(B:B,3)",
+   "formula": "=INDEX(B:B,3)",
+   "err": null,
+   "file": {
+    "f": "INDEX(B:B,3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J256",
+   "fn": null,
+   "input": "=VAR.S(B1:B4)",
+   "formula2": "=VAR.S(B1:B4)",
+   "formula": "=VAR.S(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.VAR.S(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J261",
+   "fn": null,
+   "input": "=AVEDEV(B1:B4)",
+   "formula2": "=AVEDEV(B1:B4)",
+   "formula": "=AVEDEV(B1:B4)",
+   "err": null,
+   "file": {
+    "f": "AVEDEV(B1:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J266",
+   "fn": null,
+   "input": "=VLOOKUP(B1:B3,B1:C4,2,FALSE)",
+   "formula2": "=VLOOKUP(B1:B3,B1:C4,2,FALSE)",
+   "formula": "=VLOOKUP(B1:B3,B1:C4,2,FALSE)",
+   "err": null,
+   "file": {
+    "f": "VLOOKUP(B1:B3,B1:C4,2,FALSE)",
+    "t": "array",
+    "ref": "J266:J268",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J271",
+   "fn": null,
+   "input": "=SUMIF(B1:B4,B1:B2,C1:C4)",
+   "formula2": "=SUMIF(B1:B4,B1:B2,C1:C4)",
+   "formula": "=SUMIF(B1:B4,B1:B2,C1:C4)",
+   "err": null,
+   "file": {
+    "f": "SUMIF(B1:B4,B1:B2,C1:C4)",
+    "t": "array",
+    "ref": "J271:J272",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J276",
+   "fn": null,
+   "input": "=INDEX(B1:C4,2)",
+   "formula2": "=INDEX(B1:C4,2)",
+   "formula": "=INDEX(B1:C4,2)",
+   "err": null,
+   "file": {
+    "f": "INDEX(B1:C4,2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J281",
+   "fn": null,
+   "input": "=ROW(B1:B3)",
+   "formula2": "=ROW(B1:B3)",
+   "formula": "=ROW(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "ROW(B1:B3)",
+    "t": "array",
+    "ref": "J281:J283",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J286",
+   "fn": null,
+   "input": "=IF(B1:B3>1,1,0)",
+   "formula2": "=IF(B1:B3>1,1,0)",
+   "formula": "=IF(B1:B3>1,1,0)",
+   "err": null,
+   "file": {
+    "f": "IF(B1:B3>1,1,0)",
+    "t": "array",
+    "ref": "J286:J288",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J291",
+   "fn": null,
+   "input": "=CHOOSE(1,B1:B3,C1:C3)",
+   "formula2": "=CHOOSE(1,B1:B3,C1:C3)",
+   "formula": "=CHOOSE(1,B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "CHOOSE(1,B1:B3,C1:C3)",
+    "t": "array",
+    "ref": "J291:J293",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J296",
+   "fn": null,
+   "input": "=MMULT(B1:C2,B1:C2)",
+   "formula2": "=MMULT(B1:C2,B1:C2)",
+   "formula": "=MMULT(B1:C2,B1:C2)",
+   "err": null,
+   "file": {
+    "f": "MMULT(B1:C2,B1:C2)",
+    "t": "array",
+    "ref": "J296:K297",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J301",
+   "fn": null,
+   "input": "=IFERROR(B1:B3,0)",
+   "formula2": "=IFERROR(B1:B3,0)",
+   "formula": "=IFERROR(B1:B3,0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(B1:B3,0)",
+    "t": "array",
+    "ref": "J301:J303",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J306",
+   "fn": null,
+   "input": "=XLOOKUP(2,B1:B4,B1:C4)",
+   "formula2": "=XLOOKUP(2,B1:B4,B1:C4)",
+   "formula": "=XLOOKUP(2,B1:B4,B1:C4)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(2,B1:B4,B1:C4)",
+    "t": "array",
+    "ref": "J306:K306",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J311",
+   "fn": null,
+   "input": "=OFFSET(B1,0,0)",
+   "formula2": "=OFFSET(B1,0,0)",
+   "formula": "=OFFSET(B1,0,0)",
+   "err": null,
+   "file": {
+    "f": "OFFSET(B1,0,0)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J316",
+   "fn": null,
+   "input": "=SUM(OFFSET(B1,0,0,3,1))",
+   "formula2": "=SUM(OFFSET(B1,0,0,3,1))",
+   "formula": "=SUM(OFFSET(B1,0,0,3,1))",
+   "err": null,
+   "file": {
+    "f": "SUM(OFFSET(B1,0,0,3,1))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J321",
+   "fn": null,
+   "input": "=N(B1:B3)",
+   "formula2": "=N(B1:B3)",
+   "formula": "=N(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "N(B1:B3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J326",
+   "fn": null,
+   "input": "=SUM(B1:B3*2)",
+   "formula2": "=SUM(B1:B3*2)",
+   "formula": "=SUM(B1:B3*2)",
+   "err": null,
+   "file": {
+    "f": "SUM(B1:B3*2)",
+    "t": "array",
+    "ref": "J326",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J331",
+   "fn": null,
+   "input": "=MAX(IF(B1:B3>1,B1:B3))",
+   "formula2": "=MAX(IF(B1:B3>1,B1:B3))",
+   "formula": "=MAX(IF(B1:B3>1,B1:B3))",
+   "err": null,
+   "file": {
+    "f": "MAX(IF(B1:B3>1,B1:B3))",
+    "t": "array",
+    "ref": "J331",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J336",
+   "fn": null,
+   "input": "=LEN(B1:B3)",
+   "formula2": "=LEN(B1:B3)",
+   "formula": "=LEN(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "LEN(B1:B3)",
+    "t": "array",
+    "ref": "J336:J338",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J341",
+   "fn": null,
+   "input": "=ABS(B1:B3)",
+   "formula2": "=ABS(B1:B3)",
+   "formula": "=ABS(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "ABS(B1:B3)",
+    "t": "array",
+    "ref": "J341:J343",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J346",
+   "fn": null,
+   "input": "=B1:B3=2",
+   "formula2": "=B1:B3=2",
+   "formula": "=B1:B3=2",
+   "err": null,
+   "file": {
+    "f": "B1:B3=2",
+    "t": "array",
+    "ref": "J346:J348",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J351",
+   "fn": null,
+   "input": "=COLUMN(B1:C1)",
+   "formula2": "=COLUMN(B1:C1)",
+   "formula": "=COLUMN(B1:C1)",
+   "err": null,
+   "file": {
+    "f": "COLUMN(B1:C1)",
+    "t": "array",
+    "ref": "J351:K351",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J356",
+   "fn": null,
+   "input": "=INDEX(B1:B4,0)",
+   "formula2": "=INDEX(B1:B4,0)",
+   "formula": "=INDEX(B1:B4,0)",
+   "err": null,
+   "file": {
+    "f": "INDEX(B1:B4,0)",
+    "t": "array",
+    "ref": "J356:J359",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J361",
+   "fn": null,
+   "input": "=MDETERM(B1:C2)",
+   "formula2": "=MDETERM(B1:C2)",
+   "formula": "=MDETERM(B1:C2)",
+   "err": null,
+   "file": {
+    "f": "MDETERM(B1:C2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J366",
+   "fn": null,
+   "input": "=ISNUMBER(B1:B3)",
+   "formula2": "=ISNUMBER(B1:B3)",
+   "formula": "=ISNUMBER(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "ISNUMBER(B1:B3)",
+    "t": "array",
+    "ref": "J366:J368",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "J371",
+   "fn": null,
+   "input": "=TEXT(B1:B3,\"0\")",
+   "formula2": "=TEXT(B1:B3,\"0\")",
+   "formula": "=TEXT(B1:B3,\"0\")",
+   "err": null,
+   "file": {
+    "f": "TEXT(B1:B3,\"0\")",
+    "t": "array",
+    "ref": "J371:J373",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "G3",
+   "fn": null,
+   "input": null,
+   "formula2": "",
+   "formula": "",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "G4",
+   "fn": null,
+   "input": null,
+   "formula2": "",
+   "formula": "",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "X",
+   "cell": "F5",
+   "fn": null,
+   "input": null,
+   "formula2": "=SUBTOTAL(109,[金額])",
+   "formula": "=SUBTOTAL(109,[金額])",
+   "err": null,
+   "file": {
+    "f": "SUBTOTAL(109,TblSales[金額])"
+   }
+  }
+ ]
+}

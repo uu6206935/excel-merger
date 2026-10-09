@@ -1,0 +1,305 @@
+{
+ "meta": {
+  "description": "Whole-column moves around a ListObject (table Tbl on C3:H10, headers tC..tH, row-1 markers hA..) with Excel 365 NATIVE Insert Cut Cells (Range.Cut() + Range.Insert), which is what the Excel runner uses for moves around tables. Built by tests/fixtures/formula/com/excel-table-move.ps1; used by tests/formula/tableMove.test.ts.",
+  "generated": "2026-09-30T07:37:31.967Z"
+ },
+ "scenarios": [
+  {
+   "id": "in_to_I",
+   "cut": "E:E",
+   "at": "I:I",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tC",
+    "tD",
+    "tF",
+    "tG",
+    "tH",
+    "tE"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hC",
+    "hD",
+    "hF",
+    "hG",
+    "hH",
+    "hE",
+    "hI",
+    "hJ",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "after"
+  },
+  {
+   "id": "in2_to_I",
+   "cut": "D:E",
+   "at": "I:I",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tC",
+    "tF",
+    "tG",
+    "tH",
+    "tD",
+    "tE"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hC",
+    "hF",
+    "hG",
+    "hH",
+    "hD",
+    "hE",
+    "hI",
+    "hJ",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "after"
+  },
+  {
+   "id": "first_to_I",
+   "cut": "C:C",
+   "at": "I:I",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tD",
+    "tE",
+    "tF",
+    "tG",
+    "tH",
+    "tC"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hD",
+    "hE",
+    "hF",
+    "hG",
+    "hH",
+    "hC",
+    "hI",
+    "hJ",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "after"
+  },
+  {
+   "id": "in_to_H",
+   "cut": "E:E",
+   "at": "H:H",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tC",
+    "tD",
+    "tF",
+    "tG",
+    "tE",
+    "tH"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hC",
+    "hD",
+    "hF",
+    "hG",
+    "hE",
+    "hH",
+    "hI",
+    "hJ",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "after"
+  },
+  {
+   "id": "in_to_C",
+   "cut": "E:E",
+   "at": "C:C",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tE",
+    "tC",
+    "tD",
+    "tF",
+    "tG",
+    "tH"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hE",
+    "hC",
+    "hD",
+    "hF",
+    "hG",
+    "hH",
+    "hI",
+    "hJ",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "after"
+  },
+  {
+   "id": "whole_to_K",
+   "cut": "C:H",
+   "at": "K:K",
+   "error": null,
+   "tries": 1,
+   "table": "E3:J10",
+   "headers": [
+    "tC",
+    "tD",
+    "tE",
+    "tF",
+    "tG",
+    "tH"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hI",
+    "hJ",
+    "hC",
+    "hD",
+    "hE",
+    "hF",
+    "hG",
+    "hH",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "tG"
+  },
+  {
+   "id": "cover_to_L",
+   "cut": "C:I",
+   "at": "L:L",
+   "error": null,
+   "tries": 1,
+   "table": "E3:J10",
+   "headers": [
+    "tC",
+    "tD",
+    "tE",
+    "tF",
+    "tG",
+    "tH"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hJ",
+    "hK",
+    "hC",
+    "hD",
+    "hE",
+    "hF",
+    "hG",
+    "hH",
+    "hI",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "tG"
+  },
+  {
+   "id": "out_to_I",
+   "cut": "J:J",
+   "at": "I:I",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tC",
+    "tD",
+    "tE",
+    "tF",
+    "tG",
+    "tH"
+   ],
+   "markers": [
+    "hA",
+    "hB",
+    "hC",
+    "hD",
+    "hE",
+    "hF",
+    "hG",
+    "hH",
+    "hJ",
+    "hI",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": ""
+  },
+  {
+   "id": "outL_to_C",
+   "cut": "A:A",
+   "at": "C:C",
+   "error": null,
+   "tries": 1,
+   "table": "C3:H10",
+   "headers": [
+    "tC",
+    "tD",
+    "tE",
+    "tF",
+    "tG",
+    "tH"
+   ],
+   "markers": [
+    "hB",
+    "hA",
+    "hC",
+    "hD",
+    "hE",
+    "hF",
+    "hG",
+    "hH",
+    "hI",
+    "hJ",
+    "hK",
+    "hL",
+    "hM",
+    "hN"
+   ],
+   "after": "after"
+  }
+ ]
+}

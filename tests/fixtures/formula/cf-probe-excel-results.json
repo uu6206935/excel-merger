@@ -1,0 +1,5355 @@
+{
+ "meta": {
+  "description": "Conditional formats after ONE column move in Excel 365 (the clipboard-free sequence of the Excel runner: insert blank columns, Range.Cut(Destination), delete), for small rule families. Built by tests/fixtures/formula/com/{make-cf-probe-spec.mjs,excel-cf-probe.ps1,extract-cf-probe.mjs}; used by tests/formula/cfProbe.test.ts.",
+  "generated": "2026-09-30T07:32:10.103Z"
+ },
+ "scenarios": [
+  {
+   "id": "p1_BE_om1_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_om1_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_om1_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:D3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_om1_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o0_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o0_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o0_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:D3 F2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o0_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:D3 F2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o1_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o1_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o1_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o1_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o2_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o2_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o2_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3 D2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_BE_o2_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 7
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_om1_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_om1_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_om1_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "H2:H3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_om1_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "H2:H3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o0_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o0_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o0_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3 H2:H3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o0_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3 H2:H3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o1_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o1_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o1_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "H2:H3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "H2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o1_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "H2:H3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "H2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o2_lo_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o2_mid_to_hi1",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o2_hi_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "H2:H3 F2:F3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "H2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p1_CG_o2_mid_to_hi2",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 9
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "I2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "H2:H3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sC_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sD_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sE_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:F3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sF_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sG_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sC_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:F3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om2_sF_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sC_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "I2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sD_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sE_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sF_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sG_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sC_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_om1_sF_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "#REF!>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sC_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sD_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "I2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sE_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:F3 C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "I2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sF_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3 C2:D3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "I2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sG_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "I2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sC_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:E3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3 C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o1_sF_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sC_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:F3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sD_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sE_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:F3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "I2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sF_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3 C2:C3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "I2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sG_xJ",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 7,
+     "count": 1,
+     "to": 10
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "I2:I3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "I2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sC_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 3,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:G3",
+     "formulas": [
+      "H2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p2_o2_sF_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 6,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "I2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3 E2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absA_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$A2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absA_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$A2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absB_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absB_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absC_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absC_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absD_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:G3",
+     "formulas": [
+      "$G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absD_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absE_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$D2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absE_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$E2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:G3",
+     "formulas": [
+      "$G2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absF_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absF_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$E2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absG_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$G2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absG_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$G2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$F2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absH_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$H2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$H2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absH_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$H2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$H2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absI_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$I2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$I2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absI_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$I2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$I2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absJ_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$J2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$J2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absJ_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$J2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$J2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absK_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$K2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absK_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$K2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absL_sD_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$L2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$L2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p3_absL_sE_xH",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$L2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 5,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$L2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_00",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>D2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "D2>E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "F2>H2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "G2>D2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "C2>G2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_01",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>G2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "C2>F2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "D2>I2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "G2>H2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_02",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>$F2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "C2>$E2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_03",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>$K2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "C2>$K2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_04",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=C2>$B2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "C2>$B2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_05",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>C2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>D2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>F2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>G2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>C2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_06",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>G2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>K2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>I2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>F2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>H2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_07",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>$F2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>$E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "H2>$E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>$E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>$E2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_08",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>$K2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>$K2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "H2>$K2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>$K2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>$K2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_09",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=D2>$B2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "E2>$B2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "H2>$B2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "D2>$B2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "G2>$B2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_10",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=G2>C2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>C2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "I2>D2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "H2>G2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_11",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=G2>D2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "I2>E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "K2>H2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>G2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "H2>D2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_12",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=G2>$F2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>$E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "I2>$E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "H2>$E2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_13",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=G2>$K2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>$K2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "I2>$K2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "H2>$K2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_14",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=G2>$B2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "I2>$B2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "H2>$B2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>$B2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_15",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>C2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$E2>C2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_16",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>D2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "$E2>E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "$E2>H2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "$E2>D2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "$E2>G2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_17",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>G2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "$E2>F2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "$E2>I2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "$E2>H2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_18",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>$K2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$E2>$K2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_19",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$F2>$B2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$E2>$B2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_20",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>C2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$K2>C2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_21",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>D2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "$K2>E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:G3",
+     "formulas": [
+      "$K2>H2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "$K2>D2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "$K2>G2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_22",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>G2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "$K2>F2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "$K2>I2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "$K2>H2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_23",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>$F2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$K2>$E2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_24",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$K2>$B2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$K2>$B2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_25",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>C2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$B2>C2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_26",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>D2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "$B2>E2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "F2:F3",
+     "formulas": [
+      "$B2>H2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "$B2>D2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "$B2>G2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_27",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>G2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:F3",
+     "formulas": [
+      "$B2>I2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "G2:G3",
+     "formulas": [
+      "$B2>H2"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "$B2>F2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_28",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>$F2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$B2>$E2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p4_29",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "C2:G3",
+     "active": "C2",
+     "f": "=$B2>$K2"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 4,
+     "count": 1,
+     "to": 8
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:G3",
+     "formulas": [
+      "$B2>$K2"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_a_alone",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_b_alone",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:D3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_ab",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    },
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_ba",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=A2>0"
+    },
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:D3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_a_const",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    },
+    {
+     "type": "cellIs",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=5"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "cellIs",
+     "sqref": "B2:C3",
+     "formulas": [
+      "5"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "cellIs",
+     "sqref": "D2:E3",
+     "formulas": [
+      "5"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "cellIs",
+     "sqref": "E2:E3",
+     "formulas": [
+      "5"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_a_twice",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    },
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=D2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:B3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "G2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "D2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "C2:C3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "C2>0"
+     ]
+    }
+   ]
+  },
+  {
+   "id": "p5_a_diffrange",
+   "rules": [
+    {
+     "type": "expr",
+     "addr": "B2:E3",
+     "active": "B2",
+     "f": "=C2>0"
+    },
+    {
+     "type": "expr",
+     "addr": "B2:D3",
+     "active": "B2",
+     "f": "=A2>0"
+    }
+   ],
+   "ops": [
+    {
+     "kind": "mov",
+     "from": 2,
+     "count": 1,
+     "to": 6
+    }
+   ],
+   "excel": [
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "C2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "D2:E3",
+     "formulas": [
+      "F2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "B2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "B2:C3",
+     "formulas": [
+      "E2>0"
+     ]
+    },
+    {
+     "kind": "cf",
+     "type": "expression",
+     "sqref": "E2:E3",
+     "formulas": [
+      "A2>0"
+     ]
+    }
+   ]
+  }
+ ]
+}

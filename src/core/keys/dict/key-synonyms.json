@@ -1,0 +1,675 @@
+{
+  "_doc": [
+    "Header synonym dictionary for join-key detection (Excel統合ツール).",
+    "Headers are matched AFTER headerNorm(): NFKC -> lowercase -> strip whitespace and symbols ※*＊★☆◆■●・:：_-‐()（）［］[]【】「」『』<>〈〉.,、。?？!！'\"/／ -> strip note words (see noteWords).",
+    "Each rule: re = JavaScript regex source (tested with flag 'u' against the normalized header), score = header score 0..1.",
+    "Rules of a type are tried in order; the highest score wins. 'negative' regexes veto the type (score 0) even if a positive rule matched.",
+    "'entityWords' mark WHOSE key it is (学生/応募者 vs 社員/面接官). They do not change the type; they are kept as column.entity so that two entities in one sheet can be told apart and paired across files.",
+    "family groups types that are joinable with each other (e.g. 応募者ID in file A vs 学生ID in file B)."
+  ],
+  "noteWords": [
+    "必須",
+    "任意",
+    "半角英数字",
+    "半角英数",
+    "半角数字",
+    "半角",
+    "全角カナ",
+    "全角",
+    "ハイフンなし",
+    "ハイフン無し",
+    "ハイフン不要",
+    "ハイフンあり",
+    "スペースなし",
+    "スペース無し",
+    "スペースあり",
+    "記入例",
+    "入力例",
+    "を入力してください",
+    "を入力",
+    "を記入してください",
+    "を記入",
+    "をご記入ください",
+    "をご入力ください",
+    "を教えてください",
+    "ください",
+    "例"
+  ],
+  "nonKeyHeaders": {
+    "_doc": "Headers that are never keys: they veto VALUE-ONLY typing (a 区分 column full of kanji words must not become 氏名). Regex sources, tested against headerNorm().",
+    "re": [
+      "^(備考|メモ|memo|note|notes|コメント|comment|区分|種別|分類|カテゴリ|category|type|理由|内容|状態|状況|ステータス|status|結果|評価|判定|合否|選考結果|フェーズ|段階|ランク|rank|優先度|フラグ|flag|日程|日付|日時|開始|終了|時間|時刻|曜日|date|time|期限|締切|作成日|更新日|登録日|回答日時|タイムスタンプ|timestamp|金額|数量|件数|割当数|割当枠|点数|得点|スコア|score|合計|小計|url|リンク|住所|address|郵便番号|都道府県|市区町村|志望動機|自己pr|質問|回答)$"
+    ]
+  },
+  "entityWords": {
+    "subject": [
+      "学生",
+      "応募者",
+      "受験者",
+      "候補者",
+      "参加者",
+      "回答者",
+      "本人",
+      "会員",
+      "顧客",
+      "利用者",
+      "受講者",
+      "求職者",
+      "エントリー",
+      "内定者",
+      "志願者",
+      "student",
+      "applicant",
+      "candidate",
+      "participant",
+      "member",
+      "customer",
+      "user"
+    ],
+    "staff": [
+      "社員",
+      "従業員",
+      "職員",
+      "担当者",
+      "担当",
+      "面接官",
+      "職場",
+      "上司",
+      "講師",
+      "教員",
+      "先生",
+      "リクルーター",
+      "staff",
+      "employee",
+      "interviewer",
+      "recruiter"
+    ],
+    "other": [
+      "保護者",
+      "親",
+      "緊急連絡",
+      "紹介者",
+      "推薦者",
+      "会社",
+      "企業",
+      "法人",
+      "団体"
+    ]
+  },
+  "family": {
+    "idFamily": [
+      "id",
+      "studentId",
+      "employeeId"
+    ],
+    "nameFamily": [
+      "name",
+      "lastName+firstName"
+    ],
+    "kanaFamily": [
+      "nameKana",
+      "lastNameKana+firstNameKana"
+    ],
+    "romanFamily": [
+      "nameRoman"
+    ]
+  },
+  "types": {
+    "rowNumber": {
+      "label": "行番号",
+      "isKey": false,
+      "rules": [
+        {
+          "re": "^(no|№|#|連番|行番号|通し番号|通番|番号|項番|seq|行|行no|number|num)$",
+          "score": 0.9
+        }
+      ],
+      "_note": "Only confirmed when values are a consecutive integer sequence (isSequence >= 0.8); otherwise the column falls back to 'id' with header score 0.3."
+    },
+    "id": {
+      "label": "ID",
+      "isKey": true,
+      "defaultKey": true,
+      "rules": [
+        {
+          "re": "^(id|ｉｄ|uid|userid|code|コード|key|キー)$",
+          "score": 1
+        },
+        {
+          "re": "^(管理|受験|受験者|応募|応募者|受付|登録|会員|顧客|個人|候補者|エントリー|エントリ|参加者|回答者|本人|利用者|受講者|求職者|申込|申込者|志願者|内定者|整理|識別|問合せ|問い合わせ)(番号|no|id|コード|code|キー|key|nr|number|num)$",
+          "score": 1
+        },
+        {
+          "re": "^(applicant|candidate|entry|member|customer|user|participant|registration|reference|ref)(id|no|number|code)$",
+          "score": 1
+        },
+        {
+          "re": "^(社員|従業員|職員|スタッフ)(番号|no|id|コード|code)$|^(employee|staff)(id|no|number|code)$",
+          "score": 0.95,
+          "subtype": "employeeId"
+        },
+        {
+          "re": "^(学生)(id|コード|code)$",
+          "score": 0.85,
+          "subtype": "studentId"
+        },
+        {
+          "re": "(id|コード|code)$",
+          "score": 0.7
+        },
+        {
+          "re": "(番号|no|number|num)$",
+          "score": 0.45
+        },
+        {
+          "re": "(id|番号|コード|code)",
+          "score": 0.35
+        }
+      ],
+      "negative": [
+        "電話",
+        "tel",
+        "fax",
+        "携帯",
+        "郵便",
+        "〒",
+        "zip",
+        "postal",
+        "口座",
+        "部屋",
+        "内線",
+        "カード番号",
+        "card",
+        "保険証",
+        "免許",
+        "マイナンバー",
+        "個人番号カード",
+        "パスポート",
+        "passport",
+        "学籍",
+        "学生番号",
+        "学生証",
+        "studentno",
+        "studentnumber",
+        "studentid",
+        "メール",
+        "mail",
+        "password",
+        "パスワード",
+        "暗証",
+        "日程",
+        "日時",
+        "日付",
+        "時間",
+        "時刻",
+        "date",
+        "time",
+        "枠",
+        "件数",
+        "数$",
+        "金額",
+        "点数",
+        "得点",
+        "スコア",
+        "score",
+        "順位",
+        "rank",
+        "学年",
+        "年齢",
+        "age",
+        "郵便番号",
+        "部署コード",
+        "職種コード",
+        "大学コード",
+        "学校コード",
+        "学部コード",
+        "会社コード",
+        "企業コード",
+        "商品コード",
+        "製品コード",
+        "店舗コード",
+        "地域コード",
+        "都道府県コード",
+        "職場id"
+      ],
+      "_note": "Rows whose ID header names an organisation (大学コード, 会社コード, 職場ID) are NOT person keys; they become 'orgCode' (see below) and can still be discovered by value overlap."
+    },
+    "studentId": {
+      "label": "学籍番号",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(学籍|学生)(番号|no|id|コード|code|nr)$",
+          "score": 1
+        },
+        {
+          "re": "学籍番号|学籍no|学生番号|学生証番号|studentid|studentno|studentnumber|matriculation",
+          "score": 0.95
+        },
+        {
+          "re": "学籍|学生証",
+          "score": 0.7
+        }
+      ],
+      "negative": [
+        "電話",
+        "メール",
+        "mail",
+        "日程",
+        "件数"
+      ]
+    },
+    "orgCode": {
+      "label": "組織コード",
+      "isKey": false,
+      "rules": [
+        {
+          "re": "(職場|部署|部門|会社|企業|大学|学校|学部|店舗|取引先|拠点|事業所|支店)(id|コード|code|番号|no)$",
+          "score": 0.9
+        }
+      ],
+      "_note": "Not a person key. Listed in the detail screen (it can still be a lookup key: 職場ID in a matching sheet vs 応募者コード in a workplace file)."
+    },
+    "name": {
+      "label": "氏名",
+      "isKey": true,
+      "defaultKey": true,
+      "rules": [
+        {
+          "re": "^(氏名|お名前|名前|なまえ|おなまえ|姓名|フルネーム|本名|漢字氏名|氏名漢字|名前漢字|漢字名|name|fullname|namekanji)$",
+          "score": 1
+        },
+        {
+          "re": "^(学生|応募者|受験者|候補者|参加者|回答者|本人|会員|顧客|利用者|受講者|求職者|内定者|志願者|申込者|エントリー者?)(の)?(氏名|名前|姓名|名|フルネーム)$",
+          "score": 0.95
+        },
+        {
+          "re": "^(student|applicant|candidate|participant|member|customer|user)(name|fullname)$",
+          "score": 0.95
+        },
+        {
+          "re": "氏名|名前|なまえ|姓名|フルネーム",
+          "score": 0.75
+        },
+        {
+          "re": "name",
+          "score": 0.6
+        }
+      ],
+      "negative": [
+        "カナ",
+        "かな",
+        "ｶﾅ",
+        "フリガナ",
+        "ふりがな",
+        "ﾌﾘｶﾞﾅ",
+        "ヨミ",
+        "よみ",
+        "読み",
+        "ルビ",
+        "kana",
+        "furigana",
+        "yomi",
+        "ローマ字",
+        "英字",
+        "英語",
+        "romaji",
+        "roman",
+        "english",
+        "alphabet",
+        "アルファベット",
+        "会社",
+        "企業",
+        "法人",
+        "団体",
+        "組織",
+        "大学",
+        "学校",
+        "学部",
+        "学科",
+        "研究科",
+        "専攻",
+        "部署",
+        "部門",
+        "職場",
+        "店舗",
+        "店名",
+        "支店",
+        "担当",
+        "面接官",
+        "上司",
+        "保護者",
+        "親",
+        "緊急連絡",
+        "紹介者",
+        "推薦者",
+        "作成者",
+        "更新者",
+        "記入者",
+        "ファイル",
+        "file",
+        "シート",
+        "sheet",
+        "商品",
+        "製品",
+        "品名",
+        "項目",
+        "イベント",
+        "セミナー",
+        "プロジェクト",
+        "案件",
+        "職種",
+        "役職",
+        "資格",
+        "company",
+        "school",
+        "university",
+        "department",
+        "event",
+        "product",
+        "sheetname",
+        "filename",
+        "username",
+        "ユーザー名",
+        "ニックネーム",
+        "nickname",
+        "旧姓",
+        "通称",
+        "ハンドル"
+      ],
+      "_note": "旧姓/通称/ニックネーム are vetoed for 'name' on purpose: they are alias columns (optional secondary keys), not the primary name."
+    },
+    "lastName": {
+      "label": "姓",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(姓|氏|苗字|名字|みょうじ|せい|姓漢字|漢字姓|lastname|familyname|surname)$",
+          "score": 1
+        },
+        {
+          "re": "^(氏名|名前)?(姓|せい)$|^(学生|応募者|受験者)(姓)$",
+          "score": 0.9
+        },
+        {
+          "re": "^(お名前|ご氏名|氏名|名前)(姓|せい|苗字)$",
+          "score": 0.95
+        }
+      ],
+      "negative": [
+        "カナ",
+        "かな",
+        "フリガナ",
+        "ふりがな",
+        "ヨミ",
+        "よみ",
+        "ローマ字",
+        "英字",
+        "旧姓",
+        "kana"
+      ]
+    },
+    "firstName": {
+      "label": "名",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(名|めい|名漢字|漢字名前|下の名前|firstname|givenname|forename)$",
+          "score": 1
+        },
+        {
+          "re": "^(氏名|名前)?(名|めい)$|^(学生|応募者|受験者)(名)$",
+          "score": 0.6
+        },
+        {
+          "re": "^(お名前|ご氏名|氏名|名前)(名|めい)$",
+          "score": 0.9
+        }
+      ],
+      "negative": [
+        "カナ",
+        "かな",
+        "フリガナ",
+        "ふりがな",
+        "ヨミ",
+        "よみ",
+        "ローマ字",
+        "英字",
+        "kana"
+      ],
+      "_note": "'名前' next to a 苗字/姓 column whose values are short (<=3 chars, no space) is re-classified as firstName by a context rule."
+    },
+    "nameKana": {
+      "label": "氏名カナ",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(フリガナ|ふりがな|ﾌﾘｶﾞﾅ|カナ|かな|ヨミ|よみ|読み|よみがな|ヨミガナ|読み仮名|カナ氏名|氏名カナ|氏名かな|氏名フリガナ|氏名ふりがな|名前カナ|名前フリガナ|名前ふりがな|お名前フリガナ|お名前ふりがな|フリガナ氏名|セイメイ|せいめい|kana|furigana|namekana|yomi)$",
+          "score": 1
+        },
+        {
+          "re": "(フリガナ|ふりがな|カナ|かな|ヨミ|よみ|読み仮名|kana|furigana)",
+          "score": 0.8
+        }
+      ],
+      "negative": [
+        "会社",
+        "企業",
+        "大学",
+        "学校",
+        "学部",
+        "職場",
+        "担当",
+        "住所",
+        "address",
+        "姓",
+        "せい",
+        "セイ",
+        "名$",
+        "めい$",
+        "メイ$"
+      ]
+    },
+    "lastNameKana": {
+      "label": "姓カナ",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(セイ|せい|姓カナ|姓かな|姓フリガナ|姓ふりがな|カナ姓|フリガナ姓|ふりがな姓|みょうじかな|苗字カナ|苗字フリガナ|lastnamekana|姓ヨミ)$",
+          "score": 1
+        },
+        {
+          "re": "^(セイ|せい|姓)(カナ|かな|フリガナ|ふりがな|ヨミ|よみ)$",
+          "score": 1
+        }
+      ]
+    },
+    "firstNameKana": {
+      "label": "名カナ",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(メイ|めい|名カナ|名かな|名フリガナ|名ふりがな|カナ名|フリガナ名|ふりがな名|名前カナ下|firstnamekana|名ヨミ)$",
+          "score": 1
+        },
+        {
+          "re": "^(メイ|めい)(カナ|かな|フリガナ|ふりがな|ヨミ|よみ)$",
+          "score": 1
+        }
+      ]
+    },
+    "nameRoman": {
+      "label": "氏名ローマ字",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "ローマ字|英字|英語表記|アルファベット|romaji|englishname|nameenglish|nameinenglish|nameroman",
+          "score": 0.95
+        }
+      ]
+    },
+    "email": {
+      "label": "メール",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(メール|メアド|mail|email|e-mail|emailaddress|mailaddress|メールアドレス|eメール|eメールアドレス|電子メール|pcメール|携帯メール|連絡先メール|メールアドレス1|メールアドレス2)$",
+          "score": 1
+        },
+        {
+          "re": "メール|メアド|mail|email",
+          "score": 0.85
+        }
+      ],
+      "negative": [
+        "送信",
+        "配信",
+        "受信日",
+        "件名",
+        "本文",
+        "テンプレート",
+        "送付",
+        "日時",
+        "日付",
+        "date",
+        "flag",
+        "フラグ",
+        "可否",
+        "希望"
+      ]
+    },
+    "phone": {
+      "label": "電話番号",
+      "isKey": true,
+      "rules": [
+        {
+          "re": "^(電話|電話番号|tel|telephone|phone|phonenumber|携帯|携帯番号|携帯電話|携帯電話番号|ケータイ|mobile|mobilephone|cellphone|連絡先電話番号|自宅電話|自宅電話番号)$",
+          "score": 1
+        },
+        {
+          "re": "電話|tel|phone|携帯|mobile",
+          "score": 0.85
+        },
+        {
+          "re": "^連絡先$",
+          "score": 0.5
+        },
+        {
+          "re": "fax",
+          "score": 0.3
+        }
+      ],
+      "negative": [
+        "会社",
+        "企業",
+        "大学",
+        "学校",
+        "緊急",
+        "保護者",
+        "職場",
+        "担当",
+        "受付時間",
+        "可否",
+        "希望",
+        "日時"
+      ]
+    },
+    "university": {
+      "label": "大学",
+      "isKey": false,
+      "compositePart": true,
+      "rules": [
+        {
+          "re": "^(大学|大学名|学校|学校名|大学院|大学院名|出身校|出身大学|在籍校|在籍大学|所属大学|所属校|所属|university|universityname|school|schoolname|college|学校名大学名|大学学校名)$",
+          "score": 1
+        },
+        {
+          "re": "大学名|学校名|出身校|在籍校|university|school|college",
+          "score": 0.85
+        },
+        {
+          "re": "^(大学|学校)",
+          "score": 0.7
+        }
+      ],
+      "negative": [
+        "学部",
+        "学科",
+        "研究科",
+        "専攻",
+        "学年",
+        "卒業",
+        "入学",
+        "コード",
+        "code",
+        "id",
+        "所在地",
+        "住所",
+        "電話",
+        "区分",
+        "種別",
+        "系統",
+        "偏差値",
+        "ランク"
+      ]
+    },
+    "faculty": {
+      "label": "学部・学科",
+      "isKey": false,
+      "compositePart": true,
+      "rules": [
+        {
+          "re": "^(学部|学科|学部学科|学部名|学科名|研究科|専攻|研究科専攻|学部研究科|faculty|department|major)$",
+          "score": 1
+        },
+        {
+          "re": "学部|学科|研究科|専攻|faculty|department|major",
+          "score": 0.8
+        }
+      ],
+      "negative": [
+        "コード",
+        "code",
+        "id",
+        "系統"
+      ]
+    },
+    "birthDate": {
+      "label": "生年月日",
+      "isKey": false,
+      "compositePart": true,
+      "rules": [
+        {
+          "re": "^(生年月日|誕生日|生年|生まれ|birthday|birthdate|dateofbirth|dob)$",
+          "score": 1
+        },
+        {
+          "re": "生年月日|誕生日|birth",
+          "score": 0.85
+        }
+      ]
+    },
+    "gender": {
+      "label": "性別",
+      "isKey": false,
+      "crossCheck": true,
+      "rules": [
+        {
+          "re": "^(性別|gender|sex)$",
+          "score": 1
+        }
+      ]
+    },
+    "graduation": {
+      "label": "卒業年",
+      "isKey": false,
+      "compositePart": true,
+      "rules": [
+        {
+          "re": "卒業年|卒業予定|卒年|卒業年度|graduation|gradyear",
+          "score": 0.9
+        }
+      ]
+    }
+  }
+}

@@ -1,0 +1,135 @@
+{
+    "quoting":  {
+                    "集計":  "=集計!B2+SUM(集計!C:C)",
+                    "集計 シート":  "=\u0027集計 シート\u0027!B2+SUM(\u0027集計 シート\u0027!C:C)",
+                    "売上・集計":  "=売上・集計!B2+SUM(売上・集計!C:C)",
+                    "データ（1）":  "=\u0027データ（1）\u0027!B2+SUM(\u0027データ（1）\u0027!C:C)",
+                    "集計-1":  "=\u0027集計-1\u0027!B2+SUM(\u0027集計-1\u0027!C:C)",
+                    "１月":  "=\u0027１月\u0027!B2+SUM(\u0027１月\u0027!C:C)",
+                    "2024":  "=\u00272024\u0027!B2+SUM(\u00272024\u0027!C:C)",
+                    "A1":  "=\u0027A1\u0027!B2+SUM(\u0027A1\u0027!C:C)",
+                    "R1C1":  "=\u0027R1C1\u0027!B2+SUM(\u0027R1C1\u0027!C:C)",
+                    "Sheet.1":  "=Sheet.1!B2+SUM(Sheet.1!C:C)",
+                    "O\u0027Brien":  "=\u0027O\u0027\u0027Brien\u0027!B2+SUM(\u0027O\u0027\u0027Brien\u0027!C:C)",
+                    "ab_c":  "=ab_c!B2+SUM(ab_c!C:C)",
+                    "Sheet1":  "=Sheet1!B2+SUM(Sheet1!C:C)",
+                    "TAX2025":  "=\u0027TAX2025\u0027!B2+SUM(\u0027TAX2025\u0027!C:C)",
+                    "LOG10":  "=LOG10!B2+SUM(LOG10!C:C)",
+                    "RC":  "=\u0027RC\u0027!B2+SUM(\u0027RC\u0027!C:C)",
+                    "R":  "=\u0027R\u0027!B2+SUM(\u0027R\u0027!C:C)",
+                    "C":  "=\u0027C\u0027!B2+SUM(\u0027C\u0027!C:C)",
+                    "Data 2024":  "=\u0027Data 2024\u0027!B2+SUM(\u0027Data 2024\u0027!C:C)",
+                    "表Ａ":  "=表Ａ!B2+SUM(表Ａ!C:C)",
+                    "あいう":  "=あいう!B2+SUM(あいう!C:C)",
+                    "アイウ":  "=アイウ!B2+SUM(アイウ!C:C)",
+                    "Ｓｈｅｅｔ":  "=Ｓｈｅｅｔ!B2+SUM(Ｓｈｅｅｔ!C:C)",
+                    "_x":  "=_x!B2+SUM(_x!C:C)",
+                    "a.b.c":  "=a.b.c!B2+SUM(a.b.c!C:C)",
+                    "集計、月":  "=\u0027集計、月\u0027!B2+SUM(\u0027集計、月\u0027!C:C)",
+                    "項目①":  "=項目①!B2+SUM(項目①!C:C)"
+                },
+    "formulas":  {
+                     "E1":  [
+                                "=SUM(Table1[金額])",
+                                "=SUM(Table1[金額])",
+                                "=SUM(Table1[金額])"
+                            ],
+                     "E2":  [
+                                "=XLOOKUP(\"x\",Table1[氏名],Table1[金額])",
+                                "=XLOOKUP(\"x\",Table1[氏名],Table1[金額])",
+                                "=XLOOKUP(\"x\",Table1[氏名],Table1[金額])"
+                            ],
+                     "E3":  [
+                                "=FILTER(A2:A3,B2:B3\u003e0)",
+                                "=FILTER(A2:A3,B2:B3\u003e0)",
+                                "=FILTER(A2:A3,B2:B3\u003e0)"
+                            ],
+                     "E5":  [
+                                "=SUM(E3#)",
+                                "=SUM(E3#)",
+                                "=SUM(E3#)"
+                            ],
+                     "E6":  [
+                                "=LET(x,B2,y,B3,x+y)",
+                                "=LET(x,B2,y,B3,x+y)",
+                                "=LET(x,B2,y,B3,x+y)"
+                            ],
+                     "E7":  [
+                                "=LAMBDA(a,a+1)(B2)",
+                                "=LAMBDA(a,a+1)(B2)",
+                                "=LAMBDA(a,a+1)(B2)"
+                            ],
+                     "E8":  [
+                                "=@A2:A3",
+                                "=@A2:A3",
+                                "=A2:A3"
+                            ],
+                     "E9":  [
+                                "=SUM(Table1[[#Headers],[#Data],[Col C]])",
+                                "=SUM(Table1[[#Headers],[#Data],[Col C]])",
+                                "=SUM(Table1[[#Headers],[#Data],[Col C]])"
+                            ],
+                     "E10":  [
+                                 "=Table1[[#This Row],[金額]]",
+                                 "=Table1[@金額]",
+                                 "=Table1[@金額]"
+                             ],
+                     "E11":  [
+                                 "=IFERROR(1/0,#N/A)",
+                                 "=IFERROR(1/0,#N/A)",
+                                 "=IFERROR(1/0,#N/A)"
+                             ],
+                     "E12":  [
+                                 "=SEQUENCE(2)",
+                                 "=SEQUENCE(2)",
+                                 "=SEQUENCE(2)"
+                             ],
+                     "E14":  [
+                                 "=TEXTJOIN(\",\",TRUE,A2:A3)",
+                                 "=TEXTJOIN(\",\",TRUE,A2:A3)",
+                                 "=TEXTJOIN(\",\",TRUE,A2:A3)"
+                             ],
+                     "E15":  [
+                                 "=SUM(B2:B3 B2:C3)",
+                                 "=SUM(B2:B3 B2:C3)",
+                                 "=SUM(B2:B3 B2:C3)"
+                             ],
+                     "E16":  [
+                                 "=SUM((B2,B3))",
+                                 "=SUM((B2,B3))",
+                                 "=SUM((B2,B3))"
+                             ],
+                     "E17":  [
+                                 "=CONCAT(\"A1\",\"C:C\")",
+                                 "=CONCAT(\"A1\",\"C:C\")",
+                                 "=CONCAT(\"A1\",\"C:C\")"
+                             ],
+                     "E18":  [
+                                 "=IF(TRUE,B2,FALSE)",
+                                 "=IF(TRUE,B2,FALSE)",
+                                 "=IF(TRUE,B2,FALSE)"
+                             ],
+                     "E19":  [
+                                 "=\u0027集計 シート\u0027!B2",
+                                 "=\u0027集計 シート\u0027!B2",
+                                 "=\u0027集計 シート\u0027!B2"
+                             ],
+                     "E20":  [
+                                 "=SUM(Sheet1:TAX2025!A1)",
+                                 "=SUM(\u0027Sheet1:TAX2025\u0027!A1)",
+                                 "=SUM(\u0027Sheet1:TAX2025\u0027!A1)"
+                             ],
+                     "E21":  [
+                                 "=INDIRECT(\"R1C1\",FALSE)",
+                                 "=INDIRECT(\"R1C1\",FALSE)",
+                                 "=INDIRECT(\"R1C1\",FALSE)"
+                             ],
+                     "E22":  [
+                                 "=Table1[@金額]",
+                                 "=Table1[@金額]",
+                                 "=Table1[@金額]"
+                             ]
+                 },
+    "file":  "C:\\Users\\81802\\AppData\\Local\\Temp\\claude\\D--20260705-----------\\2d64adba-cbb0-49f4-bf69-6262ff0972bb\\scratchpad\\research\\r2\\oracle\\storage\\storage-test.xlsx",
+    "err":  null
+}

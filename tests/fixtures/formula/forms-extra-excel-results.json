@@ -1,0 +1,977 @@
+{
+ "meta": {
+  "description": "Formulas typed into Excel 365 via Range.Formula2, saved as .xlsx; file = stored <f>. Built by tests/fixtures/formula/com/{make-forms-input.mjs,excel-forms.ps1 | make-forms-extra-input.mjs,excel-forms-extra.ps1 ; extract-forms.mjs}.",
+  "generated": "2026-09-30T01:33:05.854Z"
+ },
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "A1",
+   "fn": null,
+   "input": "=FOOBAR(1)",
+   "formula2": "=FOOBAR(1)",
+   "formula": "=FOOBAR(1)",
+   "err": null,
+   "file": {
+    "f": "FOOBAR(1)",
+    "t": "array",
+    "ref": "A1",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A2",
+   "fn": null,
+   "input": "=foobar(B1)",
+   "formula2": "=FOOBAR(B1)",
+   "formula": "=FOOBAR(B1)",
+   "err": null,
+   "file": {
+    "f": "FOOBAR(B1)",
+    "t": "array",
+    "ref": "A2",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A3",
+   "fn": null,
+   "input": "=_xludf.FOO(1)",
+   "formula2": "=_xludf.FOO(1)",
+   "formula": "=_xludf.FOO(1)",
+   "err": null,
+   "file": {
+    "f": "_xludf.FOO(1)",
+    "t": "array",
+    "ref": "A3",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A4",
+   "fn": null,
+   "input": "=SUM(nmSpill#)",
+   "formula2": "=SUM(nmSpill#)",
+   "formula": "=SUM(nmSpill#)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn.ANCHORARRAY(nmSpill))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A5",
+   "fn": null,
+   "input": "=@nmRange",
+   "formula2": "=@nmRange",
+   "formula": "=nmRange",
+   "err": null,
+   "file": {
+    "f": "nmRange"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A6",
+   "fn": null,
+   "input": "=SUM(@nmRange)",
+   "formula2": "=SUM(@nmRange)",
+   "formula": "=SUM(@nmRange)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn.SINGLE(nmRange))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A7",
+   "fn": null,
+   "input": "=B1*nmRate",
+   "formula2": "=B1*nmRate",
+   "formula": "=B1*nmRate",
+   "err": null,
+   "file": {
+    "f": "B1*nmRate"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A8",
+   "fn": null,
+   "input": "=@TODAY()",
+   "formula2": "=@TODAY()",
+   "formula": "=@TODAY()",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SINGLE(TODAY())"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A9",
+   "fn": null,
+   "input": "=@B1",
+   "formula2": "=@B1",
+   "formula": "=@B1",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SINGLE(B1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A10",
+   "fn": null,
+   "input": "=@1",
+   "formula2": "=@1",
+   "formula": "=@1",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SINGLE(1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A11",
+   "fn": null,
+   "input": "=-@B1:B3",
+   "formula2": "=-@B1:B3",
+   "formula": "=-B1:B3",
+   "err": null,
+   "file": {
+    "f": "-B1:B3"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A12",
+   "fn": null,
+   "input": "=SUM( B1:B3 )",
+   "formula2": "=SUM( B1:B3 )",
+   "formula": "=SUM( B1:B3 )",
+   "err": null,
+   "file": {
+    "f": "SUM( B1:B3 )"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A13",
+   "fn": null,
+   "input": "={1,2,3}",
+   "formula2": "={1,2,3}",
+   "formula": "={1,2,3}",
+   "err": null,
+   "file": {
+    "f": "{1,2,3}",
+    "t": "array",
+    "ref": "A13:C13",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A14",
+   "fn": null,
+   "input": "=SUM({1,2;3,4})",
+   "formula2": "=SUM({1,2;3,4})",
+   "formula": "=SUM({1,2;3,4})",
+   "err": null,
+   "file": {
+    "f": "SUM({1,2;3,4})"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A15",
+   "fn": null,
+   "input": "=Z1#+1",
+   "formula2": "=Z1#+1",
+   "formula": "=Z1#+1",
+   "err": null,
+   "file": {
+    "f": "_xlfn.ANCHORARRAY(Z1)+1",
+    "t": "array",
+    "ref": "A15",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A16",
+   "fn": null,
+   "input": "=ROWS(Z1#)+@Z1#",
+   "formula2": "=ROWS(Z1#)+@Z1#",
+   "formula": "=ROWS(Z1#)+Z1#",
+   "err": null,
+   "file": {
+    "f": "ROWS(_xlfn.ANCHORARRAY(Z1))+_xlfn.ANCHORARRAY(Z1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A17",
+   "fn": null,
+   "input": "=SUM(TblSales[[#Totals],[a]])",
+   "formula2": "=SUM(TblSales[[#Totals],[a]])",
+   "formula": "=SUM(TblSales[[#Totals],[a]])",
+   "err": null,
+   "file": {
+    "f": "SUM(TblSales[[#Totals],[a]])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A18",
+   "fn": null,
+   "input": "=SUM(TblSales[[#Data],[#Totals],[a]])",
+   "formula2": "=SUM(TblSales[[#Data],[#Totals],[a]])",
+   "formula": "=SUM(TblSales[[#Data],[#Totals],[a]])",
+   "err": null,
+   "file": {
+    "f": "SUM(TblSales[[#Data],[#Totals],[a]])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A19",
+   "fn": null,
+   "input": "=COUNTA(TblSales[#Totals])",
+   "formula2": "=COUNTA(TblSales[#Totals])",
+   "formula": "=COUNTA(TblSales[#Totals])",
+   "err": null,
+   "file": {
+    "f": "COUNTA(TblSales[#Totals])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A20",
+   "fn": null,
+   "input": "=SUM(TblSales[[#Headers],[#Data],[b]])",
+   "formula2": "=SUM(TblSales[[#Headers],[#Data],[b]])",
+   "formula": "=SUM(TblSales[[#Headers],[#Data],[b]])",
+   "err": null,
+   "file": {
+    "f": "SUM(TblSales[[#Headers],[#Data],[b]])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A21",
+   "fn": null,
+   "input": "=SUM(TblSales[[a]:[b]])",
+   "formula2": "=SUM(TblSales[[a]:[b]])",
+   "formula": "=SUM(TblSales[[a]:[b]])",
+   "err": null,
+   "file": {
+    "f": "SUM(TblSales[[a]:[b]])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A22",
+   "fn": null,
+   "input": "=XLOOKUP(1,TblSales[a],TblSales[b])",
+   "formula2": "=XLOOKUP(1,TblSales[a],TblSales[b])",
+   "formula": "=XLOOKUP(1,TblSales[a],TblSales[b])",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(1,TblSales[a],TblSales[b])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A23",
+   "fn": null,
+   "input": "=LET(x,TblSales[a],SUM(x))",
+   "formula2": "=LET(x,TblSales[a],SUM(x))",
+   "formula": "=LET(x,TblSales[a],SUM(x))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.x,TblSales[a],SUM(_xlpm.x))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A24",
+   "fn": null,
+   "input": "=SUM(TblSales[金額])",
+   "formula2": "=SUM(TblSales[金額])",
+   "formula": "=SUM(TblSales[金額])",
+   "err": null,
+   "file": {
+    "f": "SUM(TblSales[金額])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A25",
+   "fn": null,
+   "input": "=LAMBDA(x,x*2)(B1:B3)",
+   "formula2": "=LAMBDA(x,x*2)(B1:B3)",
+   "formula": "=LAMBDA(x,x*2)(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LAMBDA(_xlpm.x,_xlpm.x*2)(B1:B3)",
+    "t": "array",
+    "ref": "A25",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A26",
+   "fn": null,
+   "input": "=IFS(B1>0,1,TRUE,0)",
+   "formula2": "=IFS(B1>0,1,TRUE,0)",
+   "formula": "=IFS(B1>0,1,TRUE,0)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.IFS(B1>0,1,TRUE,0)",
+    "t": "array",
+    "ref": "A26",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A27",
+   "fn": null,
+   "input": "=SUMPRODUCT((B1:B3>1)*B1:B3)",
+   "formula2": "=SUMPRODUCT((B1:B3>1)*B1:B3)",
+   "formula": "=SUMPRODUCT((B1:B3>1)*B1:B3)",
+   "err": null,
+   "file": {
+    "f": "SUMPRODUCT((B1:B3>1)*B1:B3)",
+    "t": "array",
+    "ref": "A27",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A28",
+   "fn": null,
+   "input": "=TEXTJOIN(\",\",TRUE,B1:B3)&CONCAT(\"a\",\"b\")",
+   "formula2": "=TEXTJOIN(\",\",TRUE,B1:B3)&CONCAT(\"a\",\"b\")",
+   "formula": "=TEXTJOIN(\",\",TRUE,B1:B3)&CONCAT(\"a\",\"b\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.TEXTJOIN(\",\",TRUE,B1:B3)&_xlfn.CONCAT(\"a\",\"b\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A29",
+   "fn": null,
+   "input": "=UNIQUE(B1:B3)",
+   "formula2": "=UNIQUE(B1:B3)",
+   "formula": "=UNIQUE(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.UNIQUE(B1:B3)",
+    "t": "array",
+    "ref": "A29",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A30",
+   "fn": null,
+   "input": "=SORTBY(B1:B3,B1:B3,-1)",
+   "formula2": "=SORTBY(B1:B3,B1:B3,-1)",
+   "formula": "=SORTBY(B1:B3,B1:B3,-1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SORTBY(B1:B3,B1:B3,-1)",
+    "t": "array",
+    "ref": "A30",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A31",
+   "fn": null,
+   "input": "=FILTER(TblSales[a],TblSales[b]>0,\"\")",
+   "formula2": "=FILTER(TblSales[a],TblSales[b]>0,\"\")",
+   "formula": "=FILTER(TblSales[a],TblSales[b]>0,\"\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn._xlws.FILTER(TblSales[a],TblSales[b]>0,\"\")",
+    "t": "array",
+    "ref": "A31",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A32",
+   "fn": null,
+   "input": "=COUNTA(TblSales)",
+   "formula2": "=COUNTA(TblSales)",
+   "formula": "=COUNTA(TblSales)",
+   "err": null,
+   "file": {
+    "f": "COUNTA(TblSales[])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A33",
+   "fn": null,
+   "input": "=X!B1:B3",
+   "formula2": "=X!B1:B3",
+   "formula": "=X!B1:B3",
+   "err": null,
+   "file": {
+    "f": "X!B1:B3",
+    "t": "array",
+    "ref": "A33",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A34",
+   "fn": null,
+   "input": "=SUM(X!B1:B3 X!B2:B4)",
+   "formula2": "=SUM(X!B1:B3 X!B2:B4)",
+   "formula": "=SUM(X!B1:B3 X!B2:B4)",
+   "err": null,
+   "file": {
+    "f": "SUM(X!B1:B3 X!B2:B4)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A35",
+   "fn": null,
+   "input": "=IFERROR(VLOOKUP(1,TblSales,2,FALSE),\"\")",
+   "formula2": "=IFERROR(VLOOKUP(1,TblSales,2,FALSE),\"\")",
+   "formula": "=IFERROR(VLOOKUP(1,TblSales,2,FALSE),\"\")",
+   "err": null,
+   "file": {
+    "f": "IFERROR(VLOOKUP(1,TblSales[],2,FALSE),\"\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A36",
+   "fn": null,
+   "input": "=MAP(B1:B3,LAMBDA(v,IF(v>1,v,\"\")))",
+   "formula2": "=MAP(B1:B3,LAMBDA(v,IF(v>1,v,\"\")))",
+   "formula": "=MAP(B1:B3,LAMBDA(v,IF(v>1,v,\"\")))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MAP(B1:B3,_xlfn.LAMBDA(_xlpm.v,IF(_xlpm.v>1,_xlpm.v,\"\")))",
+    "t": "array",
+    "ref": "A36",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A37",
+   "fn": null,
+   "input": "=LET(a,1,b,2,LAMBDA(x,x+a+b)(3))",
+   "formula2": "=LET(a,1,b,2,LAMBDA(x,x+a+b)(3))",
+   "formula": "=LET(a,1,b,2,LAMBDA(x,x+a+b)(3))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.a,1,_xlpm.b,2,_xlfn.LAMBDA(_xlpm.x,_xlpm.x+_xlpm.a+_xlpm.b)(3))",
+    "t": "array",
+    "ref": "A37",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A38",
+   "fn": null,
+   "input": "=@INDEX(B1:B3,2)",
+   "formula2": "=@INDEX(B1:B3,2)",
+   "formula": "=@INDEX(B1:B3,2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SINGLE(INDEX(B1:B3,2))"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A39",
+   "fn": null,
+   "input": "=INDEX(B1:B3,2)",
+   "formula2": "=INDEX(B1:B3,2)",
+   "formula": "=INDEX(B1:B3,2)",
+   "err": null,
+   "file": {
+    "f": "INDEX(B1:B3,2)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A40",
+   "fn": null,
+   "input": "=CHOOSECOLS(B1:C3,1)",
+   "formula2": "=CHOOSECOLS(B1:C3,1)",
+   "formula": "=CHOOSECOLS(B1:C3,1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.CHOOSECOLS(B1:C3,1)",
+    "t": "array",
+    "ref": "A40",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A41",
+   "fn": null,
+   "input": "=GROUPBY(B1:B3,B1:B3,SUM)",
+   "formula2": "=GROUPBY(B1:B3,B1:B3,SUM)",
+   "formula": "=GROUPBY(B1:B3,B1:B3,SUM)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.GROUPBY(B1:B3,B1:B3,_xleta.SUM)",
+    "t": "array",
+    "ref": "A41",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A42",
+   "fn": null,
+   "input": "=REGEXTEST(\"abc\",\"b\")",
+   "formula2": "=REGEXTEST(\"abc\",\"b\")",
+   "formula": "=REGEXTEST(\"abc\",\"b\")",
+   "err": null,
+   "file": {
+    "f": "_xlfn.REGEXTEST(\"abc\",\"b\")"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A43",
+   "fn": null,
+   "input": "=BYCOL(B1:C3,LAMBDA(c,MAX(c)))",
+   "formula2": "=BYCOL(B1:C3,LAMBDA(c,MAX(c)))",
+   "formula": "=BYCOL(B1:C3,LAMBDA(c,MAX(c)))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.BYCOL(B1:C3,_xlfn.LAMBDA(_xlpm.c,MAX(_xlpm.c)))",
+    "t": "array",
+    "ref": "A43:B43",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A44",
+   "fn": null,
+   "input": "=ISOMITTED(1)",
+   "formula2": "=ISOMITTED(1)",
+   "formula": "=ISOMITTED(1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.ISOMITTED(1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A45",
+   "fn": null,
+   "input": "=sum(b1:b3)",
+   "formula2": "=SUM(B1:B3)",
+   "formula": "=SUM(B1:B3)",
+   "err": null,
+   "file": {
+    "f": "SUM(B1:B3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A46",
+   "fn": null,
+   "input": "=true",
+   "formula2": "=TRUE",
+   "formula": "=TRUE",
+   "err": null,
+   "file": {
+    "f": "TRUE"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A47",
+   "fn": null,
+   "input": "=iferror(#n/a,1)",
+   "formula2": "=IFERROR(#N/A,1)",
+   "formula": "=IFERROR(#N/A,1)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(#N/A,1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A48",
+   "fn": null,
+   "input": "=TblSales[[#this row],[a]]",
+   "formula2": "=TblSales[@a]",
+   "formula": "=TblSales[@a]",
+   "err": null,
+   "file": {
+    "f": "TblSales[[#This Row],[a]]"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A49",
+   "fn": null,
+   "input": "=SUM(tblsales[A])",
+   "formula2": "=SUM(TblSales[a])",
+   "formula": "=SUM(TblSales[a])",
+   "err": null,
+   "file": {
+    "f": "SUM(TblSales[a])"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A57",
+   "fn": null,
+   "input": "=xlookup(1,b1:b3,c1:c3)",
+   "formula2": "=XLOOKUP(1,B1:B3,C1:C3)",
+   "formula": "=XLOOKUP(1,B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(1,B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A58",
+   "fn": null,
+   "input": "=LET(Xy,1,xy+1)",
+   "formula2": "=LET(Xy,1,Xy+1)",
+   "formula": "=LET(Xy,1,Xy+1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.Xy,1,_xlpm.Xy+1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A59",
+   "fn": null,
+   "input": "=SUM(b:b)+SUM($b$1:c$3)",
+   "formula2": "=SUM(B:B)+SUM($B$1:C$3)",
+   "formula": "=SUM(B:B)+SUM($B$1:C$3)",
+   "err": null,
+   "file": {
+    "f": "SUM(B:B)+SUM($B$1:C$3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A60",
+   "fn": null,
+   "input": "=SUM(x!b1:b3)",
+   "formula2": "=SUM(X!B1:B3)",
+   "formula": "=SUM(X!B1:B3)",
+   "err": null,
+   "file": {
+    "f": "SUM(X!B1:B3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A61",
+   "fn": null,
+   "input": "=nmrange",
+   "formula2": "=nmRange",
+   "formula": "=nmRange",
+   "err": null,
+   "file": {
+    "f": "nmRange",
+    "t": "array",
+    "ref": "A61",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A62",
+   "fn": null,
+   "input": "=LET(z99,1,z99+1)",
+   "formula2": "=LET(z99,1,z99+1)",
+   "formula": "=LET(z99,1,z99+1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.z99,1,_xlpm.z99+1)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A63",
+   "fn": null,
+   "input": "=_XLFN.XLOOKUP(1,B1:B3,C1:C3)",
+   "formula2": "=XLOOKUP(1,B1:B3,C1:C3)",
+   "formula": "=XLOOKUP(1,B1:B3,C1:C3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(1,B1:B3,C1:C3)"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A50",
+   "fn": null,
+   "input": "=GROUPBY(B1:B3,B1:B3,PERCENTOF)",
+   "formula2": "=GROUPBY(B1:B3,B1:B3,PERCENTOF)",
+   "formula": "=GROUPBY(B1:B3,B1:B3,PERCENTOF)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.GROUPBY(B1:B3,B1:B3,_xleta.PERCENTOF)",
+    "t": "array",
+    "ref": "A50",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A51",
+   "fn": null,
+   "input": "=BYROW(B1:C3,SUM)",
+   "formula2": "=BYROW(B1:C3,SUM)",
+   "formula": "=BYROW(B1:C3,SUM)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.BYROW(B1:C3,_xleta.SUM)",
+    "t": "array",
+    "ref": "A51",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A52",
+   "fn": null,
+   "input": "=MAP(B1:B3,ABS)",
+   "formula2": "=MAP(B1:B3,ABS)",
+   "formula": "=MAP(B1:B3,ABS)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MAP(B1:B3,_xleta.ABS)",
+    "t": "array",
+    "ref": "A52",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A53",
+   "fn": null,
+   "input": "=PIVOTBY(B1:B3,C1:C3,B1:B3,SUM)",
+   "formula2": "=PIVOTBY(B1:B3,C1:C3,B1:B3,SUM)",
+   "formula": "=PIVOTBY(B1:B3,C1:C3,B1:B3,SUM)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.PIVOTBY(B1:B3,C1:C3,B1:B3,_xleta.SUM)",
+    "t": "array",
+    "ref": "A53",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A54",
+   "fn": null,
+   "input": "=GROUPBY(B1:B3,B1:B3,HSTACK(SUM,AVERAGE))",
+   "formula2": "=GROUPBY(B1:B3,B1:B3,HSTACK(SUM,AVERAGE))",
+   "formula": "=GROUPBY(B1:B3,B1:B3,HSTACK(SUM,AVERAGE))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.GROUPBY(B1:B3,B1:B3,_xlfn.HSTACK(_xleta.SUM,_xleta.AVERAGE))",
+    "t": "array",
+    "ref": "A54",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A55",
+   "fn": null,
+   "input": "=LET(f,SUM,f(B1:B3))",
+   "formula2": "=LET(f,SUM,f(B1:B3))",
+   "formula": "=LET(f,SUM,f(B1:B3))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.f,_xleta.SUM,_xlpm.f(B1:B3))",
+    "t": "array",
+    "ref": "A55",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A56",
+   "fn": null,
+   "input": "=BYCOL(B1:C3,counta)",
+   "formula2": "=BYCOL(B1:C3,COUNTA)",
+   "formula": "=BYCOL(B1:C3,COUNTA)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.BYCOL(B1:C3,_xleta.COUNTA)",
+    "t": "array",
+    "ref": "A56:B56",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A64",
+   "fn": null,
+   "input": "=BYROW(B1:C3,TEXTJOIN)",
+   "formula2": "=BYROW(B1:C3,TEXTJOIN)",
+   "formula": "=BYROW(B1:C3,TEXTJOIN)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.BYROW(B1:C3,_xleta.TEXTJOIN)",
+    "t": "array",
+    "ref": "A64",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A65",
+   "fn": null,
+   "input": "=MAP(B1:B3,SUM)+SUM(B1)",
+   "formula2": "=MAP(B1:B3,SUM)+SUM(B1)",
+   "formula": "=MAP(B1:B3,SUM)+SUM(B1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.MAP(B1:B3,_xleta.SUM)+SUM(B1)",
+    "t": "array",
+    "ref": "A65",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A66",
+   "fn": null,
+   "input": "=REDUCE(0,B1:B3,SUM)",
+   "formula2": "=REDUCE(0,B1:B3,SUM)",
+   "formula": "=REDUCE(0,B1:B3,SUM)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.REDUCE(0,B1:B3,_xleta.SUM)",
+    "t": "array",
+    "ref": "A66",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A67",
+   "fn": null,
+   "input": "=SCAN(0,B1:B3,SUM)",
+   "formula2": "=SCAN(0,B1:B3,SUM)",
+   "formula": "=SCAN(0,B1:B3,SUM)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SCAN(0,B1:B3,_xleta.SUM)",
+    "t": "array",
+    "ref": "A67",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A68",
+   "fn": null,
+   "input": "=BYROW(B1:C3,STDEV.S)",
+   "formula2": "=BYROW(B1:C3,STDEV.S)",
+   "formula": "=BYROW(B1:C3,STDEV.S)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.BYROW(B1:C3,_xleta.STDEV.S)",
+    "t": "array",
+    "ref": "A68",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "A69",
+   "fn": null,
+   "input": "=GROUPBY(B1:B3,B1:B3,ARRAYTOTEXT)",
+   "formula2": "=GROUPBY(B1:B3,B1:B3,ARRAYTOTEXT)",
+   "formula": "=GROUPBY(B1:B3,B1:B3,ARRAYTOTEXT)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.GROUPBY(B1:B3,B1:B3,_xleta.ARRAYTOTEXT)",
+    "t": "array",
+    "ref": "A69:B72",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "G2",
+   "fn": null,
+   "input": "=[@a]+[@金額]",
+   "formula2": "=[@a]+[@金額]",
+   "formula": "=[@a]+[@金額]",
+   "err": null,
+   "file": {
+    "f": "TblSales[[#This Row],[a]]+TblSales[[#This Row],[金額]]"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "G3",
+   "fn": null,
+   "input": null,
+   "formula2": "=[@a]+[@金額]",
+   "formula": "=[@a]+[@金額]",
+   "err": null,
+   "file": {
+    "f": "TblSales[[#This Row],[a]]+TblSales[[#This Row],[金額]]"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "G4",
+   "fn": null,
+   "input": null,
+   "formula2": "=[@a]+[@金額]",
+   "formula": "=[@a]+[@金額]",
+   "err": null,
+   "file": {
+    "f": "TblSales[[#This Row],[a]]+TblSales[[#This Row],[金額]]"
+   }
+  },
+  {
+   "sheet": "X",
+   "cell": "F5",
+   "fn": null,
+   "input": null,
+   "formula2": "=SUBTOTAL(109,[金額])",
+   "formula": "=SUBTOTAL(109,[金額])",
+   "err": null,
+   "file": {
+    "f": "SUBTOTAL(109,TblSales[金額])"
+   }
+  }
+ ]
+}

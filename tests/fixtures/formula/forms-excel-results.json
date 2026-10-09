@@ -1,0 +1,3883 @@
+{
+ "meta": {
+  "description": "Formulas typed into Excel 365 via Range.Formula2, saved as .xlsx; file = stored <f>. Built by tests/fixtures/formula/com/{make-forms-input.mjs,excel-forms.ps1,extract-forms.mjs}.",
+  "generated": "2026-09-30T01:09:01.200Z"
+ },
+ "cells": [
+  {
+   "sheet": "F",
+   "cell": "A1",
+   "fn": "ACOT",
+   "input": "=IFERROR(ACOT(1),0)",
+   "formula2": "=IFERROR(ACOT(1),0)",
+   "formula": "=IFERROR(ACOT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ACOT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A2",
+   "fn": "ACOTH",
+   "input": "=IFERROR(ACOTH(1),0)",
+   "formula2": "=IFERROR(ACOTH(1),0)",
+   "formula": "=IFERROR(ACOTH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ACOTH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A3",
+   "fn": "AGGREGATE",
+   "input": "=IFERROR(AGGREGATE(1,1,1),0)",
+   "formula2": "=IFERROR(AGGREGATE(1,1,1),0)",
+   "formula": "=IFERROR(AGGREGATE(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.AGGREGATE(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A4",
+   "fn": "ARABIC",
+   "input": "=IFERROR(ARABIC(1),0)",
+   "formula2": "=IFERROR(ARABIC(1),0)",
+   "formula": "=IFERROR(ARABIC(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ARABIC(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A5",
+   "fn": "BASE",
+   "input": "=IFERROR(BASE(1,1),0)",
+   "formula2": "=IFERROR(BASE(1,1),0)",
+   "formula": "=IFERROR(BASE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BASE(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A6",
+   "fn": "BETA.DIST",
+   "input": "=IFERROR(BETA.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(BETA.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(BETA.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BETA.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A7",
+   "fn": "BETA.INV",
+   "input": "=IFERROR(BETA.INV(1,1,1),0)",
+   "formula2": "=IFERROR(BETA.INV(1,1,1),0)",
+   "formula": "=IFERROR(BETA.INV(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BETA.INV(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A8",
+   "fn": "BINOM.DIST",
+   "input": "=IFERROR(BINOM.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(BINOM.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(BINOM.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BINOM.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A9",
+   "fn": "BINOM.DIST.RANGE",
+   "input": "=IFERROR(BINOM.DIST.RANGE(1,1,1),0)",
+   "formula2": "=IFERROR(BINOM.DIST.RANGE(1,1,1),0)",
+   "formula": "=IFERROR(BINOM.DIST.RANGE(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BINOM.DIST.RANGE(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A10",
+   "fn": "BINOM.INV",
+   "input": "=IFERROR(BINOM.INV(1,1,1),0)",
+   "formula2": "=IFERROR(BINOM.INV(1,1,1),0)",
+   "formula": "=IFERROR(BINOM.INV(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BINOM.INV(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A11",
+   "fn": "BITAND",
+   "input": "=IFERROR(BITAND(1,1),0)",
+   "formula2": "=IFERROR(BITAND(1,1),0)",
+   "formula": "=IFERROR(BITAND(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BITAND(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A12",
+   "fn": "BITLSHIFT",
+   "input": "=IFERROR(BITLSHIFT(1,1),0)",
+   "formula2": "=IFERROR(BITLSHIFT(1,1),0)",
+   "formula": "=IFERROR(BITLSHIFT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BITLSHIFT(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A13",
+   "fn": "BITOR",
+   "input": "=IFERROR(BITOR(1,1),0)",
+   "formula2": "=IFERROR(BITOR(1,1),0)",
+   "formula": "=IFERROR(BITOR(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BITOR(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A14",
+   "fn": "BITRSHIFT",
+   "input": "=IFERROR(BITRSHIFT(1,1),0)",
+   "formula2": "=IFERROR(BITRSHIFT(1,1),0)",
+   "formula": "=IFERROR(BITRSHIFT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BITRSHIFT(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A15",
+   "fn": "BITXOR",
+   "input": "=IFERROR(BITXOR(1,1),0)",
+   "formula2": "=IFERROR(BITXOR(1,1),0)",
+   "formula": "=IFERROR(BITXOR(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BITXOR(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A16",
+   "fn": "BYCOL",
+   "input": "=IFERROR(BYCOL(1),0)",
+   "formula2": "=IFERROR(BYCOL(1),0)",
+   "formula": "=IFERROR(BYCOL(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BYCOL(1),0)",
+    "t": "array",
+    "ref": "A16",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A17",
+   "fn": "BYROW",
+   "input": "=IFERROR(BYROW(1),0)",
+   "formula2": "=IFERROR(BYROW(1),0)",
+   "formula": "=IFERROR(BYROW(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.BYROW(1),0)",
+    "t": "array",
+    "ref": "A17",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A18",
+   "fn": "CEILING.MATH",
+   "input": "=IFERROR(CEILING.MATH(1),0)",
+   "formula2": "=IFERROR(CEILING.MATH(1),0)",
+   "formula": "=IFERROR(CEILING.MATH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CEILING.MATH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A19",
+   "fn": "CEILING.PRECISE",
+   "input": "=IFERROR(CEILING.PRECISE(1),0)",
+   "formula2": "=IFERROR(CEILING.PRECISE(1),0)",
+   "formula": "=IFERROR(CEILING.PRECISE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CEILING.PRECISE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A20",
+   "fn": "CHISQ.DIST",
+   "input": "=IFERROR(CHISQ.DIST(1,1,1),0)",
+   "formula2": "=IFERROR(CHISQ.DIST(1,1,1),0)",
+   "formula": "=IFERROR(CHISQ.DIST(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHISQ.DIST(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A21",
+   "fn": "CHISQ.DIST.RT",
+   "input": "=IFERROR(CHISQ.DIST.RT(1,1),0)",
+   "formula2": "=IFERROR(CHISQ.DIST.RT(1,1),0)",
+   "formula": "=IFERROR(CHISQ.DIST.RT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHISQ.DIST.RT(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A22",
+   "fn": "CHISQ.INV",
+   "input": "=IFERROR(CHISQ.INV(1,1),0)",
+   "formula2": "=IFERROR(CHISQ.INV(1,1),0)",
+   "formula": "=IFERROR(CHISQ.INV(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHISQ.INV(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A23",
+   "fn": "CHISQ.INV.RT",
+   "input": "=IFERROR(CHISQ.INV.RT(1,1),0)",
+   "formula2": "=IFERROR(CHISQ.INV.RT(1,1),0)",
+   "formula": "=IFERROR(CHISQ.INV.RT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHISQ.INV.RT(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A24",
+   "fn": "CHISQ.TEST",
+   "input": "=IFERROR(CHISQ.TEST(1,1),0)",
+   "formula2": "=IFERROR(CHISQ.TEST(1,1),0)",
+   "formula": "=IFERROR(CHISQ.TEST(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHISQ.TEST(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A25",
+   "fn": "CHOOSECOLS",
+   "input": "=IFERROR(CHOOSECOLS(1,1),0)",
+   "formula2": "=IFERROR(CHOOSECOLS(1,1),0)",
+   "formula": "=IFERROR(CHOOSECOLS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHOOSECOLS(1,1),0)",
+    "t": "array",
+    "ref": "A25",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A26",
+   "fn": "CHOOSEROWS",
+   "input": "=IFERROR(CHOOSEROWS(1,1),0)",
+   "formula2": "=IFERROR(CHOOSEROWS(1,1),0)",
+   "formula": "=IFERROR(CHOOSEROWS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CHOOSEROWS(1,1),0)",
+    "t": "array",
+    "ref": "A26",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A27",
+   "fn": "COMBINA",
+   "input": "=IFERROR(COMBINA(1,1),0)",
+   "formula2": "=IFERROR(COMBINA(1,1),0)",
+   "formula": "=IFERROR(COMBINA(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.COMBINA(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A28",
+   "fn": "CONCAT",
+   "input": "=IFERROR(CONCAT(1),0)",
+   "formula2": "=IFERROR(CONCAT(1),0)",
+   "formula": "=IFERROR(CONCAT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CONCAT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A29",
+   "fn": "CONFIDENCE.NORM",
+   "input": "=IFERROR(CONFIDENCE.NORM(1,1,1),0)",
+   "formula2": "=IFERROR(CONFIDENCE.NORM(1,1,1),0)",
+   "formula": "=IFERROR(CONFIDENCE.NORM(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CONFIDENCE.NORM(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A30",
+   "fn": "CONFIDENCE.T",
+   "input": "=IFERROR(CONFIDENCE.T(1,1,1),0)",
+   "formula2": "=IFERROR(CONFIDENCE.T(1,1,1),0)",
+   "formula": "=IFERROR(CONFIDENCE.T(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CONFIDENCE.T(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A31",
+   "fn": "COT",
+   "input": "=IFERROR(COT(1),0)",
+   "formula2": "=IFERROR(COT(1),0)",
+   "formula": "=IFERROR(COT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.COT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A32",
+   "fn": "COTH",
+   "input": "=IFERROR(COTH(1),0)",
+   "formula2": "=IFERROR(COTH(1),0)",
+   "formula": "=IFERROR(COTH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.COTH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A33",
+   "fn": "COVARIANCE.P",
+   "input": "=IFERROR(COVARIANCE.P(1,1),0)",
+   "formula2": "=IFERROR(COVARIANCE.P(1,1),0)",
+   "formula": "=IFERROR(COVARIANCE.P(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.COVARIANCE.P(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A34",
+   "fn": "COVARIANCE.S",
+   "input": "=IFERROR(COVARIANCE.S(1,1),0)",
+   "formula2": "=IFERROR(COVARIANCE.S(1,1),0)",
+   "formula": "=IFERROR(COVARIANCE.S(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.COVARIANCE.S(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A35",
+   "fn": "CSC",
+   "input": "=IFERROR(CSC(1),0)",
+   "formula2": "=IFERROR(CSC(1),0)",
+   "formula": "=IFERROR(CSC(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CSC(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A36",
+   "fn": "CSCH",
+   "input": "=IFERROR(CSCH(1),0)",
+   "formula2": "=IFERROR(CSCH(1),0)",
+   "formula": "=IFERROR(CSCH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.CSCH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A37",
+   "fn": "DAYS",
+   "input": "=IFERROR(DAYS(1,1),0)",
+   "formula2": "=IFERROR(DAYS(1,1),0)",
+   "formula": "=IFERROR(DAYS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.DAYS(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A38",
+   "fn": "DECIMAL",
+   "input": "=IFERROR(DECIMAL(1,1),0)",
+   "formula2": "=IFERROR(DECIMAL(1,1),0)",
+   "formula": "=IFERROR(DECIMAL(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.DECIMAL(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A39",
+   "fn": "DROP",
+   "input": "=IFERROR(DROP(1,1),0)",
+   "formula2": "=IFERROR(DROP(1,1),0)",
+   "formula": "=IFERROR(DROP(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.DROP(1,1),0)",
+    "t": "array",
+    "ref": "A39",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A40",
+   "fn": "ECMA.CEILING",
+   "input": "=IFERROR(ECMA.CEILING(1,1),0)",
+   "formula2": "=IFERROR(ECMA.CEILING(1,1),0)",
+   "formula": "=IFERROR(ECMA.CEILING(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ECMA.CEILING(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A41",
+   "fn": "ERF.PRECISE",
+   "input": "=IFERROR(ERF.PRECISE(1),0)",
+   "formula2": "=IFERROR(ERF.PRECISE(1),0)",
+   "formula": "=IFERROR(ERF.PRECISE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ERF.PRECISE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A42",
+   "fn": "ERFC.PRECISE",
+   "input": "=IFERROR(ERFC.PRECISE(1),0)",
+   "formula2": "=IFERROR(ERFC.PRECISE(1),0)",
+   "formula": "=IFERROR(ERFC.PRECISE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ERFC.PRECISE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A43",
+   "fn": "EXPAND",
+   "input": "=IFERROR(EXPAND(1,1),0)",
+   "formula2": "=IFERROR(EXPAND(1,1),0)",
+   "formula": "=IFERROR(EXPAND(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.EXPAND(1,1),0)",
+    "t": "array",
+    "ref": "A43",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A44",
+   "fn": "EXPON.DIST",
+   "input": "=IFERROR(EXPON.DIST(1,1,1),0)",
+   "formula2": "=IFERROR(EXPON.DIST(1,1,1),0)",
+   "formula": "=IFERROR(EXPON.DIST(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.EXPON.DIST(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A45",
+   "fn": "F.DIST",
+   "input": "=IFERROR(F.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(F.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(F.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.F.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A46",
+   "fn": "F.DIST.RT",
+   "input": "=IFERROR(F.DIST.RT(1,1,1),0)",
+   "formula2": "=IFERROR(F.DIST.RT(1,1,1),0)",
+   "formula": "=IFERROR(F.DIST.RT(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.F.DIST.RT(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A47",
+   "fn": "F.INV",
+   "input": "=IFERROR(F.INV(1,1,1),0)",
+   "formula2": "=IFERROR(F.INV(1,1,1),0)",
+   "formula": "=IFERROR(F.INV(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.F.INV(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A48",
+   "fn": "F.INV.RT",
+   "input": "=IFERROR(F.INV.RT(1,1,1),0)",
+   "formula2": "=IFERROR(F.INV.RT(1,1,1),0)",
+   "formula": "=IFERROR(F.INV.RT(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.F.INV.RT(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A49",
+   "fn": "F.TEST",
+   "input": "=IFERROR(F.TEST(1,1),0)",
+   "formula2": "=IFERROR(F.TEST(1,1),0)",
+   "formula": "=IFERROR(F.TEST(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.F.TEST(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A50",
+   "fn": "FIELDVALUE",
+   "input": "=IFERROR(FIELDVALUE(1,1),0)",
+   "formula2": "=IFERROR(FIELDVALUE(1,1),0)",
+   "formula": "=IFERROR(FIELDVALUE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FIELDVALUE(1,1),0)",
+    "t": "array",
+    "ref": "A50",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A51",
+   "fn": "FILTERXML",
+   "input": "=IFERROR(FILTERXML(1,1),0)",
+   "formula2": "=IFERROR(FILTERXML(1,1),0)",
+   "formula": "=IFERROR(FILTERXML(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FILTERXML(1,1),0)",
+    "t": "array",
+    "ref": "A51",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A52",
+   "fn": "FLOOR.MATH",
+   "input": "=IFERROR(FLOOR.MATH(1),0)",
+   "formula2": "=IFERROR(FLOOR.MATH(1),0)",
+   "formula": "=IFERROR(FLOOR.MATH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FLOOR.MATH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A53",
+   "fn": "FLOOR.PRECISE",
+   "input": "=IFERROR(FLOOR.PRECISE(1),0)",
+   "formula2": "=IFERROR(FLOOR.PRECISE(1),0)",
+   "formula": "=IFERROR(FLOOR.PRECISE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FLOOR.PRECISE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A54",
+   "fn": "FORECAST.ETS",
+   "input": "=IFERROR(FORECAST.ETS(1,1,1),0)",
+   "formula2": "=IFERROR(FORECAST.ETS(1,1,1),0)",
+   "formula": "=IFERROR(FORECAST.ETS(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FORECAST.ETS(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A55",
+   "fn": "FORECAST.ETS.CONFINT",
+   "input": "=IFERROR(FORECAST.ETS.CONFINT(1,1,1),0)",
+   "formula2": "=IFERROR(FORECAST.ETS.CONFINT(1,1,1),0)",
+   "formula": "=IFERROR(FORECAST.ETS.CONFINT(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FORECAST.ETS.CONFINT(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A56",
+   "fn": "FORECAST.ETS.SEASONALITY",
+   "input": "=IFERROR(FORECAST.ETS.SEASONALITY(1,1),0)",
+   "formula2": "=IFERROR(FORECAST.ETS.SEASONALITY(1,1),0)",
+   "formula": "=IFERROR(FORECAST.ETS.SEASONALITY(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FORECAST.ETS.SEASONALITY(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A57",
+   "fn": "FORECAST.ETS.STAT",
+   "input": "=IFERROR(FORECAST.ETS.STAT(1,1,1),0)",
+   "formula2": "=IFERROR(FORECAST.ETS.STAT(1,1,1),0)",
+   "formula": "=IFERROR(FORECAST.ETS.STAT(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FORECAST.ETS.STAT(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A58",
+   "fn": "FORECAST.LINEAR",
+   "input": "=IFERROR(FORECAST.LINEAR(1,1,1),0)",
+   "formula2": "=IFERROR(FORECAST.LINEAR(1,1,1),0)",
+   "formula": "=IFERROR(FORECAST.LINEAR(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FORECAST.LINEAR(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A59",
+   "fn": "FORMULATEXT",
+   "input": "=IFERROR(FORMULATEXT(Z99),0)",
+   "formula2": "=IFERROR(FORMULATEXT(Z99),0)",
+   "formula": "=IFERROR(FORMULATEXT(Z99),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.FORMULATEXT(Z99),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A60",
+   "fn": "GAMMA",
+   "input": "=IFERROR(GAMMA(1),0)",
+   "formula2": "=IFERROR(GAMMA(1),0)",
+   "formula": "=IFERROR(GAMMA(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.GAMMA(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A61",
+   "fn": "GAMMA.DIST",
+   "input": "=IFERROR(GAMMA.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(GAMMA.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(GAMMA.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.GAMMA.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A62",
+   "fn": "GAMMA.INV",
+   "input": "=IFERROR(GAMMA.INV(1,1,1),0)",
+   "formula2": "=IFERROR(GAMMA.INV(1,1,1),0)",
+   "formula": "=IFERROR(GAMMA.INV(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.GAMMA.INV(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A63",
+   "fn": "GAMMALN.PRECISE",
+   "input": "=IFERROR(GAMMALN.PRECISE(1),0)",
+   "formula2": "=IFERROR(GAMMALN.PRECISE(1),0)",
+   "formula": "=IFERROR(GAMMALN.PRECISE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.GAMMALN.PRECISE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A64",
+   "fn": "GAUSS",
+   "input": "=IFERROR(GAUSS(1),0)",
+   "formula2": "=IFERROR(GAUSS(1),0)",
+   "formula": "=IFERROR(GAUSS(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.GAUSS(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A65",
+   "fn": "HSTACK",
+   "input": "=IFERROR(HSTACK(1),0)",
+   "formula2": "=IFERROR(HSTACK(1),0)",
+   "formula": "=IFERROR(HSTACK(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.HSTACK(1),0)",
+    "t": "array",
+    "ref": "A65",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A66",
+   "fn": "HYPGEOM.DIST",
+   "input": "=IFERROR(HYPGEOM.DIST(1,1,1,1,1),0)",
+   "formula2": "=IFERROR(HYPGEOM.DIST(1,1,1,1,1),0)",
+   "formula": "=IFERROR(HYPGEOM.DIST(1,1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.HYPGEOM.DIST(1,1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A67",
+   "fn": "IFNA",
+   "input": "=IFERROR(IFNA(1,1),0)",
+   "formula2": "=IFERROR(IFNA(1,1),0)",
+   "formula": "=IFERROR(IFNA(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IFNA(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A68",
+   "fn": "IFS",
+   "input": "=IFERROR(IFS(1,1),0)",
+   "formula2": "=IFERROR(IFS(1,1),0)",
+   "formula": "=IFERROR(IFS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IFS(1,1),0)",
+    "t": "array",
+    "ref": "A68",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A69",
+   "fn": "IMCOSH",
+   "input": "=IFERROR(IMCOSH(1),0)",
+   "formula2": "=IFERROR(IMCOSH(1),0)",
+   "formula": "=IFERROR(IMCOSH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMCOSH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A70",
+   "fn": "IMCOT",
+   "input": "=IFERROR(IMCOT(1),0)",
+   "formula2": "=IFERROR(IMCOT(1),0)",
+   "formula": "=IFERROR(IMCOT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMCOT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A71",
+   "fn": "IMCSC",
+   "input": "=IFERROR(IMCSC(1),0)",
+   "formula2": "=IFERROR(IMCSC(1),0)",
+   "formula": "=IFERROR(IMCSC(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMCSC(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A72",
+   "fn": "IMCSCH",
+   "input": "=IFERROR(IMCSCH(1),0)",
+   "formula2": "=IFERROR(IMCSCH(1),0)",
+   "formula": "=IFERROR(IMCSCH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMCSCH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A73",
+   "fn": "IMSEC",
+   "input": "=IFERROR(IMSEC(1),0)",
+   "formula2": "=IFERROR(IMSEC(1),0)",
+   "formula": "=IFERROR(IMSEC(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMSEC(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A74",
+   "fn": "IMSECH",
+   "input": "=IFERROR(IMSECH(1),0)",
+   "formula2": "=IFERROR(IMSECH(1),0)",
+   "formula": "=IFERROR(IMSECH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMSECH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A75",
+   "fn": "IMSINH",
+   "input": "=IFERROR(IMSINH(1),0)",
+   "formula2": "=IFERROR(IMSINH(1),0)",
+   "formula": "=IFERROR(IMSINH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMSINH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A76",
+   "fn": "IMTAN",
+   "input": "=IFERROR(IMTAN(1),0)",
+   "formula2": "=IFERROR(IMTAN(1),0)",
+   "formula": "=IFERROR(IMTAN(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMTAN(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A77",
+   "fn": "ISFORMULA",
+   "input": "=IFERROR(ISFORMULA(Z99),0)",
+   "formula2": "=IFERROR(ISFORMULA(Z99),0)",
+   "formula": "=IFERROR(ISFORMULA(Z99),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ISFORMULA(Z99),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A78",
+   "fn": "ISO.CEILING",
+   "input": "=IFERROR(ISO.CEILING(1),0)",
+   "formula2": "=IFERROR(ISO.CEILING(1),0)",
+   "formula": "=IFERROR(ISO.CEILING(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ISO.CEILING(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A79",
+   "fn": "ISOMITTED",
+   "input": "=IFERROR(ISOMITTED(1),0)",
+   "formula2": "=IFERROR(ISOMITTED(1),0)",
+   "formula": "=IFERROR(ISOMITTED(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ISOMITTED(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A80",
+   "fn": "ISOWEEKNUM",
+   "input": "=IFERROR(ISOWEEKNUM(1),0)",
+   "formula2": "=IFERROR(ISOWEEKNUM(1),0)",
+   "formula": "=IFERROR(ISOWEEKNUM(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ISOWEEKNUM(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A81",
+   "fn": "LAMBDA",
+   "input": "=IFERROR(LAMBDA(1),0)",
+   "formula2": "=IFERROR(LAMBDA(1),0)",
+   "formula": "=IFERROR(LAMBDA(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.LAMBDA(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A82",
+   "fn": "LET",
+   "input": "=IFERROR(LET(Z99,1,1),0)",
+   "formula2": "=IFERROR(LET(Z99,1,1),0)",
+   "formula": "=IFERROR(LET(Z99,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.LET(_xlpm.Z99,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A83",
+   "fn": "LOGNORM.DIST",
+   "input": "=IFERROR(LOGNORM.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(LOGNORM.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(LOGNORM.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.LOGNORM.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A84",
+   "fn": "LOGNORM.INV",
+   "input": "=IFERROR(LOGNORM.INV(1,1,1),0)",
+   "formula2": "=IFERROR(LOGNORM.INV(1,1,1),0)",
+   "formula": "=IFERROR(LOGNORM.INV(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.LOGNORM.INV(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A85",
+   "fn": "MAKEARRAY",
+   "input": "=IFERROR(MAKEARRAY(1,1,1),0)",
+   "formula2": "=IFERROR(MAKEARRAY(1,1,1),0)",
+   "formula": "=IFERROR(MAKEARRAY(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MAKEARRAY(1,1,1),0)",
+    "t": "array",
+    "ref": "A85",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A86",
+   "fn": "MAP",
+   "input": "=IFERROR(MAP(1,1),0)",
+   "formula2": "=IFERROR(MAP(1,1),0)",
+   "formula": "=IFERROR(MAP(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MAP(1,1),0)",
+    "t": "array",
+    "ref": "A86",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A87",
+   "fn": "MAXIFS",
+   "input": "=IFERROR(MAXIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula2": "=IFERROR(MAXIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula": "=IFERROR(MAXIFS(Z99:Z100,Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MAXIFS(Z99:Z100,Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A88",
+   "fn": "MINIFS",
+   "input": "=IFERROR(MINIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula2": "=IFERROR(MINIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula": "=IFERROR(MINIFS(Z99:Z100,Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MINIFS(Z99:Z100,Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A89",
+   "fn": "MODE.MULT",
+   "input": "=IFERROR(MODE.MULT(1),0)",
+   "formula2": "=IFERROR(MODE.MULT(1),0)",
+   "formula": "=IFERROR(MODE.MULT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MODE.MULT(1),0)",
+    "t": "array",
+    "ref": "A89",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A90",
+   "fn": "MODE.SNGL",
+   "input": "=IFERROR(MODE.SNGL(1),0)",
+   "formula2": "=IFERROR(MODE.SNGL(1),0)",
+   "formula": "=IFERROR(MODE.SNGL(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MODE.SNGL(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A91",
+   "fn": "MUNIT",
+   "input": "=IFERROR(MUNIT(1),0)",
+   "formula2": "=IFERROR(MUNIT(1),0)",
+   "formula": "=IFERROR(MUNIT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.MUNIT(1),0)",
+    "t": "array",
+    "ref": "A91",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A92",
+   "fn": "NEGBINOM.DIST",
+   "input": "=IFERROR(NEGBINOM.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(NEGBINOM.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(NEGBINOM.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.NEGBINOM.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A93",
+   "fn": "NETWORKDAYS.INTL",
+   "input": "=IFERROR(NETWORKDAYS.INTL(1,1),0)",
+   "formula2": "=IFERROR(NETWORKDAYS.INTL(1,1),0)",
+   "formula": "=IFERROR(NETWORKDAYS.INTL(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(NETWORKDAYS.INTL(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A94",
+   "fn": "NORM.DIST",
+   "input": "=IFERROR(NORM.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(NORM.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(NORM.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.NORM.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A95",
+   "fn": "NORM.INV",
+   "input": "=IFERROR(NORM.INV(1,1,1),0)",
+   "formula2": "=IFERROR(NORM.INV(1,1,1),0)",
+   "formula": "=IFERROR(NORM.INV(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.NORM.INV(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A96",
+   "fn": "NORM.S.DIST",
+   "input": "=IFERROR(NORM.S.DIST(1,1),0)",
+   "formula2": "=IFERROR(NORM.S.DIST(1,1),0)",
+   "formula": "=IFERROR(NORM.S.DIST(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.NORM.S.DIST(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A97",
+   "fn": "NORM.S.INV",
+   "input": "=IFERROR(NORM.S.INV(1),0)",
+   "formula2": "=IFERROR(NORM.S.INV(1),0)",
+   "formula": "=IFERROR(NORM.S.INV(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.NORM.S.INV(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A98",
+   "fn": "NUMBERVALUE",
+   "input": "=IFERROR(NUMBERVALUE(1),0)",
+   "formula2": "=IFERROR(NUMBERVALUE(1),0)",
+   "formula": "=IFERROR(NUMBERVALUE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.NUMBERVALUE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A99",
+   "fn": "PDURATION",
+   "input": "=IFERROR(PDURATION(1,1,1),0)",
+   "formula2": "=IFERROR(PDURATION(1,1,1),0)",
+   "formula": "=IFERROR(PDURATION(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PDURATION(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A100",
+   "fn": "PERCENTILE.EXC",
+   "input": "=IFERROR(PERCENTILE.EXC(1,1),0)",
+   "formula2": "=IFERROR(PERCENTILE.EXC(1,1),0)",
+   "formula": "=IFERROR(PERCENTILE.EXC(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PERCENTILE.EXC(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A101",
+   "fn": "PERCENTILE.INC",
+   "input": "=IFERROR(PERCENTILE.INC(1,1),0)",
+   "formula2": "=IFERROR(PERCENTILE.INC(1,1),0)",
+   "formula": "=IFERROR(PERCENTILE.INC(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PERCENTILE.INC(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A102",
+   "fn": "PERCENTRANK.EXC",
+   "input": "=IFERROR(PERCENTRANK.EXC(1,1),0)",
+   "formula2": "=IFERROR(PERCENTRANK.EXC(1,1),0)",
+   "formula": "=IFERROR(PERCENTRANK.EXC(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PERCENTRANK.EXC(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A103",
+   "fn": "PERCENTRANK.INC",
+   "input": "=IFERROR(PERCENTRANK.INC(1,1),0)",
+   "formula2": "=IFERROR(PERCENTRANK.INC(1,1),0)",
+   "formula": "=IFERROR(PERCENTRANK.INC(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PERCENTRANK.INC(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A104",
+   "fn": "PERMUTATIONA",
+   "input": "=IFERROR(PERMUTATIONA(1,1),0)",
+   "formula2": "=IFERROR(PERMUTATIONA(1,1),0)",
+   "formula": "=IFERROR(PERMUTATIONA(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PERMUTATIONA(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A105",
+   "fn": "PHI",
+   "input": "=IFERROR(PHI(1),0)",
+   "formula2": "=IFERROR(PHI(1),0)",
+   "formula": "=IFERROR(PHI(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PHI(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A106",
+   "fn": "POISSON.DIST",
+   "input": "=IFERROR(POISSON.DIST(1,1,1),0)",
+   "formula2": "=IFERROR(POISSON.DIST(1,1,1),0)",
+   "formula": "=IFERROR(POISSON.DIST(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.POISSON.DIST(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A107",
+   "fn": "QUARTILE.EXC",
+   "input": "=IFERROR(QUARTILE.EXC(1,1),0)",
+   "formula2": "=IFERROR(QUARTILE.EXC(1,1),0)",
+   "formula": "=IFERROR(QUARTILE.EXC(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.QUARTILE.EXC(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A108",
+   "fn": "QUARTILE.INC",
+   "input": "=IFERROR(QUARTILE.INC(1,1),0)",
+   "formula2": "=IFERROR(QUARTILE.INC(1,1),0)",
+   "formula": "=IFERROR(QUARTILE.INC(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.QUARTILE.INC(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A109",
+   "fn": "RANDARRAY",
+   "input": "=IFERROR(RANDARRAY(),0)",
+   "formula2": "=IFERROR(RANDARRAY(),0)",
+   "formula": "=IFERROR(RANDARRAY(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.RANDARRAY(),0)",
+    "t": "array",
+    "ref": "A109",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A110",
+   "fn": "RANK.AVG",
+   "input": "=IFERROR(RANK.AVG(1,Z99:Z100),0)",
+   "formula2": "=IFERROR(RANK.AVG(1,Z99:Z100),0)",
+   "formula": "=IFERROR(RANK.AVG(1,Z99:Z100),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.RANK.AVG(1,Z99:Z100),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A111",
+   "fn": "RANK.EQ",
+   "input": "=IFERROR(RANK.EQ(1,Z99:Z100),0)",
+   "formula2": "=IFERROR(RANK.EQ(1,Z99:Z100),0)",
+   "formula": "=IFERROR(RANK.EQ(1,Z99:Z100),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.RANK.EQ(1,Z99:Z100),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A112",
+   "fn": "REDUCE",
+   "input": "=IFERROR(REDUCE(1,1,1),0)",
+   "formula2": "=IFERROR(REDUCE(1,1,1),0)",
+   "formula": "=IFERROR(REDUCE(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.REDUCE(1,1,1),0)",
+    "t": "array",
+    "ref": "A112",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A113",
+   "fn": "RRI",
+   "input": "=IFERROR(RRI(1,1,1),0)",
+   "formula2": "=IFERROR(RRI(1,1,1),0)",
+   "formula": "=IFERROR(RRI(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.RRI(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A114",
+   "fn": "SCAN",
+   "input": "=IFERROR(SCAN(1,1,1),0)",
+   "formula2": "=IFERROR(SCAN(1,1,1),0)",
+   "formula": "=IFERROR(SCAN(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SCAN(1,1,1),0)",
+    "t": "array",
+    "ref": "A114",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A115",
+   "fn": "SEC",
+   "input": "=IFERROR(SEC(1),0)",
+   "formula2": "=IFERROR(SEC(1),0)",
+   "formula": "=IFERROR(SEC(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SEC(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A116",
+   "fn": "SECH",
+   "input": "=IFERROR(SECH(1),0)",
+   "formula2": "=IFERROR(SECH(1),0)",
+   "formula": "=IFERROR(SECH(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SECH(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A117",
+   "fn": "SEQUENCE",
+   "input": "=IFERROR(SEQUENCE(1),0)",
+   "formula2": "=IFERROR(SEQUENCE(1),0)",
+   "formula": "=IFERROR(SEQUENCE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SEQUENCE(1),0)",
+    "t": "array",
+    "ref": "A117",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A118",
+   "fn": "SHEET",
+   "input": "=IFERROR(SHEET(),0)",
+   "formula2": "=IFERROR(SHEET(),0)",
+   "formula": "=IFERROR(SHEET(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SHEET(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A119",
+   "fn": "SHEETS",
+   "input": "=IFERROR(SHEETS(),0)",
+   "formula2": "=IFERROR(SHEETS(),0)",
+   "formula": "=IFERROR(SHEETS(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SHEETS(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A120",
+   "fn": "SKEW.P",
+   "input": "=IFERROR(SKEW.P(1),0)",
+   "formula2": "=IFERROR(SKEW.P(1),0)",
+   "formula": "=IFERROR(SKEW.P(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SKEW.P(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A121",
+   "fn": "SORTBY",
+   "input": "=IFERROR(SORTBY(1,1),0)",
+   "formula2": "=IFERROR(SORTBY(1,1),0)",
+   "formula": "=IFERROR(SORTBY(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SORTBY(1,1),0)",
+    "t": "array",
+    "ref": "A121",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A122",
+   "fn": "STDEV.P",
+   "input": "=IFERROR(STDEV.P(1),0)",
+   "formula2": "=IFERROR(STDEV.P(1),0)",
+   "formula": "=IFERROR(STDEV.P(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.STDEV.P(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A123",
+   "fn": "STDEV.S",
+   "input": "=IFERROR(STDEV.S(1),0)",
+   "formula2": "=IFERROR(STDEV.S(1),0)",
+   "formula": "=IFERROR(STDEV.S(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.STDEV.S(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A124",
+   "fn": "SWITCH",
+   "input": "=IFERROR(SWITCH(1,1,1),0)",
+   "formula2": "=IFERROR(SWITCH(1,1,1),0)",
+   "formula": "=IFERROR(SWITCH(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SWITCH(1,1,1),0)",
+    "t": "array",
+    "ref": "A124",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A125",
+   "fn": "T.DIST",
+   "input": "=IFERROR(T.DIST(1,1,1),0)",
+   "formula2": "=IFERROR(T.DIST(1,1,1),0)",
+   "formula": "=IFERROR(T.DIST(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.T.DIST(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A126",
+   "fn": "T.DIST.2T",
+   "input": "=IFERROR(T.DIST.2T(1,1),0)",
+   "formula2": "=IFERROR(T.DIST.2T(1,1),0)",
+   "formula": "=IFERROR(T.DIST.2T(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.T.DIST.2T(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A127",
+   "fn": "T.DIST.RT",
+   "input": "=IFERROR(T.DIST.RT(1,1),0)",
+   "formula2": "=IFERROR(T.DIST.RT(1,1),0)",
+   "formula": "=IFERROR(T.DIST.RT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.T.DIST.RT(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A128",
+   "fn": "T.INV",
+   "input": "=IFERROR(T.INV(1,1),0)",
+   "formula2": "=IFERROR(T.INV(1,1),0)",
+   "formula": "=IFERROR(T.INV(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.T.INV(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A129",
+   "fn": "T.INV.2T",
+   "input": "=IFERROR(T.INV.2T(1,1),0)",
+   "formula2": "=IFERROR(T.INV.2T(1,1),0)",
+   "formula": "=IFERROR(T.INV.2T(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.T.INV.2T(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A130",
+   "fn": "T.TEST",
+   "input": "=IFERROR(T.TEST(1,1,1,1),0)",
+   "formula2": "=IFERROR(T.TEST(1,1,1,1),0)",
+   "formula": "=IFERROR(T.TEST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.T.TEST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A131",
+   "fn": "TAKE",
+   "input": "=IFERROR(TAKE(1,1),0)",
+   "formula2": "=IFERROR(TAKE(1,1),0)",
+   "formula": "=IFERROR(TAKE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TAKE(1,1),0)",
+    "t": "array",
+    "ref": "A131",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A132",
+   "fn": "TEXTAFTER",
+   "input": "=IFERROR(TEXTAFTER(1,1),0)",
+   "formula2": "=IFERROR(TEXTAFTER(1,1),0)",
+   "formula": "=IFERROR(TEXTAFTER(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TEXTAFTER(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A133",
+   "fn": "TEXTBEFORE",
+   "input": "=IFERROR(TEXTBEFORE(1,1),0)",
+   "formula2": "=IFERROR(TEXTBEFORE(1,1),0)",
+   "formula": "=IFERROR(TEXTBEFORE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TEXTBEFORE(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A134",
+   "fn": "TEXTJOIN",
+   "input": "=IFERROR(TEXTJOIN(1,1,1),0)",
+   "formula2": "=IFERROR(TEXTJOIN(1,1,1),0)",
+   "formula": "=IFERROR(TEXTJOIN(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TEXTJOIN(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A135",
+   "fn": "TEXTSPLIT",
+   "input": "=IFERROR(TEXTSPLIT(1,1),0)",
+   "formula2": "=IFERROR(TEXTSPLIT(1,1),0)",
+   "formula": "=IFERROR(TEXTSPLIT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TEXTSPLIT(1,1),0)",
+    "t": "array",
+    "ref": "A135:B135",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A136",
+   "fn": "TOCOL",
+   "input": "=IFERROR(TOCOL(1),0)",
+   "formula2": "=IFERROR(TOCOL(1),0)",
+   "formula": "=IFERROR(TOCOL(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TOCOL(1),0)",
+    "t": "array",
+    "ref": "A136",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A137",
+   "fn": "TOROW",
+   "input": "=IFERROR(TOROW(1),0)",
+   "formula2": "=IFERROR(TOROW(1),0)",
+   "formula": "=IFERROR(TOROW(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TOROW(1),0)",
+    "t": "array",
+    "ref": "A137",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A138",
+   "fn": "UNICHAR",
+   "input": "=IFERROR(UNICHAR(1),0)",
+   "formula2": "=IFERROR(UNICHAR(1),0)",
+   "formula": "=IFERROR(UNICHAR(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.UNICHAR(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A139",
+   "fn": "UNICODE",
+   "input": "=IFERROR(UNICODE(1),0)",
+   "formula2": "=IFERROR(UNICODE(1),0)",
+   "formula": "=IFERROR(UNICODE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.UNICODE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A140",
+   "fn": "UNIQUE",
+   "input": "=IFERROR(UNIQUE(1),0)",
+   "formula2": "=IFERROR(UNIQUE(1),0)",
+   "formula": "=IFERROR(UNIQUE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.UNIQUE(1),0)",
+    "t": "array",
+    "ref": "A140",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A141",
+   "fn": "VAR.P",
+   "input": "=IFERROR(VAR.P(1),0)",
+   "formula2": "=IFERROR(VAR.P(1),0)",
+   "formula": "=IFERROR(VAR.P(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.VAR.P(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A142",
+   "fn": "VAR.S",
+   "input": "=IFERROR(VAR.S(1),0)",
+   "formula2": "=IFERROR(VAR.S(1),0)",
+   "formula": "=IFERROR(VAR.S(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.VAR.S(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A143",
+   "fn": "VSTACK",
+   "input": "=IFERROR(VSTACK(1),0)",
+   "formula2": "=IFERROR(VSTACK(1),0)",
+   "formula": "=IFERROR(VSTACK(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.VSTACK(1),0)",
+    "t": "array",
+    "ref": "A143",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A144",
+   "fn": "WEBSERVICE",
+   "input": "=IFERROR(WEBSERVICE(1),0)",
+   "formula2": "=IFERROR(WEBSERVICE(1),0)",
+   "formula": "=IFERROR(WEBSERVICE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.WEBSERVICE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A145",
+   "fn": "WEIBULL.DIST",
+   "input": "=IFERROR(WEIBULL.DIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(WEIBULL.DIST(1,1,1,1),0)",
+   "formula": "=IFERROR(WEIBULL.DIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.WEIBULL.DIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A146",
+   "fn": "WORKDAY.INTL",
+   "input": "=IFERROR(WORKDAY.INTL(1,1),0)",
+   "formula2": "=IFERROR(WORKDAY.INTL(1,1),0)",
+   "formula": "=IFERROR(WORKDAY.INTL(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(WORKDAY.INTL(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A147",
+   "fn": "WRAPCOLS",
+   "input": "=IFERROR(WRAPCOLS(1,1),0)",
+   "formula2": "=IFERROR(WRAPCOLS(1,1),0)",
+   "formula": "=IFERROR(WRAPCOLS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.WRAPCOLS(1,1),0)",
+    "t": "array",
+    "ref": "A147",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A148",
+   "fn": "WRAPROWS",
+   "input": "=IFERROR(WRAPROWS(1,1),0)",
+   "formula2": "=IFERROR(WRAPROWS(1,1),0)",
+   "formula": "=IFERROR(WRAPROWS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.WRAPROWS(1,1),0)",
+    "t": "array",
+    "ref": "A148",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A149",
+   "fn": "XLOOKUP",
+   "input": "=IFERROR(XLOOKUP(1,1,1),0)",
+   "formula2": "=IFERROR(XLOOKUP(1,1,1),0)",
+   "formula": "=IFERROR(XLOOKUP(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.XLOOKUP(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A150",
+   "fn": "XOR",
+   "input": "=IFERROR(XOR(1),0)",
+   "formula2": "=IFERROR(XOR(1),0)",
+   "formula": "=IFERROR(XOR(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.XOR(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A151",
+   "fn": "Z.TEST",
+   "input": "=IFERROR(Z.TEST(1,1),0)",
+   "formula2": "=IFERROR(Z.TEST(1,1),0)",
+   "formula": "=IFERROR(Z.TEST(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.Z.TEST(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A152",
+   "fn": "FILTER",
+   "input": "=IFERROR(FILTER(1,1),0)",
+   "formula2": "=IFERROR(FILTER(1,1),0)",
+   "formula": "=IFERROR(FILTER(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn._xlws.FILTER(1,1),0)",
+    "t": "array",
+    "ref": "A152",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A153",
+   "fn": "SORT",
+   "input": "=IFERROR(SORT(1),0)",
+   "formula2": "=IFERROR(SORT(1),0)",
+   "formula": "=IFERROR(SORT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn._xlws.SORT(1),0)",
+    "t": "array",
+    "ref": "A153",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A154",
+   "fn": "XMATCH",
+   "input": "=IFERROR(XMATCH(1,1),0)",
+   "formula2": "=IFERROR(XMATCH(1,1),0)",
+   "formula": "=IFERROR(XMATCH(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.XMATCH(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A155",
+   "fn": "ANCHORARRAY",
+   "input": null,
+   "formula2": null,
+   "formula": null,
+   "err": "Exception from HRESULT: 0x800A03EC",
+   "file": null
+  },
+  {
+   "sheet": "F",
+   "cell": "A156",
+   "fn": "SINGLE",
+   "input": "=IFERROR(SINGLE(1),0)",
+   "formula2": "=IFERROR(@1,0)",
+   "formula": "=IFERROR(@1,0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.SINGLE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A157",
+   "fn": "ARRAYTOTEXT",
+   "input": "=IFERROR(ARRAYTOTEXT(1),0)",
+   "formula2": "=IFERROR(ARRAYTOTEXT(1),0)",
+   "formula": "=IFERROR(ARRAYTOTEXT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ARRAYTOTEXT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A158",
+   "fn": "VALUETOTEXT",
+   "input": "=IFERROR(VALUETOTEXT(1),0)",
+   "formula2": "=IFERROR(VALUETOTEXT(1),0)",
+   "formula": "=IFERROR(VALUETOTEXT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.VALUETOTEXT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A159",
+   "fn": "IMAGE",
+   "input": "=IFERROR(IMAGE(1),0)",
+   "formula2": "=IFERROR(IMAGE(1),0)",
+   "formula": "=IFERROR(IMAGE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.IMAGE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A160",
+   "fn": "STOCKHISTORY",
+   "input": "=IFERROR(STOCKHISTORY(1,1),0)",
+   "formula2": "=IFERROR(STOCKHISTORY(1,1),0)",
+   "formula": "=IFERROR(STOCKHISTORY(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.STOCKHISTORY(1,1),0)",
+    "t": "array",
+    "ref": "A160",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A161",
+   "fn": "GROUPBY",
+   "input": "=IFERROR(GROUPBY(1,1,1),0)",
+   "formula2": "=IFERROR(GROUPBY(1,1,1),0)",
+   "formula": "=IFERROR(GROUPBY(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.GROUPBY(1,1,1),0)",
+    "t": "array",
+    "ref": "A161",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A162",
+   "fn": "PIVOTBY",
+   "input": "=IFERROR(PIVOTBY(1,1,1,1),0)",
+   "formula2": "=IFERROR(PIVOTBY(1,1,1,1),0)",
+   "formula": "=IFERROR(PIVOTBY(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PIVOTBY(1,1,1,1),0)",
+    "t": "array",
+    "ref": "A162",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A163",
+   "fn": "PERCENTOF",
+   "input": "=IFERROR(PERCENTOF(1,1),0)",
+   "formula2": "=IFERROR(PERCENTOF(1,1),0)",
+   "formula": "=IFERROR(PERCENTOF(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.PERCENTOF(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A164",
+   "fn": "REGEXTEST",
+   "input": "=IFERROR(REGEXTEST(1,1),0)",
+   "formula2": "=IFERROR(REGEXTEST(1,1),0)",
+   "formula": "=IFERROR(REGEXTEST(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.REGEXTEST(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A165",
+   "fn": "REGEXEXTRACT",
+   "input": "=IFERROR(REGEXEXTRACT(1,1),0)",
+   "formula2": "=IFERROR(REGEXEXTRACT(1,1),0)",
+   "formula": "=IFERROR(REGEXEXTRACT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.REGEXEXTRACT(1,1),0)",
+    "t": "array",
+    "ref": "A165",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A166",
+   "fn": "REGEXREPLACE",
+   "input": "=IFERROR(REGEXREPLACE(1,1,1),0)",
+   "formula2": "=IFERROR(REGEXREPLACE(1,1,1),0)",
+   "formula": "=IFERROR(REGEXREPLACE(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.REGEXREPLACE(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A167",
+   "fn": "TRIMRANGE",
+   "input": "=IFERROR(TRIMRANGE(1),0)",
+   "formula2": "=IFERROR(TRIMRANGE(1),0)",
+   "formula": "=IFERROR(TRIMRANGE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TRIMRANGE(1),0)",
+    "t": "array",
+    "ref": "A167",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A168",
+   "fn": "TRANSLATE",
+   "input": "=IFERROR(TRANSLATE(1),0)",
+   "formula2": "=IFERROR(TRANSLATE(1),0)",
+   "formula": "=IFERROR(TRANSLATE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.TRANSLATE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A169",
+   "fn": "DETECTLANGUAGE",
+   "input": "=IFERROR(DETECTLANGUAGE(1),0)",
+   "formula2": "=IFERROR(DETECTLANGUAGE(1),0)",
+   "formula": "=IFERROR(DETECTLANGUAGE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.DETECTLANGUAGE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A170",
+   "fn": "ENCODEURL",
+   "input": "=IFERROR(ENCODEURL(1),0)",
+   "formula2": "=IFERROR(ENCODEURL(1),0)",
+   "formula": "=IFERROR(ENCODEURL(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(_xlfn.ENCODEURL(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A171",
+   "fn": "COPILOT",
+   "input": "=IFERROR(COPILOT(),0)",
+   "formula2": "=IFERROR(COPILOT(),0)",
+   "formula": "=IFERROR(COPILOT(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COPILOT(),0)",
+    "t": "array",
+    "ref": "A171",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A172",
+   "fn": "PY",
+   "input": null,
+   "formula2": null,
+   "formula": null,
+   "err": "Exception from HRESULT: 0x800A03EC",
+   "file": null
+  },
+  {
+   "sheet": "F",
+   "cell": "A173",
+   "fn": "QUERYSTRING",
+   "input": "=IFERROR(QUERYSTRING(),0)",
+   "formula2": "=IFERROR(QUERYSTRING(),0)",
+   "formula": "=IFERROR(QUERYSTRING(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(QUERYSTRING(),0)",
+    "t": "array",
+    "ref": "A173",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A174",
+   "fn": "PQSOURCE",
+   "input": null,
+   "formula2": null,
+   "formula": null,
+   "err": "Exception from HRESULT: 0x800A03EC",
+   "file": null
+  },
+  {
+   "sheet": "F",
+   "cell": "A175",
+   "fn": "LONGTEXT",
+   "input": "=IFERROR(LONGTEXT(),0)",
+   "formula2": "=IFERROR(LONGTEXT(),0)",
+   "formula": "=IFERROR(LONGTEXT(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(LONGTEXT(),0)",
+    "t": "array",
+    "ref": "A175",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A176",
+   "fn": "PYTHON_STR",
+   "input": "=IFERROR(PYTHON_STR(),0)",
+   "formula2": "=IFERROR(PYTHON_STR(),0)",
+   "formula": "=IFERROR(PYTHON_STR(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(PYTHON_STR(),0)",
+    "t": "array",
+    "ref": "A176",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A177",
+   "fn": "PYTHON_TYPE",
+   "input": "=IFERROR(PYTHON_TYPE(),0)",
+   "formula2": "=IFERROR(PYTHON_TYPE(),0)",
+   "formula": "=IFERROR(PYTHON_TYPE(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(PYTHON_TYPE(),0)",
+    "t": "array",
+    "ref": "A177",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A178",
+   "fn": "PYTHON_TYPENAME",
+   "input": "=IFERROR(PYTHON_TYPENAME(),0)",
+   "formula2": "=IFERROR(PYTHON_TYPENAME(),0)",
+   "formula": "=IFERROR(PYTHON_TYPENAME(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(PYTHON_TYPENAME(),0)",
+    "t": "array",
+    "ref": "A178",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A179",
+   "fn": "SUM",
+   "input": "=IFERROR(SUM(1),0)",
+   "formula2": "=IFERROR(SUM(1),0)",
+   "formula": "=IFERROR(SUM(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(SUM(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A180",
+   "fn": "VLOOKUP",
+   "input": "=IFERROR(VLOOKUP(1,1,1),0)",
+   "formula2": "=IFERROR(VLOOKUP(1,1,1),0)",
+   "formula": "=IFERROR(VLOOKUP(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(VLOOKUP(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A181",
+   "fn": "HLOOKUP",
+   "input": "=IFERROR(HLOOKUP(1,1,1),0)",
+   "formula2": "=IFERROR(HLOOKUP(1,1,1),0)",
+   "formula": "=IFERROR(HLOOKUP(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(HLOOKUP(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A182",
+   "fn": "INDEX",
+   "input": "=IFERROR(INDEX(1,1),0)",
+   "formula2": "=IFERROR(INDEX(1,1),0)",
+   "formula": "=IFERROR(INDEX(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(INDEX(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A183",
+   "fn": "MATCH",
+   "input": "=IFERROR(MATCH(1,1),0)",
+   "formula2": "=IFERROR(MATCH(1,1),0)",
+   "formula": "=IFERROR(MATCH(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(MATCH(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A184",
+   "fn": "OFFSET",
+   "input": "=IFERROR(OFFSET(Z99:Z100,1,1),0)",
+   "formula2": "=IFERROR(OFFSET(Z99:Z100,1,1),0)",
+   "formula": "=IFERROR(OFFSET(Z99:Z100,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(OFFSET(Z99:Z100,1,1),0)",
+    "t": "array",
+    "ref": "A184",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A185",
+   "fn": "CHOOSE",
+   "input": "=IFERROR(CHOOSE(1,1),0)",
+   "formula2": "=IFERROR(CHOOSE(1,1),0)",
+   "formula": "=IFERROR(CHOOSE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(CHOOSE(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A186",
+   "fn": "IFERROR",
+   "input": "=IFERROR(IFERROR(1,1),0)",
+   "formula2": "=IFERROR(IFERROR(1,1),0)",
+   "formula": "=IFERROR(IFERROR(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(IFERROR(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A187",
+   "fn": "SUMIFS",
+   "input": "=IFERROR(SUMIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula2": "=IFERROR(SUMIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula": "=IFERROR(SUMIFS(Z99:Z100,Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(SUMIFS(Z99:Z100,Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A188",
+   "fn": "COUNTIFS",
+   "input": "=IFERROR(COUNTIFS(Z99:Z100,1),0)",
+   "formula2": "=IFERROR(COUNTIFS(Z99:Z100,1),0)",
+   "formula": "=IFERROR(COUNTIFS(Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COUNTIFS(Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A189",
+   "fn": "AVERAGEIFS",
+   "input": "=IFERROR(AVERAGEIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula2": "=IFERROR(AVERAGEIFS(Z99:Z100,Z99:Z100,1),0)",
+   "formula": "=IFERROR(AVERAGEIFS(Z99:Z100,Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(AVERAGEIFS(Z99:Z100,Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A190",
+   "fn": "SUMIF",
+   "input": "=IFERROR(SUMIF(Z99:Z100,1),0)",
+   "formula2": "=IFERROR(SUMIF(Z99:Z100,1),0)",
+   "formula": "=IFERROR(SUMIF(Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(SUMIF(Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A191",
+   "fn": "COUNTIF",
+   "input": "=IFERROR(COUNTIF(Z99:Z100,1),0)",
+   "formula2": "=IFERROR(COUNTIF(Z99:Z100,1),0)",
+   "formula": "=IFERROR(COUNTIF(Z99:Z100,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COUNTIF(Z99:Z100,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A192",
+   "fn": "NETWORKDAYS",
+   "input": "=IFERROR(NETWORKDAYS(1,1),0)",
+   "formula2": "=IFERROR(NETWORKDAYS(1,1),0)",
+   "formula": "=IFERROR(NETWORKDAYS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(NETWORKDAYS(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A193",
+   "fn": "WORKDAY",
+   "input": "=IFERROR(WORKDAY(1,1),0)",
+   "formula2": "=IFERROR(WORKDAY(1,1),0)",
+   "formula": "=IFERROR(WORKDAY(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(WORKDAY(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A194",
+   "fn": "EDATE",
+   "input": "=IFERROR(EDATE(1,1),0)",
+   "formula2": "=IFERROR(EDATE(1,1),0)",
+   "formula": "=IFERROR(EDATE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(EDATE(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A195",
+   "fn": "EOMONTH",
+   "input": "=IFERROR(EOMONTH(1,1),0)",
+   "formula2": "=IFERROR(EOMONTH(1,1),0)",
+   "formula": "=IFERROR(EOMONTH(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(EOMONTH(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A196",
+   "fn": "CEILING",
+   "input": "=IFERROR(CEILING(1,1),0)",
+   "formula2": "=IFERROR(CEILING(1,1),0)",
+   "formula": "=IFERROR(CEILING(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(CEILING(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A197",
+   "fn": "FLOOR",
+   "input": "=IFERROR(FLOOR(1,1),0)",
+   "formula2": "=IFERROR(FLOOR(1,1),0)",
+   "formula": "=IFERROR(FLOOR(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(FLOOR(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A198",
+   "fn": "RANK",
+   "input": "=IFERROR(RANK(1,Z99:Z100),0)",
+   "formula2": "=IFERROR(RANK(1,Z99:Z100),0)",
+   "formula": "=IFERROR(RANK(1,Z99:Z100),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(RANK(1,Z99:Z100),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A199",
+   "fn": "STDEV",
+   "input": "=IFERROR(STDEV(1),0)",
+   "formula2": "=IFERROR(STDEV(1),0)",
+   "formula": "=IFERROR(STDEV(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(STDEV(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A200",
+   "fn": "PERCENTILE",
+   "input": "=IFERROR(PERCENTILE(1,1),0)",
+   "formula2": "=IFERROR(PERCENTILE(1,1),0)",
+   "formula": "=IFERROR(PERCENTILE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(PERCENTILE(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A201",
+   "fn": "QUARTILE",
+   "input": "=IFERROR(QUARTILE(1,1),0)",
+   "formula2": "=IFERROR(QUARTILE(1,1),0)",
+   "formula": "=IFERROR(QUARTILE(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(QUARTILE(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A202",
+   "fn": "TEXT",
+   "input": "=IFERROR(TEXT(1,1),0)",
+   "formula2": "=IFERROR(TEXT(1,1),0)",
+   "formula": "=IFERROR(TEXT(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(TEXT(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A203",
+   "fn": "DATEDIF",
+   "input": "=IFERROR(DATEDIF(1,1,1),0)",
+   "formula2": "=IFERROR(DATEDIF(1,1,1),0)",
+   "formula": "=IFERROR(DATEDIF(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(DATEDIF(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A204",
+   "fn": "INDIRECT",
+   "input": "=IFERROR(INDIRECT(1),0)",
+   "formula2": "=IFERROR(INDIRECT(1),0)",
+   "formula": "=IFERROR(INDIRECT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(INDIRECT(1),0)",
+    "t": "array",
+    "ref": "A204",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A205",
+   "fn": "ADDRESS",
+   "input": "=IFERROR(ADDRESS(1,1),0)",
+   "formula2": "=IFERROR(ADDRESS(1,1),0)",
+   "formula": "=IFERROR(ADDRESS(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ADDRESS(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A206",
+   "fn": "ROUND",
+   "input": "=IFERROR(ROUND(1,1),0)",
+   "formula2": "=IFERROR(ROUND(1,1),0)",
+   "formula": "=IFERROR(ROUND(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ROUND(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A207",
+   "fn": "ROUNDUP",
+   "input": "=IFERROR(ROUNDUP(1,1),0)",
+   "formula2": "=IFERROR(ROUNDUP(1,1),0)",
+   "formula": "=IFERROR(ROUNDUP(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ROUNDUP(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A208",
+   "fn": "ROUNDDOWN",
+   "input": "=IFERROR(ROUNDDOWN(1,1),0)",
+   "formula2": "=IFERROR(ROUNDDOWN(1,1),0)",
+   "formula": "=IFERROR(ROUNDDOWN(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ROUNDDOWN(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A209",
+   "fn": "IF",
+   "input": "=IFERROR(IF(1,1),0)",
+   "formula2": "=IFERROR(IF(1,1),0)",
+   "formula": "=IFERROR(IF(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(IF(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A210",
+   "fn": "AND",
+   "input": "=IFERROR(AND(1),0)",
+   "formula2": "=IFERROR(AND(1),0)",
+   "formula": "=IFERROR(AND(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(AND(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A211",
+   "fn": "OR",
+   "input": "=IFERROR(OR(1),0)",
+   "formula2": "=IFERROR(OR(1),0)",
+   "formula": "=IFERROR(OR(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(OR(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A212",
+   "fn": "NOT",
+   "input": "=IFERROR(NOT(1),0)",
+   "formula2": "=IFERROR(NOT(1),0)",
+   "formula": "=IFERROR(NOT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(NOT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A213",
+   "fn": "LEFT",
+   "input": "=IFERROR(LEFT(1),0)",
+   "formula2": "=IFERROR(LEFT(1),0)",
+   "formula": "=IFERROR(LEFT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(LEFT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A214",
+   "fn": "RIGHT",
+   "input": "=IFERROR(RIGHT(1),0)",
+   "formula2": "=IFERROR(RIGHT(1),0)",
+   "formula": "=IFERROR(RIGHT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(RIGHT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A215",
+   "fn": "MID",
+   "input": "=IFERROR(MID(1,1,1),0)",
+   "formula2": "=IFERROR(MID(1,1,1),0)",
+   "formula": "=IFERROR(MID(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(MID(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A216",
+   "fn": "LEN",
+   "input": "=IFERROR(LEN(1),0)",
+   "formula2": "=IFERROR(LEN(1),0)",
+   "formula": "=IFERROR(LEN(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(LEN(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A217",
+   "fn": "FIND",
+   "input": "=IFERROR(FIND(1,1),0)",
+   "formula2": "=IFERROR(FIND(1,1),0)",
+   "formula": "=IFERROR(FIND(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(FIND(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A218",
+   "fn": "SEARCH",
+   "input": "=IFERROR(SEARCH(1,1),0)",
+   "formula2": "=IFERROR(SEARCH(1,1),0)",
+   "formula": "=IFERROR(SEARCH(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(SEARCH(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A219",
+   "fn": "SUBSTITUTE",
+   "input": "=IFERROR(SUBSTITUTE(1,1,1),0)",
+   "formula2": "=IFERROR(SUBSTITUTE(1,1,1),0)",
+   "formula": "=IFERROR(SUBSTITUTE(1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(SUBSTITUTE(1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A220",
+   "fn": "TRIM",
+   "input": "=IFERROR(TRIM(1),0)",
+   "formula2": "=IFERROR(TRIM(1),0)",
+   "formula": "=IFERROR(TRIM(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(TRIM(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A221",
+   "fn": "JIS",
+   "input": "=IFERROR(JIS(),0)",
+   "formula2": "=IFERROR(JIS(),0)",
+   "formula": "=IFERROR(JIS(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(JIS(),0)",
+    "t": "array",
+    "ref": "A221",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A222",
+   "fn": "ASC",
+   "input": "=IFERROR(ASC(1),0)",
+   "formula2": "=IFERROR(ASC(1),0)",
+   "formula": "=IFERROR(ASC(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ASC(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A223",
+   "fn": "PHONETIC",
+   "input": "=IFERROR(PHONETIC(Z99),0)",
+   "formula2": "=IFERROR(PHONETIC(Z99),0)",
+   "formula": "=IFERROR(PHONETIC(Z99),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(PHONETIC(Z99),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A224",
+   "fn": "DBCS",
+   "input": "=IFERROR(DBCS(1),0)",
+   "formula2": "=IFERROR(DBCS(1),0)",
+   "formula": "=IFERROR(DBCS(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(DBCS(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A225",
+   "fn": "BAHTTEXT",
+   "input": "=IFERROR(BAHTTEXT(1),0)",
+   "formula2": "=IFERROR(BAHTTEXT(1),0)",
+   "formula": "=IFERROR(BAHTTEXT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(BAHTTEXT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A226",
+   "fn": "YEN",
+   "input": "=IFERROR(YEN(),0)",
+   "formula2": "=IFERROR(YEN(),0)",
+   "formula": "=IFERROR(YEN(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(YEN(),0)",
+    "t": "array",
+    "ref": "A226",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A227",
+   "fn": "SUMPRODUCT",
+   "input": "=IFERROR(SUMPRODUCT(1),0)",
+   "formula2": "=IFERROR(SUMPRODUCT(1),0)",
+   "formula": "=IFERROR(SUMPRODUCT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(SUMPRODUCT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A228",
+   "fn": "TRANSPOSE",
+   "input": "=IFERROR(TRANSPOSE(1),0)",
+   "formula2": "=IFERROR(TRANSPOSE(1),0)",
+   "formula": "=IFERROR(TRANSPOSE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(TRANSPOSE(1),0)",
+    "t": "array",
+    "ref": "A228",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A229",
+   "fn": "FREQUENCY",
+   "input": "=IFERROR(FREQUENCY(1,1),0)",
+   "formula2": "=IFERROR(FREQUENCY(1,1),0)",
+   "formula": "=IFERROR(FREQUENCY(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(FREQUENCY(1,1),0)",
+    "t": "array",
+    "ref": "A229",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A230",
+   "fn": "MODE",
+   "input": "=IFERROR(MODE(1),0)",
+   "formula2": "=IFERROR(MODE(1),0)",
+   "formula": "=IFERROR(MODE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(MODE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A231",
+   "fn": "NORMDIST",
+   "input": "=IFERROR(NORMDIST(1,1,1,1),0)",
+   "formula2": "=IFERROR(NORMDIST(1,1,1,1),0)",
+   "formula": "=IFERROR(NORMDIST(1,1,1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(NORMDIST(1,1,1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A232",
+   "fn": "CONCATENATE",
+   "input": "=IFERROR(CONCATENATE(1),0)",
+   "formula2": "=IFERROR(CONCATENATE(1),0)",
+   "formula": "=IFERROR(CONCATENATE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(CONCATENATE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A233",
+   "fn": "VALUE",
+   "input": "=IFERROR(VALUE(1),0)",
+   "formula2": "=IFERROR(VALUE(1),0)",
+   "formula": "=IFERROR(VALUE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(VALUE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A234",
+   "fn": "TODAY",
+   "input": "=IFERROR(TODAY(),0)",
+   "formula2": "=IFERROR(TODAY(),0)",
+   "formula": "=IFERROR(TODAY(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(TODAY(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A235",
+   "fn": "NOW",
+   "input": "=IFERROR(NOW(),0)",
+   "formula2": "=IFERROR(NOW(),0)",
+   "formula": "=IFERROR(NOW(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(NOW(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A236",
+   "fn": "RAND",
+   "input": "=IFERROR(RAND(),0)",
+   "formula2": "=IFERROR(RAND(),0)",
+   "formula": "=IFERROR(RAND(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(RAND(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A237",
+   "fn": "ISERROR",
+   "input": "=IFERROR(ISERROR(1),0)",
+   "formula2": "=IFERROR(ISERROR(1),0)",
+   "formula": "=IFERROR(ISERROR(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ISERROR(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A238",
+   "fn": "ISNUMBER",
+   "input": "=IFERROR(ISNUMBER(1),0)",
+   "formula2": "=IFERROR(ISNUMBER(1),0)",
+   "formula": "=IFERROR(ISNUMBER(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ISNUMBER(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A239",
+   "fn": "ISBLANK",
+   "input": "=IFERROR(ISBLANK(1),0)",
+   "formula2": "=IFERROR(ISBLANK(1),0)",
+   "formula": "=IFERROR(ISBLANK(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ISBLANK(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A240",
+   "fn": "HYPERLINK",
+   "input": "=IFERROR(HYPERLINK(1),0)",
+   "formula2": "=IFERROR(HYPERLINK(1),0)",
+   "formula": "=IFERROR(HYPERLINK(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(HYPERLINK(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A241",
+   "fn": "GETPIVOTDATA",
+   "input": "=IFERROR(GETPIVOTDATA(1,1),0)",
+   "formula2": "=IFERROR(GETPIVOTDATA(1,1),0)",
+   "formula": "=IFERROR(GETPIVOTDATA(1,1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(GETPIVOTDATA(1,1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A242",
+   "fn": "CUBEVALUE",
+   "input": "=IFERROR(CUBEVALUE(1),0)",
+   "formula2": "=IFERROR(CUBEVALUE(1),0)",
+   "formula": "=IFERROR(CUBEVALUE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(CUBEVALUE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A243",
+   "fn": "ROWS",
+   "input": "=IFERROR(ROWS(1),0)",
+   "formula2": "=IFERROR(ROWS(1),0)",
+   "formula": "=IFERROR(ROWS(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ROWS(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A244",
+   "fn": "COLUMNS",
+   "input": "=IFERROR(COLUMNS(1),0)",
+   "formula2": "=IFERROR(COLUMNS(1),0)",
+   "formula": "=IFERROR(COLUMNS(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COLUMNS(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A245",
+   "fn": "ROW",
+   "input": "=IFERROR(ROW(),0)",
+   "formula2": "=IFERROR(ROW(),0)",
+   "formula": "=IFERROR(ROW(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(ROW(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A246",
+   "fn": "COLUMN",
+   "input": "=IFERROR(COLUMN(),0)",
+   "formula2": "=IFERROR(COLUMN(),0)",
+   "formula": "=IFERROR(COLUMN(),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COLUMN(),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A247",
+   "fn": "AVERAGE",
+   "input": "=IFERROR(AVERAGE(1),0)",
+   "formula2": "=IFERROR(AVERAGE(1),0)",
+   "formula": "=IFERROR(AVERAGE(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(AVERAGE(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A248",
+   "fn": "MAX",
+   "input": "=IFERROR(MAX(1),0)",
+   "formula2": "=IFERROR(MAX(1),0)",
+   "formula": "=IFERROR(MAX(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(MAX(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A249",
+   "fn": "MIN",
+   "input": "=IFERROR(MIN(1),0)",
+   "formula2": "=IFERROR(MIN(1),0)",
+   "formula": "=IFERROR(MIN(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(MIN(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A250",
+   "fn": "COUNT",
+   "input": "=IFERROR(COUNT(1),0)",
+   "formula2": "=IFERROR(COUNT(1),0)",
+   "formula": "=IFERROR(COUNT(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COUNT(1),0)"
+   }
+  },
+  {
+   "sheet": "F",
+   "cell": "A251",
+   "fn": "COUNTA",
+   "input": "=IFERROR(COUNTA(1),0)",
+   "formula2": "=IFERROR(COUNTA(1),0)",
+   "formula": "=IFERROR(COUNTA(1),0)",
+   "err": null,
+   "file": {
+    "f": "IFERROR(COUNTA(1),0)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "Z1",
+   "fn": null,
+   "input": "=SEQUENCE(3)",
+   "formula2": "=SEQUENCE(3)",
+   "formula": "=SEQUENCE(3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SEQUENCE(3)",
+    "t": "array",
+    "ref": "Z1:Z3",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "B1",
+   "fn": null,
+   "input": "1",
+   "formula2": "1",
+   "formula": "1",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "S",
+   "cell": "B2",
+   "fn": null,
+   "input": "2",
+   "formula2": "2",
+   "formula": "2",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "S",
+   "cell": "B3",
+   "fn": null,
+   "input": "3",
+   "formula2": "3",
+   "formula": "3",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "S",
+   "cell": "A1",
+   "fn": null,
+   "input": "=LET(x,1,y,x+1,x*y)",
+   "formula2": "=LET(x,1,y,x+1,x*y)",
+   "formula": "=LET(x,1,y,x+1,x*y)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.x,1,_xlpm.y,_xlpm.x+1,_xlpm.x*_xlpm.y)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A2",
+   "fn": null,
+   "input": "=LET(x,1,LET(y,x+1,x+y))",
+   "formula2": "=LET(x,1,LET(y,x+1,x+y))",
+   "formula": "=LET(x,1,LET(y,x+1,x+y))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.x,1,_xlfn.LET(_xlpm.y,_xlpm.x+1,_xlpm.x+_xlpm.y))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A3",
+   "fn": null,
+   "input": "=LAMBDA(a,b,a+b)(1,2)",
+   "formula2": "=LAMBDA(a,b,a+b)(1,2)",
+   "formula": "=LAMBDA(a,b,a+b)(1,2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LAMBDA(_xlpm.a,_xlpm.b,_xlpm.a+_xlpm.b)(1,2)",
+    "t": "array",
+    "ref": "A3",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A4",
+   "fn": null,
+   "input": "=SUM(MAP(SEQUENCE(3),LAMBDA(v,v*2)))",
+   "formula2": "=SUM(MAP(SEQUENCE(3),LAMBDA(v,v*2)))",
+   "formula": "=SUM(MAP(SEQUENCE(3),LAMBDA(v,v*2)))",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn.MAP(_xlfn.SEQUENCE(3),_xlfn.LAMBDA(_xlpm.v,_xlpm.v*2)))",
+    "t": "array",
+    "ref": "A4",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A5",
+   "fn": null,
+   "input": "=LET(f,LAMBDA(n,n+1),f(2))",
+   "formula2": "=LET(f,LAMBDA(n,n+1),f(2))",
+   "formula": "=LET(f,LAMBDA(n,n+1),f(2))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.f,_xlfn.LAMBDA(_xlpm.n,_xlpm.n+1),_xlpm.f(2))",
+    "t": "array",
+    "ref": "A5",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A6",
+   "fn": null,
+   "input": "=LET(total,SUM(B1:B3),total/2)",
+   "formula2": "=LET(total,SUM(B1:B3),total/2)",
+   "formula": "=LET(total,SUM(B1:B3),total/2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.total,SUM(B1:B3),_xlpm.total/2)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A7",
+   "fn": null,
+   "input": "=REDUCE(0,SEQUENCE(3),LAMBDA(acc,v,acc+v))",
+   "formula2": "=REDUCE(0,SEQUENCE(3),LAMBDA(acc,v,acc+v))",
+   "formula": "=REDUCE(0,SEQUENCE(3),LAMBDA(acc,v,acc+v))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.REDUCE(0,_xlfn.SEQUENCE(3),_xlfn.LAMBDA(_xlpm.acc,_xlpm.v,_xlpm.acc+_xlpm.v))",
+    "t": "array",
+    "ref": "A7",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A8",
+   "fn": null,
+   "input": "=LET(x,1,x)+LET(x,2,x)",
+   "formula2": "=LET(x,1,x)+LET(x,2,x)",
+   "formula": "=LET(x,1,x)+LET(x,2,x)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.x,1,_xlpm.x)+_xlfn.LET(_xlpm.x,2,_xlpm.x)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A9",
+   "fn": null,
+   "input": "=LAMBDA(a,[b],IF(ISOMITTED(b),a,a+b))(1)",
+   "formula2": "=LAMBDA(a,[b],IF(ISOMITTED(b),a,a+b))(1)",
+   "formula": "=LAMBDA(a,[b],IF(ISOMITTED(b),a,a+b))(1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LAMBDA(_xlpm.a,_xlop.b,IF(_xlfn.ISOMITTED(_xlpm.b),_xlpm.a,_xlpm.a+_xlpm.b))(1)",
+    "t": "array",
+    "ref": "A9",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A10",
+   "fn": null,
+   "input": "=SUM(Z1#)",
+   "formula2": "=SUM(Z1#)",
+   "formula": "=SUM(Z1#)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn.ANCHORARRAY(Z1))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A11",
+   "fn": null,
+   "input": "=SUM(S!Z1#)",
+   "formula2": "=SUM(S!Z1#)",
+   "formula": "=SUM(S!Z1#)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn.ANCHORARRAY(S!Z1))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A12",
+   "fn": null,
+   "input": "=@Z1:Z3",
+   "formula2": "=@Z1:Z3",
+   "formula": "=Z1:Z3",
+   "err": null,
+   "file": {
+    "f": "Z1:Z3"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A13",
+   "fn": null,
+   "input": "=@INDEX(Z1:Z3,0)",
+   "formula2": "=@INDEX(Z1:Z3,0)",
+   "formula": "=INDEX(Z1:Z3,0)",
+   "err": null,
+   "file": {
+    "f": "INDEX(Z1:Z3,0)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A14",
+   "fn": null,
+   "input": "=@(Z1:Z3+1)",
+   "formula2": "=@(Z1:Z3+1)",
+   "formula": "=@(Z1:Z3+1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SINGLE((Z1:Z3+1))",
+    "t": "array",
+    "ref": "A14",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A15",
+   "fn": null,
+   "input": "=SUM(@Z1:Z3)",
+   "formula2": "=SUM(@Z1:Z3)",
+   "formula": "=SUM(@Z1:Z3)",
+   "err": null,
+   "file": {
+    "f": "SUM(_xlfn.SINGLE(Z1:Z3))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A16",
+   "fn": null,
+   "input": "=INDEX(Z1#,2)",
+   "formula2": "=INDEX(Z1#,2)",
+   "formula": "=INDEX(Z1#,2)",
+   "err": null,
+   "file": {
+    "f": "INDEX(_xlfn.ANCHORARRAY(Z1),2)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A17",
+   "fn": null,
+   "input": "=ROWS(Z1#)",
+   "formula2": "=ROWS(Z1#)",
+   "formula": "=ROWS(Z1#)",
+   "err": null,
+   "file": {
+    "f": "ROWS(_xlfn.ANCHORARRAY(Z1))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A18",
+   "fn": null,
+   "input": "=SUM('集計 シート'!B1:B3)",
+   "formula2": "=SUM('集計 シート'!B1:B3)",
+   "formula": "=SUM('集計 シート'!B1:B3)",
+   "err": null,
+   "file": {
+    "f": "SUM('集計 シート'!B1:B3)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A19",
+   "fn": null,
+   "input": "=ROWS('集計 シート'!Z1#)",
+   "formula2": "=ROWS('集計 シート'!Z1#)",
+   "formula": "=ROWS('集計 シート'!Z1#)",
+   "err": null,
+   "file": {
+    "f": "ROWS(_xlfn.ANCHORARRAY('集計 シート'!Z1))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A20",
+   "fn": null,
+   "input": "=LET(x,B1:B3,SUM(@x))",
+   "formula2": "=LET(x,B1:B3,SUM(@x))",
+   "formula": "=LET(x,B1:B3,SUM(@x))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.x,B1:B3,SUM(_xlfn.SINGLE(_xlpm.x)))"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A21",
+   "fn": null,
+   "input": "=LET(rate,0.1,B1*rate)",
+   "formula2": "=LET(rate,0.1,B1*rate)",
+   "formula": "=LET(rate,0.1,B1*rate)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.rate,0.1,B1*_xlpm.rate)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A22",
+   "fn": null,
+   "input": "=LET(a,1,b,LAMBDA(x,x+a),b(1))",
+   "formula2": "=LET(a,1,b,LAMBDA(x,x+a),b(1))",
+   "formula": "=LET(a,1,b,LAMBDA(x,x+a),b(1))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.a,1,_xlpm.b,_xlfn.LAMBDA(_xlpm.x,_xlpm.x+_xlpm.a),_xlpm.b(1))",
+    "t": "array",
+    "ref": "A22",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A23",
+   "fn": null,
+   "input": "=BYROW(B1:B3,LAMBDA(r,SUM(r)))",
+   "formula2": "=BYROW(B1:B3,LAMBDA(r,SUM(r)))",
+   "formula": "=BYROW(B1:B3,LAMBDA(r,SUM(r)))",
+   "err": null,
+   "file": {
+    "f": "_xlfn.BYROW(B1:B3,_xlfn.LAMBDA(_xlpm.r,SUM(_xlpm.r)))",
+    "t": "array",
+    "ref": "A23",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A24",
+   "fn": null,
+   "input": "=Z1#*2",
+   "formula2": "=Z1#*2",
+   "formula": "=Z1#*2",
+   "err": null,
+   "file": {
+    "f": "_xlfn.ANCHORARRAY(Z1)*2",
+    "t": "array",
+    "ref": "A24",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A25",
+   "fn": null,
+   "input": "=Z1:Z3",
+   "formula2": "=Z1:Z3",
+   "formula": "=Z1:Z3",
+   "err": null,
+   "file": {
+    "f": "Z1:Z3",
+    "t": "array",
+    "ref": "A25",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A26",
+   "fn": null,
+   "input": "=MAX(@B1:B3,1)",
+   "formula2": "=MAX(@B1:B3,1)",
+   "formula": "=MAX(@B1:B3,1)",
+   "err": null,
+   "file": {
+    "f": "MAX(_xlfn.SINGLE(B1:B3),1)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A27",
+   "fn": null,
+   "input": "=@B1:B3+1",
+   "formula2": "=@B1:B3+1",
+   "formula": "=B1:B3+1",
+   "err": null,
+   "file": {
+    "f": "B1:B3+1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A28",
+   "fn": null,
+   "input": "=IF(@B1:B3>1,1,0)",
+   "formula2": "=IF(@B1:B3>1,1,0)",
+   "formula": "=IF(B1:B3>1,1,0)",
+   "err": null,
+   "file": {
+    "f": "IF(B1:B3>1,1,0)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A29",
+   "fn": null,
+   "input": "=XLOOKUP(2,B1:B3,Z1:Z3)",
+   "formula2": "=XLOOKUP(2,B1:B3,Z1:Z3)",
+   "formula": "=XLOOKUP(2,B1:B3,Z1:Z3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(2,B1:B3,Z1:Z3)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A30",
+   "fn": null,
+   "input": "=SORT(B1:B3,1,-1)",
+   "formula2": "=SORT(B1:B3,1,-1)",
+   "formula": "=SORT(B1:B3,1,-1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn._xlws.SORT(B1:B3,1,-1)",
+    "t": "array",
+    "ref": "A30",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A31",
+   "fn": null,
+   "input": "=FILTER(B1:B3,B1:B3>1)",
+   "formula2": "=FILTER(B1:B3,B1:B3>1)",
+   "formula": "=FILTER(B1:B3,B1:B3>1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn._xlws.FILTER(B1:B3,B1:B3>1)",
+    "t": "array",
+    "ref": "A31",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A32",
+   "fn": null,
+   "input": "=_xlfn.XLOOKUP(2,B1:B3,Z1:Z3)",
+   "formula2": "=XLOOKUP(2,B1:B3,Z1:Z3)",
+   "formula": "=XLOOKUP(2,B1:B3,Z1:Z3)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.XLOOKUP(2,B1:B3,Z1:Z3)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A33",
+   "fn": null,
+   "input": "=LET(_x,1,_x+1)",
+   "formula2": "=LET(_x,1,_x+1)",
+   "formula": "=LET(_x,1,_x+1)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm._x,1,_xlpm._x+1)"
+   }
+  },
+  {
+   "sheet": "S",
+   "cell": "A34",
+   "fn": null,
+   "input": null,
+   "formula2": null,
+   "formula": null,
+   "err": "Exception from HRESULT: 0x800A03EC",
+   "file": null
+  },
+  {
+   "sheet": "S",
+   "cell": "A35",
+   "fn": null,
+   "input": "=LET(値,5,値*2)",
+   "formula2": "=LET(値,5,値*2)",
+   "formula": "=LET(値,5,値*2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.LET(_xlpm.値,5,_xlpm.値*2)"
+   }
+  },
+  {
+   "sheet": "集計 シート",
+   "cell": "Z1",
+   "fn": null,
+   "input": "=SEQUENCE(2)",
+   "formula2": "=SEQUENCE(2)",
+   "formula": "=SEQUENCE(2)",
+   "err": null,
+   "file": {
+    "f": "_xlfn.SEQUENCE(2)",
+    "t": "array",
+    "ref": "Z1:Z2",
+    "cm": "1"
+   }
+  },
+  {
+   "sheet": "集計 シート",
+   "cell": "B1",
+   "fn": null,
+   "input": "5",
+   "formula2": "5",
+   "formula": "5",
+   "err": null,
+   "file": null
+  },
+  {
+   "sheet": "T",
+   "cell": "G2",
+   "fn": null,
+   "input": "=Tbl[@a]",
+   "formula2": "=Tbl[@a]",
+   "formula": "=Tbl[@a]",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[a]]"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "G3",
+   "fn": null,
+   "input": "=Tbl[@[b c]]",
+   "formula2": "=Tbl[@[b c]]",
+   "formula": "=Tbl[@[b c]]",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[b c]]"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "G4",
+   "fn": null,
+   "input": "=SUM(Tbl[@[a]:[b c]])",
+   "formula2": "=SUM(Tbl[@[a]:[b c]])",
+   "formula": "=SUM(Tbl[@[a]:[b c]])",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[[#This Row],[a]:[b c]])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "H2",
+   "fn": null,
+   "input": "=SUM(Tbl[a])",
+   "formula2": "=SUM(Tbl[a])",
+   "formula": "=SUM(Tbl[a])",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[a])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "H3",
+   "fn": null,
+   "input": "=Tbl[[#This Row],[a]]",
+   "formula2": "=Tbl[@a]",
+   "formula": "=Tbl[@a]",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[a]]"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "H4",
+   "fn": null,
+   "input": "=Tbl[@単価]",
+   "formula2": "=Tbl[@単価]",
+   "formula": "=Tbl[@単価]",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[単価]]"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "I2",
+   "fn": null,
+   "input": "=Tbl[@[d'#e]]",
+   "formula2": "=Tbl[@[d'#e]]",
+   "formula": "=Tbl[@[d'#e]]",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[d'#e]]"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "I3",
+   "fn": null,
+   "input": "=SUM(Tbl[@])",
+   "formula2": "=SUM(Tbl[@])",
+   "formula": "=SUM(Tbl[@])",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[#This Row])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "I4",
+   "fn": null,
+   "input": "=ROWS(Tbl[#Data])",
+   "formula2": "=ROWS(Tbl[#Data])",
+   "formula": "=ROWS(Tbl[#Data])",
+   "err": null,
+   "file": {
+    "f": "ROWS(Tbl[#Data])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "J2",
+   "fn": null,
+   "input": "=SUM(Tbl[[#Headers],[a]])",
+   "formula2": "=SUM(Tbl[[#Headers],[a]])",
+   "formula": "=SUM(Tbl[[#Headers],[a]])",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[[#Headers],[a]])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "J3",
+   "fn": null,
+   "input": "=SUM(Tbl[[a]:[b c]])",
+   "formula2": "=SUM(Tbl[[a]:[b c]])",
+   "formula": "=SUM(Tbl[[a]:[b c]])",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[[a]:[b c]])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "J4",
+   "fn": null,
+   "input": "=COUNTA(Tbl[#All])",
+   "formula2": "=COUNTA(Tbl[#All])",
+   "formula": "=COUNTA(Tbl[#All])",
+   "err": null,
+   "file": {
+    "f": "COUNTA(Tbl[#All])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "K2",
+   "fn": null,
+   "input": "=SUM(Tbl[[#This Row],[a]:[単価]])",
+   "formula2": "=SUM(Tbl[@[a]:[単価]])",
+   "formula": "=SUM(Tbl[@[a]:[単価]])",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[[#This Row],[a]:[単価]])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "K3",
+   "fn": null,
+   "input": "=Tbl[@[単価]]",
+   "formula2": "=Tbl[@単価]",
+   "formula": "=Tbl[@単価]",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[単価]]"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "K4",
+   "fn": null,
+   "input": "=SUM(Tbl)",
+   "formula2": "=SUM(Tbl)",
+   "formula": "=SUM(Tbl)",
+   "err": null,
+   "file": {
+    "f": "SUM(Tbl[])"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "E2",
+   "fn": null,
+   "input": "=[@a]*2",
+   "formula2": "=[@a]*2",
+   "formula": "=[@a]*2",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[a]]*2"
+   }
+  },
+  {
+   "sheet": "T",
+   "cell": "E3",
+   "fn": null,
+   "input": "=[@a]*2",
+   "formula2": "=[@a]*2",
+   "formula": "=[@a]*2",
+   "err": null,
+   "file": {
+    "f": "Tbl[[#This Row],[a]]*2"
+   }
+  }
+ ]
+}

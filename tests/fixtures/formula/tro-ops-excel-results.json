@@ -1,0 +1,638 @@
+{
+ "meta": {
+  "description": "Trim-range references under structural ops in Excel 365: formulas typed via Range.Formula2 on a fresh workbook per op, op applied on sheet Data (clip-free moves), Formula2 + stored <f> read back. Built by tests/fixtures/formula/com/{excel-tro-ops.ps1,extract-tro-ops.mjs}.",
+  "generated": "2026-09-30T02:04:03.946Z"
+ },
+ "cells": [
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!B1:.E10)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:E10))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!D:.D)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!D:D))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!B1.:.F5)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!B1:F5))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!$D$2:.$D$9)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!$D$2:$D$9))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!B2.:G2)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B2:G2))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!D1:.D3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!D1:D3))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$4))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:E)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:E))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Data",
+   "cell": "L11",
+   "formula2": "=SUM(B1:.E3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B1:E3))"
+  },
+  {
+   "op": "insC",
+   "sheet": "Data",
+   "cell": "L12",
+   "formula2": "=SUM(D:.F)",
+   "file": "SUM(_xlfn._TRO_TRAILING(D:F))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!B1:.C10)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:C10))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!B1.:.D5)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!B1:D5))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!#REF!:.)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!B2.:E2)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B2:E2))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$4))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:C)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:C))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Data",
+   "cell": "J11",
+   "formula2": "=SUM(B1:.C3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B1:C3))"
+  },
+  {
+   "op": "delC",
+   "sheet": "Data",
+   "cell": "J12",
+   "formula2": "=SUM(C:.D)",
+   "file": "SUM(_xlfn._TRO_TRAILING(C:D))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!B1:.B10)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:B10))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!B1.:.C5)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!B1:C5))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!#REF!:.)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!B2.:D2)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B2:D2))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$4))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:B)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:B))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Data",
+   "cell": "I11",
+   "formula2": "=SUM(B1:.B3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B1:B3))"
+  },
+  {
+   "op": "delCD",
+   "sheet": "Data",
+   "cell": "I12",
+   "formula2": "=SUM(C:.C)",
+   "file": "SUM(_xlfn._TRO_TRAILING(C:C))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!#REF!.:.)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!#REF!:.)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!#REF!.:)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$4))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!#REF!.:)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Data",
+   "cell": "F11",
+   "formula2": "=#REF! SUM()",
+   "file": "SUM(_xlfn._TRO_TRAILING(#REF!))"
+  },
+  {
+   "op": "delBF",
+   "sheet": "Data",
+   "cell": "F12",
+   "formula2": "=#REF! SUM()",
+   "file": "SUM(_xlfn._TRO_TRAILING(#REF!))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!C1:.D10)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!C1:D10))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!D:.D)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!D:D))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!C1.:.E5)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!C1:E5))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!$D$2:.$D$9)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!$D$2:$D$9))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!C2.:F2)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!C2:F2))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!D1:.D3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!D1:D3))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$4))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!C.:D)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!C:D))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Data",
+   "cell": "K11",
+   "formula2": "=SUM(C1:.D3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(C1:D3))"
+  },
+  {
+   "op": "movDtoB",
+   "sheet": "Data",
+   "cell": "K12",
+   "formula2": "=SUM(D:.E)",
+   "file": "SUM(_xlfn._TRO_TRAILING(D:E))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!B1:.C10)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:C10))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!B:.B)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B:B))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!B1.:.D5)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!B1:D5))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!$B$2:.$B$9)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!$B$2:$B$9))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!B2.:F2)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B2:F2))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!B1:.B3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:B3))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$4))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:C)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:C))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Data",
+   "cell": "K11",
+   "formula2": "=SUM(B1:.C3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B1:C3))"
+  },
+  {
+   "op": "movBtoF",
+   "sheet": "Data",
+   "cell": "K12",
+   "formula2": "=SUM(B:.D)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B:D))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!B1:.D11)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:D11))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!C:.C)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!C:C))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!B1.:.E6)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!B1:E6))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!$C$2:.$C$10)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!$C$2:$C$10))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!B2.:F2)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B2:F2))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!C1:.C4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!C1:C4))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$5)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$5))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:D)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:D))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Data",
+   "cell": "K12",
+   "formula2": "=SUM(B1:.D4)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B1:D4))"
+  },
+  {
+   "op": "insRow3",
+   "sheet": "Data",
+   "cell": "K13",
+   "formula2": "=SUM(C:.E)",
+   "file": "SUM(_xlfn._TRO_TRAILING(C:E))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!B1:.D9)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!B1:D9))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!C:.C)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!C:C))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!B1.:.E4)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!B1:E4))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!$C$2:.$C$8)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!$C$2:$C$8))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!#REF!.:)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!#REF!))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!C1:.C2)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!C1:C2))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!$2:.$3)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!$2:$3))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:D)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:D))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Data",
+   "cell": "K10",
+   "formula2": "=SUM(B1:.D2)",
+   "file": "SUM(_xlfn._TRO_TRAILING(B1:D2))"
+  },
+  {
+   "op": "delRow2",
+   "sheet": "Data",
+   "cell": "K11",
+   "formula2": "=SUM(C:.E)",
+   "file": "SUM(_xlfn._TRO_TRAILING(C:E))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A1",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A2",
+   "formula2": "=SUM(Data!C:.C)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!C:C))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A3",
+   "formula2": "=SUM(Data!#REF!.:.)",
+   "file": "SUM(_xlfn._TRO_ALL(Data!#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A4",
+   "formula2": "=ROWS(Data!#REF!:.)",
+   "file": "ROWS(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A5",
+   "formula2": "=SUM(Data!#REF!.:)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A6",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A7",
+   "formula2": "=SUM(Data!#REF!:.)",
+   "file": "SUM(_xlfn._TRO_TRAILING(Data!#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Other",
+   "cell": "A8",
+   "formula2": "=SUM(Data!B.:D)",
+   "file": "SUM(_xlfn._TRO_LEADING(Data!B:D))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Data",
+   "cell": "K1",
+   "formula2": "=#REF! SUM()",
+   "file": "SUM(_xlfn._TRO_TRAILING(#REF!))"
+  },
+  {
+   "op": "delRows1to10",
+   "sheet": "Data",
+   "cell": "K2",
+   "formula2": "=SUM(C:.E)",
+   "file": "SUM(_xlfn._TRO_TRAILING(C:E))"
+  }
+ ]
+}

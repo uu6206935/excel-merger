@@ -1,0 +1,529 @@
+{
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "J1",
+   "candidates": [
+    "=SUMIF(B1:B4,\">1\",C1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J6",
+   "candidates": [
+    "=SUMIFS(C1:C4,B1:B4,\">1\",B1:B4,\"<9\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J11",
+   "candidates": [
+    "=COUNTIF(B1:B4,\">1\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J16",
+   "candidates": [
+    "=COUNTIFS(B1:B4,\">1\",C1:C4,\">1\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J21",
+   "candidates": [
+    "=AVERAGEIF(B1:B4,\">1\",C1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J26",
+   "candidates": [
+    "=AVERAGEIFS(C1:C4,B1:B4,\">1\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J31",
+   "candidates": [
+    "=MAXIFS(C1:C4,B1:B4,\">1\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J36",
+   "candidates": [
+    "=MINIFS(C1:C4,B1:B4,\">1\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J41",
+   "candidates": [
+    "=VLOOKUP(2,B1:C4,2,FALSE)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J46",
+   "candidates": [
+    "=HLOOKUP(1,B1:C4,2,FALSE)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J51",
+   "candidates": [
+    "=MATCH(2,B1:B4,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J56",
+   "candidates": [
+    "=XMATCH(2,B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J61",
+   "candidates": [
+    "=LOOKUP(2,B1:B4,C1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J66",
+   "candidates": [
+    "=INDEX(B1:C4,2,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J71",
+   "candidates": [
+    "=INDEX(B1:B4,MATCH(2,B1:B4,0))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J76",
+   "candidates": [
+    "=LARGE(B1:B4,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J81",
+   "candidates": [
+    "=SMALL(B1:B4,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J86",
+   "candidates": [
+    "=RANK.EQ(2,B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J91",
+   "candidates": [
+    "=PERCENTILE.INC(B1:B4,0.5)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J96",
+   "candidates": [
+    "=QUARTILE.INC(B1:B4,1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J101",
+   "candidates": [
+    "=PERCENTRANK.INC(B1:B4,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J106",
+   "candidates": [
+    "=TRIMMEAN(B1:B4,0.2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J111",
+   "candidates": [
+    "=SUBTOTAL(9,B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J116",
+   "candidates": [
+    "=NPV(0.1,B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J121",
+   "candidates": [
+    "=IRR(B1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J126",
+   "candidates": [
+    "=MIRR(B1:B4,0.1,0.1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J131",
+   "candidates": [
+    "=CORREL(B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J136",
+   "candidates": [
+    "=FORECAST.LINEAR(4,B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J141",
+   "candidates": [
+    "=SLOPE(B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J146",
+   "candidates": [
+    "=SUMX2MY2(B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J151",
+   "candidates": [
+    "=MEDIAN(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J156",
+   "candidates": [
+    "=MODE.SNGL(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J161",
+   "candidates": [
+    "=STDEV.S(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J166",
+   "candidates": [
+    "=AND(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J171",
+   "candidates": [
+    "=OR(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J176",
+   "candidates": [
+    "=CONCAT(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J181",
+   "candidates": [
+    "=COUNTBLANK(B1:C9)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J186",
+   "candidates": [
+    "=AREAS((B1:B2,C1:C2))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J191",
+   "candidates": [
+    "=SUMSQ(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J196",
+   "candidates": [
+    "=PRODUCT(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J201",
+   "candidates": [
+    "=XNPV(0.1,B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J206",
+   "candidates": [
+    "=DSUM(D1:F4,\"a\",D1:D2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J211",
+   "candidates": [
+    "=SUMPRODUCT(B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J216",
+   "candidates": [
+    "=GEOMEAN(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J221",
+   "candidates": [
+    "=COUNT(B1:C4)+COUNTA(B:B)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J226",
+   "candidates": [
+    "=MAX(B:B)-MIN(B:B)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J231",
+   "candidates": [
+    "=AVERAGE(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J236",
+   "candidates": [
+    "=ROWS(B1:C4)*COLUMNS(B1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J241",
+   "candidates": [
+    "=XLOOKUP(2,B1:B4,C1:C4,\"\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J246",
+   "candidates": [
+    "=SUMIF(B:B,2,C:C)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J251",
+   "candidates": [
+    "=INDEX(B:B,3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J256",
+   "candidates": [
+    "=VAR.S(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J261",
+   "candidates": [
+    "=AVEDEV(B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J266",
+   "candidates": [
+    "=VLOOKUP(B1:B3,B1:C4,2,FALSE)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J271",
+   "candidates": [
+    "=SUMIF(B1:B4,B1:B2,C1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J276",
+   "candidates": [
+    "=INDEX(B1:C4,2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J281",
+   "candidates": [
+    "=ROW(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J286",
+   "candidates": [
+    "=IF(B1:B3>1,1,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J291",
+   "candidates": [
+    "=CHOOSE(1,B1:B3,C1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J296",
+   "candidates": [
+    "=MMULT(B1:C2,B1:C2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J301",
+   "candidates": [
+    "=IFERROR(B1:B3,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J306",
+   "candidates": [
+    "=XLOOKUP(2,B1:B4,B1:C4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J311",
+   "candidates": [
+    "=OFFSET(B1,0,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J316",
+   "candidates": [
+    "=SUM(OFFSET(B1,0,0,3,1))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J321",
+   "candidates": [
+    "=N(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J326",
+   "candidates": [
+    "=SUM(B1:B3*2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J331",
+   "candidates": [
+    "=MAX(IF(B1:B3>1,B1:B3))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J336",
+   "candidates": [
+    "=LEN(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J341",
+   "candidates": [
+    "=ABS(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J346",
+   "candidates": [
+    "=B1:B3=2"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J351",
+   "candidates": [
+    "=COLUMN(B1:C1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J356",
+   "candidates": [
+    "=INDEX(B1:B4,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J361",
+   "candidates": [
+    "=MDETERM(B1:C2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J366",
+   "candidates": [
+    "=ISNUMBER(B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J371",
+   "candidates": [
+    "=TEXT(B1:B3,\"0\")"
+   ]
+  }
+ ]
+}

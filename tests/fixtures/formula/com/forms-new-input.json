@@ -1,0 +1,144 @@
+{
+ "cells": [
+  {
+   "sheet": "X",
+   "cell": "J1",
+   "candidates": [
+    "=IMPORTTEXT(\"c:/x.txt\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J5",
+   "candidates": [
+    "=IMPORTCSV(\"c:/x.csv\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J9",
+   "candidates": [
+    "=PY(1,0)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J13",
+   "candidates": [
+    "=TEXTSPLIT(\"a,b\",\",\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J17",
+   "candidates": [
+    "=CHOOSECOLS(B1:C3,1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J21",
+   "candidates": [
+    "=PERCENTOF(B1:B3,B1:B4)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J25",
+   "candidates": [
+    "=TRANSLATE(\"a\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J29",
+   "candidates": [
+    "=DETECTLANGUAGE(\"a\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J33",
+   "candidates": [
+    "=REGEXTEST(\"a\",\"a\")"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J37",
+   "candidates": [
+    "=GROUPBY(B1:B3,C1:C3,SUM)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J41",
+   "candidates": [
+    "=ECMA.CEILING(1,1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J45",
+   "candidates": [
+    "=AGGREGATE(9,6,B1:B3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J49",
+   "candidates": [
+    "=SHEETS()"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J53",
+   "candidates": [
+    "=LAMBDA(x,x+1)(2)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J57",
+   "candidates": [
+    "=MAKEARRAY(2,2,LAMBDA(r,c,r*c))"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J61",
+   "candidates": [
+    "=SUM(B1:B3)+@B1:B3"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J65",
+   "candidates": [
+    "=ISOMITTED(1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J69",
+   "candidates": [
+    "=TOCOL(B1:C3)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J73",
+   "candidates": [
+    "=VALUETOTEXT(1)"
+   ]
+  },
+  {
+   "sheet": "X",
+   "cell": "J77",
+   "candidates": [
+    "=EXPAND(B1,2,2)"
+   ]
+  }
+ ]
+}

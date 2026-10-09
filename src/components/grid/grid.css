@@ -1,0 +1,560 @@
+/*
+ * Grid + formula bar + context menu (owner: grid G). Self-contained: every token is scoped here so the grid
+ * looks right inside the app (reference look: interview-scheduler) and on the demo page.
+ * Cells follow Excel: gridlines #e1e1e1, 'Yu Gothic UI' / 'Meiryo UI' 11pt, bottom-aligned text.
+ */
+.g-wrap,
+.fb-bar,
+.g-menu {
+  --g-ui-font: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Yu Gothic UI', 'Meiryo', 'Hiragino Sans', sans-serif;
+  --g-cell-font: 'Yu Gothic UI', 'Meiryo UI', sans-serif;
+  --g-text: #222;
+  --g-muted: #6b7280;
+  --g-border: #d6d6d6;
+  --g-border-light: #e6e6e6;
+  --g-head: #eef1f5;
+  --g-head-hover: #e3e8f0;
+  --g-head-line: #c3c8d0;
+  --g-accent: #1f6feb;
+  --g-accent-dark: #1858bd;
+  --g-sel: #dbeafe;
+  --g-grid-line: #e1e1e1;
+  --g-hl: #fff3cd;
+  --g-radius: 6px;
+  --g-shadow: 0 6px 24px rgba(0, 0, 0, 0.16);
+}
+
+/* the layout math (absolute cells, widths in px) assumes border-box everywhere, whatever the host page does */
+.g-wrap,
+.g-wrap *,
+.g-wrap *::before,
+.g-wrap *::after,
+.fb-bar,
+.fb-bar *,
+.g-menu,
+.g-menu * {
+  box-sizing: border-box;
+}
+
+/* ------------------------------------------------------------------ grid */
+.g-wrap {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  min-height: 120px;
+  background: #fff;
+  color: var(--g-text);
+  font-family: var(--g-ui-font);
+  font-size: 13px;
+}
+.g-scroller {
+  position: absolute;
+  inset: 0;
+  overflow: auto;
+  outline: none;
+  overscroll-behavior: contain;
+  user-select: none;
+  -webkit-user-select: none;
+  scrollbar-gutter: stable;
+}
+/* always-visible scrollbars (overlay scrollbars hide the last row / column) */
+.g-scroller::-webkit-scrollbar {
+  width: 12px;
+  height: 12px;
+}
+.g-scroller::-webkit-scrollbar-track {
+  background: #f1f3f6;
+}
+.g-scroller::-webkit-scrollbar-thumb {
+  background: #b3bcc9;
+  border: 3px solid #f1f3f6;
+  border-radius: 6px;
+}
+.g-scroller::-webkit-scrollbar-corner {
+  background: #f1f3f6;
+}
+.g-canvas {
+  position: relative;
+  font-family: var(--g-cell-font);
+  font-size: 11pt;
+}
+
+/* header */
+.g-header {
+  position: sticky;
+  top: 0;
+  z-index: 4;
+  background: var(--g-head);
+  border-bottom: 1px solid var(--g-head-line);
+  touch-action: none;
+  font-family: var(--g-ui-font);
+}
+.g-pin {
+  position: sticky;
+  left: 0;
+  z-index: 2;
+}
+.g-header .g-pin {
+  z-index: 3;
+  background: var(--g-head);
+  box-shadow: 1px 0 0 var(--g-head-line);
+}
+.g-corner {
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: var(--g-head);
+  border-right: 1px solid var(--g-head-line);
+}
+.g-corner-band {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  background: #dfe4eb;
+}
+.g-corner-row {
+  position: absolute;
+  right: 6px;
+  bottom: 4px;
+  color: var(--g-muted);
+  font-size: 11px;
+  font-family: Consolas, 'Yu Gothic UI', monospace;
+}
+
+.g-band {
+  position: absolute;
+  top: 0;
+  height: 18px;
+  overflow: clip; /* NOT hidden: hidden makes the band a scroll container and breaks the sticky label (R3 P5) */
+  color: #fff;
+  font-size: 11px;
+  font-weight: 600;
+  border-right: 1px solid rgba(255, 255, 255, 0.75);
+  /* a band is a handle: click = select the group's columns, drag = move them all */
+  cursor: grab;
+}
+.g-band:hover {
+  filter: brightness(1.1);
+}
+.g-band.is-sel {
+  /* same cue as a selected header cell (bottom bar), in white because the band has the file's colour */
+  box-shadow: inset 0 -3px 0 #fff;
+}
+.g-band.is-sel .g-band-label {
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+.g-band-label {
+  position: sticky;
+  display: inline-flex;
+  gap: 6px;
+  align-items: center;
+  padding: 0 6px;
+  height: 18px;
+  white-space: nowrap;
+  left: 0;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.25);
+}
+.g-band-count {
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.g-hcell {
+  position: absolute;
+  padding: 3px 6px 2px;
+  border-right: 1px solid var(--g-border);
+  cursor: grab;
+  overflow: hidden;
+  background: var(--g-head);
+}
+.g-hcell:hover {
+  background: var(--g-head-hover);
+}
+.g-hcell.is-activecol {
+  box-shadow: inset 0 -2px 0 #9db8e8;
+}
+.g-hcell.is-activecol .g-letter {
+  color: var(--g-accent-dark);
+  font-weight: 700;
+}
+.g-hcell.is-sel {
+  background: var(--g-sel);
+  box-shadow: inset 0 -3px 0 var(--g-accent);
+}
+.g-hcell.is-frozen-edge {
+  border-right: 2px solid #9aa4b2;
+}
+.g-hcell.is-dragging,
+.g-cell.is-dragging {
+  opacity: 0.4;
+}
+.g-hcell.is-hiddencol {
+  background: repeating-linear-gradient(135deg, #e5e7eb 0 3px, #f3f4f6 3px 6px);
+  cursor: default;
+}
+.g-hcell.is-hiddencol > * {
+  visibility: hidden;
+}
+.g-hcell-top {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  height: 14px;
+  min-width: 0;
+}
+.g-letter {
+  flex: 0 0 auto;
+  font-size: 10px;
+  color: var(--g-muted);
+  font-family: Consolas, monospace;
+}
+.g-keybadge {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 9.5px;
+  line-height: 13px;
+  padding: 0 4px;
+  border-radius: 3px;
+  background: #fde68a;
+  color: #7c5700;
+  font-weight: 700;
+}
+.g-htitle {
+  margin-top: 2px;
+  font-weight: 700;
+  font-size: 12px;
+  line-height: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.g-resize {
+  position: absolute;
+  width: 8px;
+  cursor: col-resize;
+  z-index: 1;
+}
+.g-resize:hover {
+  background: rgba(31, 111, 235, 0.35);
+}
+
+/* rows */
+.g-row {
+  position: absolute;
+  top: 0;
+  left: 0;
+  contain: layout style;
+}
+.g-row .g-pin {
+  background: #fff;
+  box-shadow: 1px 0 0 var(--g-head-line);
+}
+.g-rowhdr {
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 6px;
+  color: var(--g-muted);
+  font-size: 11px;
+  background: var(--g-head);
+  border-right: 1px solid var(--g-head-line);
+  border-bottom: 1px solid var(--g-grid-line);
+  font-family: Consolas, 'Yu Gothic UI', monospace;
+}
+.g-rowhdr.is-activerow {
+  background: #dde6f5;
+  color: var(--g-accent-dark);
+  font-weight: 700;
+}
+.g-row.is-hl .g-rowhdr {
+  background: var(--g-hl);
+  color: #8a5a00;
+  box-shadow: inset 3px 0 0 #f59e0b;
+}
+
+.g-cell {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  padding: 0 3px 2px;
+  white-space: pre;
+  overflow: hidden;
+  border-right: 1px solid var(--g-grid-line);
+  border-bottom: 1px solid var(--g-grid-line);
+  background-color: #fff;
+  line-height: 18px;
+  cursor: cell;
+  contain: size layout style; /* no paint containment: .g-bd draws 1px outside */
+}
+.g-row.is-hl .g-cell {
+  background-image: linear-gradient(rgba(255, 193, 7, 0.2), rgba(255, 193, 7, 0.2));
+}
+.g-cell.is-sel,
+.g-row.is-hl .g-cell.is-sel {
+  background-image: linear-gradient(rgba(31, 111, 235, 0.13), rgba(31, 111, 235, 0.13));
+}
+/* a formula without a cached result (never calculated): show the formula, grey italic */
+.g-cell.is-ftext {
+  color: #8a8f98 !important;
+  font-style: italic;
+}
+.g-cell.is-hiddencol {
+  background: repeating-linear-gradient(135deg, #eef0f3 0 3px, #f8f9fa 3px 6px);
+  color: transparent !important;
+}
+.g-bd {
+  position: absolute;
+  left: -1px;
+  top: -1px;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+}
+
+.g-active {
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+  box-shadow: inset 0 0 0 2px var(--g-accent);
+}
+.g-active.is-frozen {
+  z-index: 3;
+}
+/* keystrokes go to the grid only while it has focus: show the frame grey otherwise */
+.g-wrap:not(:focus-within) .g-active {
+  box-shadow: inset 0 0 0 2px #9aa4b2;
+}
+
+/* The sink is ALWAYS mounted and focused; invisible until editing starts (IME-safe, R3 §3.4). */
+.g-sink {
+  position: absolute;
+  z-index: 1;
+  margin: 0;
+  padding: 1px 3px;
+  border: 0;
+  outline: none;
+  resize: none;
+  overflow: hidden;
+  opacity: 0;
+  caret-color: transparent;
+  pointer-events: none;
+  background: #fff;
+  color: var(--g-text);
+  font-family: var(--g-cell-font);
+  font-size: 11pt;
+  line-height: 18px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+.g-sink.is-frozen {
+  z-index: 3;
+}
+.g-sink.is-editing {
+  z-index: 5;
+  opacity: 1;
+  caret-color: auto;
+  pointer-events: auto;
+  box-shadow: 0 0 0 2px var(--g-accent), 0 4px 12px rgba(0, 0, 0, 0.15);
+  field-sizing: content;
+  max-width: 520px;
+  max-height: 220px;
+  overflow: auto;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.g-empty {
+  position: absolute;
+  color: var(--g-muted);
+  font-family: var(--g-ui-font);
+  font-size: 13px;
+  pointer-events: none;
+}
+
+.g-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+}
+.g-drop {
+  position: absolute;
+  top: 0;
+  width: 4px;
+  background: var(--g-accent);
+  border-radius: 2px;
+  box-shadow: 0 0 0 1px #fff;
+}
+.g-drop-cap {
+  position: absolute;
+  top: 0;
+  left: -5px;
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-top: 9px solid var(--g-accent);
+}
+.g-ghost {
+  position: absolute;
+  padding: 4px 10px;
+  background: var(--g-accent);
+  color: #fff;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  box-shadow: var(--g-shadow);
+}
+
+/* released here = the move is cancelled */
+.g-ghost-cancel {
+  background: #6b7280;
+}
+
+.g-vh {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body.g-dragging,
+body.g-dragging * {
+  cursor: grabbing !important;
+  user-select: none !important;
+}
+body.g-resizing,
+body.g-resizing * {
+  cursor: col-resize !important;
+  user-select: none !important;
+}
+
+/* ------------------------------------------------------------------ context menu */
+.g-menu {
+  position: fixed;
+  z-index: 1000;
+  min-width: 200px;
+  padding: 4px;
+  background: #fff;
+  border: 1px solid var(--g-border);
+  border-radius: var(--g-radius);
+  box-shadow: var(--g-shadow);
+  display: flex;
+  flex-direction: column;
+  font-family: var(--g-ui-font);
+  font-size: 13px;
+  color: var(--g-text);
+  user-select: none;
+}
+.g-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-align: left;
+  border: 0;
+  background: none;
+  padding: 6px 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font: inherit;
+  color: inherit;
+}
+.g-menu-item:hover:not(:disabled),
+.g-menu-item:focus-visible {
+  background: var(--g-sel);
+  outline: none;
+}
+.g-menu-item:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+.g-menu-item.is-danger {
+  color: #b91c1c;
+}
+.g-menu-label {
+  flex: 1;
+}
+.g-menu-hint {
+  color: var(--g-muted);
+  font-size: 11px;
+}
+.g-menu-hint::after {
+  content: attr(data-hint);
+}
+.g-menu-icon {
+  width: 16px;
+  text-align: center;
+}
+.g-menu-sep {
+  border-top: 1px solid var(--g-border-light);
+  margin: 3px 0;
+}
+
+/* ------------------------------------------------------------------ formula bar */
+.fb-bar {
+  display: flex;
+  align-items: stretch;
+  min-height: 28px;
+  background: #fff;
+  border: 1px solid var(--g-border);
+  border-radius: var(--g-radius);
+  overflow: hidden;
+  font-family: var(--g-ui-font);
+  font-size: 13px;
+  color: var(--g-text);
+}
+.fb-addr {
+  flex: 0 0 84px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8px;
+  border-right: 1px solid var(--g-border);
+  font-family: Consolas, 'Yu Gothic UI', monospace;
+  background: var(--g-head);
+  white-space: nowrap;
+  overflow: hidden;
+}
+.fb-fx {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  color: var(--g-muted);
+  font-style: italic;
+  font-family: Georgia, 'Times New Roman', serif;
+  border-right: 1px solid var(--g-border-light);
+}
+.fb-input {
+  flex: 1;
+  min-width: 0;
+  border: 0;
+  padding: 4px 8px;
+  outline: none;
+  font-family: var(--g-cell-font);
+  font-size: 13px;
+  color: var(--g-text);
+  background: #fff;
+}
+.fb-input:focus {
+  box-shadow: inset 0 0 0 2px var(--g-accent);
+}
+.fb-input:disabled {
+  background: #fafafa;
+}

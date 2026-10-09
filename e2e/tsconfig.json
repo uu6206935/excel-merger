@@ -1,0 +1,9 @@
+{
+  "//": "Typecheck for the files owned by T (e2e, playwright.config.ts, tests/qa, tools/*.d.mts): npx tsc -p e2e/tsconfig.json",
+  "extends": "../tsconfig.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "types": ["node"]
+  },
+  "include": ["./**/*.ts", "../playwright.config.ts", "../tests/qa/**/*.ts", "../tools/**/*.d.mts"]
+}

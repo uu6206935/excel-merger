@@ -1,0 +1,229 @@
+[
+ {
+  "name": "g01_samples",
+  "order": "shuf",
+  "file": "g01_samples__shuf.xlsx",
+  "desc": "サンプルの名簿（結合セル・見出し3行目・名前・グラフ・ピボット・合計行）を基準にした取り込み",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 61,
+  "comPost": [],
+  "base": "base_samples.xlsx"
+ },
+ {
+  "name": "f01_samerow",
+  "order": "same",
+  "file": "f01_samerow__same.xlsx",
+  "desc": "同じ行だけを読む四則・IF・AVERAGE・日付・エラー",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": [],
+  "comSaveXlsm": true
+ },
+ {
+  "name": "f01_samerow",
+  "order": "shuf",
+  "file": "f01_samerow__shuf.xlsx",
+  "desc": "同じ行だけを読む四則・IF・AVERAGE・日付・エラー",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f02_shared",
+  "order": "shuf",
+  "file": "f02_shared__shuf.xlsx",
+  "desc": "共有数式（Excel で FillDown）と、それを読む数式",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": [
+   {
+    "op": "formula",
+    "range": "F2:F32",
+    "formula": "=C2+D2"
+   },
+   {
+    "op": "formula",
+    "range": "G2:G32",
+    "formula": "=F2*2"
+   },
+   {
+    "op": "formula",
+    "range": "H2:H32",
+    "formula": "=IF(G2>200,\"A\",\"B\")"
+   }
+  ]
+ },
+ {
+  "name": "f03_keycol",
+  "order": "shuf",
+  "file": "f03_keycol__shuf.xlsx",
+  "desc": "取り込まない列（学生ID・氏名）を読む数式",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f04_lookups",
+  "order": "shuf",
+  "file": "f04_lookups__shuf.xlsx",
+  "desc": "VLOOKUP / INDEX-MATCH / SUMIF / COUNTIF / RANK / LARGE / XLOOKUP",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f05_ranges",
+  "order": "same",
+  "file": "f05_ranges__same.xlsx",
+  "desc": "表全体・見出し込み・D:D・D2:D1000・1行ずれの範囲",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f05_ranges",
+  "order": "shuf",
+  "file": "f05_ranges__shuf.xlsx",
+  "desc": "表全体・見出し込み・D:D・D2:D1000・1行ずれの範囲",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f06_running",
+  "order": "same",
+  "file": "f06_running__same.xlsx",
+  "desc": "累計・前行差・構成比・脇のセル・行番号",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f06_running",
+  "order": "shuf",
+  "file": "f06_running__shuf.xlsx",
+  "desc": "累計・前行差・構成比・脇のセル・行番号",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f07_othersheet",
+  "order": "shuf",
+  "file": "f07_othersheet__shuf.xlsx",
+  "desc": "別シート参照・自シート修飾",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f08_names",
+  "order": "shuf",
+  "file": "f08_names__shuf.xlsx",
+  "desc": "定義名（定数・範囲・脇のセル・別シート・OFFSET・シート名スコープ）",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f09_tables",
+  "order": "shuf",
+  "file": "f09_tables__shuf.xlsx",
+  "desc": "テーブルと構造化参照",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f11_values",
+  "order": "shuf",
+  "file": "f11_values__shuf.xlsx",
+  "desc": "文字・日付・時刻・真偽・エラー・空文字",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f12_footer",
+  "order": "shuf",
+  "file": "f12_footer__shuf.xlsx",
+  "desc": "表の下の合計行・平均行を読む数式",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f13_hyperlink",
+  "order": "shuf",
+  "file": "f13_hyperlink__shuf.xlsx",
+  "desc": "HYPERLINK / CONCAT",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f16_unsafe",
+  "order": "shuf",
+  "file": "f16_unsafe__shuf.xlsx",
+  "desc": "外部ブック・3D・INDIRECT・OFFSET・ADDRESS・全角演算子",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ },
+ {
+  "name": "f14_twoheader",
+  "order": "shuf",
+  "file": "f14_twoheader__shuf.xlsx",
+  "desc": "2行見出し",
+  "sheet": "評価",
+  "headerRow": 2,
+  "firstDataRow": 3,
+  "lastDataRow": 33,
+  "comPost": []
+ },
+ {
+  "name": "f10_arrays",
+  "order": "shuf",
+  "file": "f10_arrays__shuf.xlsx",
+  "desc": "配列・動的配列・スピル",
+  "sheet": "評価",
+  "headerRow": 1,
+  "firstDataRow": 2,
+  "lastDataRow": 32,
+  "comPost": []
+ }
+]
