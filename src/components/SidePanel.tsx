@@ -21,6 +21,8 @@ export interface SidePanelProps {
   onRedo: () => void;
   onRemerge: () => void;
   summary: ReactNode;
+  /** 「シート一覧」 (after the merge, when the output has more than one sheet; absent = nothing to show) */
+  sheets?: ReactNode;
   /** 「数式の取り込み」 block (after the merge; absent = nothing to show) */
   formulas?: ReactNode;
   checks: ReactNode;
@@ -94,6 +96,8 @@ export function SidePanel(props: SidePanelProps) {
       <div className="side-summary" data-testid="side-summary">
         {props.summary}
       </div>
+
+      {props.sheets}
 
       {props.formulas}
 

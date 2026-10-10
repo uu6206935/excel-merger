@@ -19,6 +19,16 @@ const TAG = /<(\/?)([^\s/>=<"'!?&]+)([^>]*?)(\/?)>/y;
 const ATTRS_OK = /^(?:\s+[^\s=<>"'/&]+\s*=\s*(?:"[^"<]*"|'[^'<]*'))*\s*$/;
 const ATTR_NAME = /\s([^\s=]+)\s*=\s*(?:"[^"]*"|'[^']*')/g;
 const ATTR_ANY = /\s([^\s=]+)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
+/**
+ * The bulk of a worksheet in ONE match: a whole <c> element of the usual shapes — attributes without prefix or '&', and a body that is
+ * nothing / <v>text</v> / <f …>text</f> with an optional <v> / <is><t>text</t></is>; text without '<' and with well-formed entity
+ * references only. (Everything else goes through the general tag loop; this only saves 4 regex matches per cell.)
+ */
+const ENT = '(?:[^<&]|&(?:amp|lt|gt|quot|apos|#[0-9]+|#[xX][0-9a-fA-F]+);)*';
+const CELL_FAST = new RegExp(
+  '<c(?: [A-Za-z0-9_]+="[^"<&]*")*(?:/>|>(?:<v>[^<&]*</v>|<f(?: [A-Za-z0-9_]+="[^"<&]*")*>' + ENT + '</f>(?:<v>' + ENT + '</v>)?|<is><t(?: xml:space="preserve")?>' + ENT + '</t></is>|<v/>)?</c>)',
+  'y',
+);
 
 /** null = well-formed, else a short description of the first problem found. */
 export function xmlProblem(xml: string): string | null {
@@ -46,6 +56,11 @@ export function xmlProblem(xml: string): string | null {
     }
     if (lt < 0) break;
     const c1 = xml.charCodeAt(lt + 1);
+    if (c1 === 99 /* c */ && stack.length) {
+      CELL_FAST.lastIndex = lt;
+      const cm = CELL_FAST.exec(xml);
+      if (cm) { i = lt + cm[0].length; continue; }
+    }
     if (c1 === 33 /* ! */) {
       if (xml.startsWith('<!--', lt)) {
         const e = xml.indexOf('-->', lt + 4);

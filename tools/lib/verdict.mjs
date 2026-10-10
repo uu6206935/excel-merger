@@ -5,6 +5,7 @@
 //         pivots, tables, CF / formulas now pointing to a different column (by header text).
 // WARN  = suspicious but possibly intended (values changed, multi-column ranges now cover other headers …).
 // INFO  = facts (formulas converted to values, rows appended …).
+import { checkCopies } from './copies.mjs';
 import {
   arr,
   cellAddr,
@@ -106,9 +107,25 @@ export function checkOutput(base, out, opts = {}) {
   const baseSheets = arr(base.sheets).map((s) => s.name);
   const outSheets = arr(out.sheets).map((s) => s.name);
   const lost = baseSheets.filter((n) => !outSheets.includes(n));
-  if (lost.length) add('fail', 'sheets-lost', `シートが消えています: ${lost.join(', ')}`);
-  else add('pass', 'sheets', `シート ${baseSheets.length} 枚はすべて残っています`);
+  const lostSet = new Set(lost.map((n) => n.toLowerCase()));
+  const singleSheet = opts.singleSheet === true;
+  const withCopies = opts.withCopies === true;
+  if (singleSheet) {
+    // 出力は結合したシートだけ（他のファイルのシートを含める場合は、それも）: 基準ファイルのほかのシートがなくなるのは仕様
+    if (lost.length) add('info', 'sheets-dropped', `基準ファイルのほかのシート ${lost.length} 枚は出力に含めない設定のため、ありません: ${lost.join(', ')}`);
+    const keptOthers = outSheets.filter((n) => baseSheets.includes(n));
+    const extra = outSheets.filter((n) => !baseSheets.includes(n));
+    if (keptOthers.length > 1) add('fail', 'not-single-sheet', `出力は結合したシートだけのはずですが、基準ファイルのシートが ${keptOthers.length} 枚残っています: ${keptOthers.join(', ')}`);
+    else if (!withCopies && extra.length) add('fail', 'not-single-sheet', `出力は結合したシートだけのはずですが、ほかのシートがあります: ${extra.join(', ')}（他のファイルのシートを含める出力なら --with-copies を付けてください）`);
+    else if (!keptOthers.length) add('fail', 'sheets-lost', '結合したシート（基準ファイルのシート）が出力にありません');
+    else if (!lost.length || keptOthers.length === 1) add('pass', 'sheets', withCopies ? '基準ファイルのシートは結合したシートだけです（他のファイルのシートは別に確認します）' : '出力は結合したシート 1 枚だけです');
+  } else if (lost.length) {
+    add('fail', 'sheets-lost', `シートが消えています: ${lost.join(', ')}${outSheets.length === 1 ? '（出力が 1 シートだけなら、結合したシートだけの出力です。--single-sheet を付けて確認してください）' : ''}`);
+  } else add('pass', 'sheets', `シート ${baseSheets.length} 枚はすべて残っています`);
   const common = baseSheets.filter((n) => outSheets.includes(n));
+  // the sheets copied from the other files are judged apart (against their sources, copies.mjs): the checks below look at the base file's own sheets
+  const baseNameSet = new Set(baseSheets);
+  const outView = withCopies ? { ...out, sheets: arr(out.sheets).filter((s) => baseNameSet.has(s.name)) } : out;
   if (JSON.stringify(common) !== JSON.stringify(outSheets.filter((n) => baseSheets.includes(n)))) add('warn', 'sheet-order', 'シートの順番が変わっています');
 
   // merged sheet + header rows (from the BASE: header rows do not move)
@@ -153,14 +170,14 @@ export function checkOutput(base, out, opts = {}) {
     return cells;
   };
   const refBase = refText(base);
-  const refOut = refText(out);
+  const refOut = refText(outView);
   stats.refText = { base: refBase.length, out: refOut.length };
   if (refOut.length > refBase.length) add('fail', 'new-ref-text', `#REF! を含む数式・名前・書式が ${refOut.length - refBase.length} 件増えています`, refOut.filter((x) => !refBase.includes(x)));
   else add('pass', 'ref-text', '新しい #REF! 参照はありません');
 
   // 4. error values
   const eb = totalErrors(base);
-  const eo = totalErrors(out);
+  const eo = totalErrors(outView);
   stats.errors = { base: eb, out: eo };
   const errorCells = (d, kind) => {
     const r = [];
@@ -172,7 +189,7 @@ export function checkOutput(base, out, opts = {}) {
     const d = (eo[kind] ?? 0) - (eb[kind] ?? 0);
     if (d <= 0) continue;
     anyErr = true;
-    add(FATAL_ERRORS.includes(kind) ? 'fail' : 'warn', `new-error-${kind}`, `エラー値 ${kind} が ${d} 件増えています`, errorCells(out, kind));
+    add(FATAL_ERRORS.includes(kind) ? 'fail' : 'warn', `new-error-${kind}`, `エラー値 ${kind} が ${d} 件増えています`, errorCells(outView, kind));
   }
   if (!anyErr) add('pass', 'errors', '新しいエラー値 (#REF! / #NAME? など) はありません');
 
@@ -180,7 +197,26 @@ export function checkOutput(base, out, opts = {}) {
   const nkey = (n) => `${n.scope ?? ''}!${n.name}`;
   const outNames = new Map(arr(out.names).map((n) => [nkey(n), n]));
   const lostNames = arr(base.names).filter((n) => !/^_xl/i.test(n.name) && !outNames.has(nkey(n)));
-  if (lostNames.length) add('fail', 'names-lost', `名前の定義が消えています: ${lostNames.map((n) => n.name).join(', ')}`);
+  // a name that belongs to / points at a sheet that is not in the output (single-sheet output) goes with the sheet
+  const readsRemoved = (text, scope = null) => {
+    if (!singleSheet || !lostSet.size) return false;
+    if (scope && lostSet.has(String(scope).toLowerCase())) return true;
+    return extractRefs(String(text ?? ''), null).some((r) => r.qualified && lostSet.has(String(r.sheet).toLowerCase()));
+  };
+  // a defined name used inside a rule formula (=大学一覧) that points at a removed sheet
+  const removedNames = new Set(arr(base.names).filter((n) => readsRemoved(n.refersTo, n.scope)).map((n) => String(n.name).toLowerCase()));
+  const readsRemovedName = (text) => {
+    if (!singleSheet || !removedNames.size) return false;
+    for (const nm of removedNames) {
+      const re = new RegExp(`(^|[^\\p{L}\\p{N}_.])${nm.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')}(?![\\p{L}\\p{N}_.(!])`, 'iu');
+      if (re.test(String(text ?? ''))) return true;
+    }
+    return false;
+  };
+  const droppedNames = lostNames.filter((n) => readsRemoved(n.refersTo, n.scope));
+  const reallyLost = lostNames.filter((n) => !droppedNames.includes(n));
+  if (droppedNames.length) add('info', 'names-dropped', `出力に含めないシートの名前の定義 ${droppedNames.length} 件は、シートと一緒になくなりました: ${droppedNames.map((n) => n.name).join(', ')}`);
+  if (reallyLost.length) add('fail', 'names-lost', `名前の定義が消えています: ${reallyLost.map((n) => n.name).join(', ')}`);
 
   // 6. formulas still point to the same columns (by header text)
   const namesBase = nameTargets(base);
@@ -261,8 +297,12 @@ export function checkOutput(base, out, opts = {}) {
     const os = sheetByName(out, n);
     const bc = arr(bs.charts);
     const oc = arr(os.charts);
-    if (oc.length < bc.length) add('fail', 'charts-lost', `[${n}] グラフが ${bc.length} → ${oc.length} 個に減っています`);
+    // (single-sheet output: a chart that reads a sheet that is not in the output cannot stay)
+    const droppedCharts = bc.filter((ch) => arr(ch.series).some((se) => readsRemoved(se.formula))).length;
+    if (droppedCharts) add('info', 'charts-dropped', `[${n}] 出力に含めないシートを参照するグラフ ${droppedCharts} 個は、シートと一緒になくなりました`);
+    if (oc.length < bc.length - droppedCharts) add('fail', 'charts-lost', `[${n}] グラフが ${bc.length} → ${oc.length} 個に減っています`);
     for (const ch of bc) {
+      if (arr(ch.series).some((se) => readsRemoved(se.formula))) continue;
       const o = oc.find((x) => x.name === ch.name) ?? oc[bc.indexOf(ch)];
       if (!o) continue;
       const sb = arr(ch.series).map((s) => sig(formulaColumns(base, String(s.formula ?? ''), n, headerRows, namesBase)));
@@ -356,6 +396,10 @@ export function checkOutput(base, out, opts = {}) {
       const cfBase = arr(bs.cf).map((c) => cfRule(base, bs, c, namesBase));
       const cfC = classify(cfBase, arr(os.cf).map((c) => cfRule(out, os, c, namesOut)));
       if (cfC.gone) add('info', 'cf-deleted', `[${merged}] 削除した列だけに付いていた条件付き書式 ${cfC.gone} 件は列と一緒になくなりました`);
+      // (single-sheet output: a rule whose formula reads a sheet that is not in the output is dropped)
+      const cfDropped = cfC.lost.filter((c) => readsRemoved(c.raw.formula1) || readsRemoved(c.raw.formula2) || readsRemovedName(c.raw.formula1));
+      cfC.lost = cfC.lost.filter((c) => !cfDropped.includes(c));
+      if (cfDropped.length) add('info', 'cf-dropped', `[${merged}] 出力に含めないシートを参照する条件付き書式 ${cfDropped.length} 件は、はずしました`, cfDropped.map((c) => `${c.range} ${c.raw.formula1 ?? ''}`));
       if (cfC.lost.length) add('fail', 'cf', `[${merged}] 条件付き書式 ${cfC.lost.length} 件が元の列に付いていません`, cfC.lost.map((c) => `${c.range} ${c.raw.formula1 ?? ''}`));
       else if (cfBase.length) add('pass', 'cf', `[${merged}] 条件付き書式 ${cfC.kept} 件は同じ見出しの列に付いています`);
       if (cfC.grown.length)
@@ -364,6 +408,10 @@ export function checkOutput(base, out, opts = {}) {
       const dvBase = arr(bs.dv).map((d) => dvRule(base, bs, d, namesBase));
       const dvC = classify(dvBase, arr(os.dv).map((d) => dvRule(out, os, d, namesOut)));
       if (dvC.gone) add('info', 'dv-deleted', `[${merged}] 削除した列だけに付いていた入力規則 ${dvC.gone} 件は列と一緒になくなりました`);
+      // (single-sheet output: a list that reads a sheet that is not in the output becomes a literal list when it fits, else the validation is dropped)
+      const dvDropped = dvC.lost.filter((d) => readsRemoved(d.raw.formula1) || readsRemoved(d.raw.formula2) || readsRemovedName(d.raw.formula1));
+      dvC.lost = dvC.lost.filter((d) => !dvDropped.includes(d));
+      if (dvDropped.length) add('info', 'dv-literalized', `[${merged}] 出力に含めないシートを参照する入力規則 ${dvDropped.length} 件は、リストをそのまま書き込んだか、はずしました`, dvDropped.map((d) => `${d.range} ${d.raw.formula1 ?? ''}`));
       if (dvC.lost.length) add('fail', 'dv', `[${merged}] 入力規則 ${dvC.lost.length} 件が元の列に付いていません`, dvC.lost.map((d) => `${d.range} ${d.raw.formula1 ?? ''}`));
       if (dvC.grown.length)
         add('info', 'dv-grown', `[${merged}] 入力規則 ${dvC.grown.length} 件は、隣に挿入した（移動してきた）列まで範囲が広がっています（Excelの列の挿入と同じ動作）`, dvC.grown);
@@ -402,6 +450,25 @@ export function checkOutput(base, out, opts = {}) {
     }
   }
   if (changed.length) add('warn', 'values-changed', `他のシートの数式の結果が ${changed.length} 件変わっています（行を追加した場合などは正常）`, changed);
+
+  // 10. single-sheet output: a formula that reads a sheet which is not in the output would be #REF! — such formulas must have become values
+  if (singleSheet) {
+    const have = new Set(outSheets.map((n) => n.toLowerCase()));
+    const bad = [];
+    for (const s of arr(out.sheets)) {
+      for (const [a, f] of Object.entries(s.formulas ?? {})) {
+        if (extractRefs(String(f), s.name).some((r) => r.qualified && !have.has(String(r.sheet).toLowerCase()))) bad.push(`${s.name}!${a}: ${f}`);
+      }
+    }
+    if (bad.length) add('fail', 'dangling-sheet-ref', `出力にないシートを参照する数式が ${bad.length} 件あります（値になっているはずです）`, bad);
+    else add('pass', 'no-dangling-ref', '出力にないシートを参照する数式はありません（参照していた数式は値になっています）');
+  }
+
+  // 11. the sheets copied from the other files (plan A)
+  if (withCopies) {
+    const { compared } = checkCopies({ base, out, merged: merged ?? outSheets[0], sources: arr(opts.sources), outStrict: opts.outStrict === true, add });
+    stats.copies = { compared };
+  }
 
   return finish();
 

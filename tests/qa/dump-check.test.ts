@@ -109,6 +109,19 @@ describe.skipIf(!haveSamples)('dumpIssues against the real sample packages', () 
     expect(msg).toMatch(/文字 \d+ 件のうち \d+ 件が Excel の読み取りにありません/);
   });
 
+  it('the cells a pivot table draws are not judged (Excel re-renders them when the source changed or it refreshes on open); the rest of the sheet still is', async () => {
+    const facts = await packageFacts(base);
+    const pv = facts!.sheets.find((x) => x.name === 'ピボット')!;
+    expect(pv.pivotAreas).toEqual([{ r1: 3, c1: 1, r2: 15, c2: 6 }]);
+    const d = await fakeDump(base);
+    const sh = d.sheets!.find((x) => x.name === 'ピボット')!;
+    for (const k of Object.keys(sh.values)) if (/^[A-F](?:[3-9]|1[0-5])$/.test(k)) sh.values[k] = 'x'; // re-rendered
+    expect(dumpIssues(facts, d).join('\n')).not.toMatch(/ピボット」の文字/);
+    // ... but a sheet whose OTHER texts are gone is still flagged (the roster's header row)
+    for (const x of d.sheets!) if (x.name === '名簿') x.values = {};
+    expect(dumpIssues(facts, d).join('\n')).toMatch(/名簿」の文字/);
+  });
+
   it('flags formulas that point at other columns / are missing', async () => {
     const facts = await packageFacts(base);
     const d = await fakeDump(base);

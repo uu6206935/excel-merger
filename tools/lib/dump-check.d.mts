@@ -16,6 +16,8 @@ export interface PackageFacts {
     tables: number;
     charts: number;
     pivots: number;
+    /** the cells the pivot tables draw (location ranges): their text is not compared */
+    pivotAreas: Array<{ r1: number; c1: number; r2: number; c2: number }>;
   }>;
 }
 

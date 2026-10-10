@@ -271,6 +271,8 @@ console.log('cards:', await cardCount(), '| summary:', await text('[data-testid=
 check(await has('[data-testid=file-excluded-1]'), 'the 04 card (now the second one) is still excluded');
 
 // ---------------------------------------------------------------------------------------------- merge without 04
+// (the app's default: the output holds ONLY the merged sheet — tests/ui/verify-outputs.mjs checks such outputs with --single-sheet)
+console.log('SHEETS single');
 await mergeBtn.click();
 await page.waitForSelector('[data-testid=grid]', { timeout: 180000 });
 await idle();

@@ -22,6 +22,8 @@ export interface ExportDialogProps {
   server: ServerState;
   exportState: ExportState;
   editCount: number;
+  /** 「他のファイルのシートも含める」 was used: the copied sheets may hold charts / pivot tables (Excel本体 keeps them best) */
+  includeSourceSheets?: boolean;
   onExport: (fileName: string, engine: ExportEngineChoice) => void;
   onCancelExport: () => void;
   onOpenFile: () => void;
@@ -152,6 +154,12 @@ export function ExportDialog(props: ExportDialogProps) {
                     : serverMode
                       ? 'Excel がインストールされていないため使えません。'
                       : 'スタンドアロンで開いているため使えません（start.bat から起動すると使えます）。'}
+                {props.includeSourceSheets && (
+                  <span className="engine-sheets-hint" data-testid="export-engine-sheets-hint">
+                    {' '}
+                    他のファイルのシートをコピーしているため、そのシートのグラフ・ピボットテーブルは、この方法がもっとも確実に保たれます。
+                  </span>
+                )}
               </span>
             </span>
           </label>

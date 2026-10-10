@@ -11,6 +11,10 @@ Source workbooks for the formula-import tests and the real-Excel oracle (`tests/
 * `expected.json` — counters (kept / value / empty / reasons / widened / uncached / substituted) of every file under four configurations;
   `tests/xlsx/formula-import-corpus.test.ts` recomputes them. Rewrite with `npx tsx tests/oracle/import-values/make-expected.ts` after a
   deliberate change of behaviour and review the diff.
+* `expected-copies.json` — the same counters with `PremergeOptions.includeSourceSheets` (round 9, task F2: the imported formulas the merged table
+  cannot keep read the copies of the source's sheets; `viaCopy` = how many). `tests/xlsx/formula-import-copies-corpus.test.ts` recomputes them;
+  rewrite with `npx tsx tests/oracle/import-values/make-expected.ts --copies`. The values are checked in real Excel by
+  `tests\oracle\import-values\run.ps1 -Sources` (this corpus and the generated one) and `run.ps1 -Random <n>` (random workbooks, see random.ts).
 
 Persons: 27 of the 31 source people match the base, 4 exist only in the source (join "full" appends them), 3 base people are missing in
 the source. Items: f01 same-row · f02 shared formulas · f03 key columns · f04 lookups · f05 ranges · f06 running totals / side cell / ROW · f07 other

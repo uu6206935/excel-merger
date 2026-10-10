@@ -50,7 +50,8 @@ import {
 import { formulaReportViews, formulaToastLines, formulaToastParts } from './formulaReport';
 import { folderScanMessage, scanFolders, type DropPayload } from './dropFiles';
 import { fileColumnIndexes, groupMove, orderFilesByGroups } from './groups';
-import { droppedSheetsLine, formulasDetachedLine } from './notes';
+import { droppedBaseSheetsLine, droppedSheetsLine, formulasDetachedLine } from './notes';
+import { addedSheetsLine } from './sheetPlan';
 import { hasEdits, type Action } from './reducer';
 import { normalizeJobResult, type Services } from './services';
 import type { AppState, ExportEngineChoice, GridPos, ManualKey } from './types';
@@ -108,8 +109,16 @@ export interface Controller {
   merge(): Promise<void>;
   requestRemerge(): void;
   confirmModal(): void;
-  /** 「他のシートも出力に含める」 (before the merge only; false = the output holds only the merged sheet) */
+  /**
+   * 「他のシートも出力に含める」 (before the merge only; false = the output holds only the merged sheet). Ticking it also ticks
+   * 「他のファイルのシートも含める」, clearing it clears that one (see sheetPlan.withOtherSheets).
+   */
   setIncludeOtherSheets(include: boolean): void;
+  /**
+   * 「他のファイルのシートも含める」 (before the merge only): copy every sheet of the 2nd, 3rd … files into the output. Ticking it
+   * while 「他のシートも出力に含める」 is off ticks that one too (see sheetPlan.withSourceSheets).
+   */
+  setIncludeSourceSheets(include: boolean): void;
   // editor
   /** false when refused (a title-merge refusal opens the 「結合を解除して移動」 confirmation instead) */
   moveColumns(ids: string[], gap: number): boolean;
@@ -633,8 +642,15 @@ export function createController(deps: { services: Services; dispatch: (a: Actio
       // formulas of the imported files that read a key column which is not imported (=A2&"様", VLOOKUP(A2,…)) read the base's partner column
       // instead — only for the files that take part in the merge
       ...(keyPairs ? { keyPairs } : {}),
-      // the output holds ONLY the merged sheet unless the user ticked 「他のシートも出力に含める」
-      options: { formulaPolicy: 'keep-if-possible', extendTable: true, headerConflict: 'suffix', dropOtherSheets: !st.includeOtherSheets },
+      // the output holds ONLY the merged sheet unless the user ticked 「他のシートも出力に含める」 (the base's other sheets) and /
+      // or 「他のファイルのシートも含める」 (every sheet of the other files: copies named <file>_<sheet>)
+      options: {
+        formulaPolicy: 'keep-if-possible',
+        extendTable: true,
+        headerConflict: 'suffix',
+        dropOtherSheets: !st.includeOtherSheets,
+        includeSourceSheets: st.includeSourceSheets,
+      },
     };
     const run = (async () => {
       dispatch({ type: 'busy/set', busy: { message: '結合しています…', ratio: 0 } });
@@ -672,10 +688,20 @@ export function createController(deps: { services: Services; dispatch: (a: Actio
         if (excludedNames.length) parts.push(`結合対象外 ${excludedNames.length} ファイル（${excludedNames.join('、')}）`);
         const dropped = res.report.droppedSheets ?? [];
         const detached = res.report.formulasDetached ?? 0;
+        const added = res.report.addedSheets ?? res.layout.addedSheets?.map((a) => a.name) ?? [];
         // single-sheet output: say what is NOT in the output (the full sentences are in the side panel and in the 警告 list)
-        if (dropped.length) parts.push(`他のシート ${dropped.length} 枚は含めません`);
+        if (dropped.length) parts.push(st.includeSourceSheets ? `基準の他のシート ${dropped.length} 枚は含めません` : `他のシート ${dropped.length} 枚は含めません`);
         if (detached > 0) parts.push(`他のシートを参照していた数式 ${detached} 個は値にしました`);
-        const detail = [dropped.length ? droppedSheetsLine(dropped) : '', detached > 0 ? formulasDetachedLine(detached) : '', ...formulaToastLines(fviews)].filter(Boolean).join('\n');
+        // all-sheets output: say how many sheets of the other files were added (the names are in the side panel's 「シート一覧」)
+        if (added.length) parts.push(`他のファイルのシート ${added.length} 枚を追加`);
+        const detail = [
+          dropped.length ? (st.includeSourceSheets ? droppedBaseSheetsLine(dropped) : droppedSheetsLine(dropped)) : '',
+          detached > 0 ? formulasDetachedLine(detached) : '',
+          added.length ? addedSheetsLine(added) : '',
+          ...formulaToastLines(fviews),
+        ]
+          .filter(Boolean)
+          .join('\n');
         toast(`結合しました: ${parts.join(' / ')}`, 'info', detail || undefined);
       } catch (e) {
         toastError('結合できませんでした', e);
@@ -1144,6 +1170,7 @@ export function createController(deps: { services: Services; dispatch: (a: Actio
     requestRemerge,
     confirmModal,
     setIncludeOtherSheets: (include) => dispatch({ type: 'output/otherSheets', include }),
+    setIncludeSourceSheets: (include) => dispatch({ type: 'output/sourceSheets', include }),
     moveColumns: (ids, gap) => moveColumns(ids, gap),
     reorderFile,
     insertColumns,

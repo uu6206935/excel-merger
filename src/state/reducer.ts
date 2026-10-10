@@ -9,6 +9,7 @@ import { canRedo, canUndo, commit, initHistory, redo, undo } from '../core/doc';
 import { moveBefore } from './groups';
 import { DEFAULT_OPTIONS, pickColor, sameServerStatus } from './helpers';
 import { analysisInputKey, effectiveBaseId, filesKey } from './keysPlan';
+import { sameSheetOptions, withOtherSheets, withSourceSheets, type SheetOptions } from './sheetPlan';
 import type { AppState, BusyState, ColSelectionState, ExportState, FileEntry, GridPos, ManualKey, ModalState } from './types';
 
 export const EMPTY_SELECTION: ColSelectionState = { cols: new Set<string>(), anchor: null };
@@ -28,6 +29,7 @@ export const initialState: AppState = {
   keyError: null,
   importOverrides: {},
   includeOtherSheets: false,
+  includeSourceSheets: false,
   phase: 'files',
   merged: null,
   selection: EMPTY_SELECTION,
@@ -60,7 +62,10 @@ export type Action =
    */
   | { type: 'files/move'; id: string; beforeId: string | null }
   | { type: 'base/set'; id: string }
+  /** 「他のシートも出力に含める」 (also sets / clears includeSourceSheets, see withOtherSheets) */
   | { type: 'output/otherSheets'; include: boolean }
+  /** 「他のファイルのシートも含める」 (ticking it also ticks the first one, see withSourceSheets) */
+  | { type: 'output/sourceSheets'; include: boolean }
   | { type: 'options/set'; options: Partial<NormalizeOptions> }
   | {
       type: 'analysis/done';
@@ -221,8 +226,13 @@ export function reducer(state: AppState, action: Action): AppState {
       return files ? invalidateAnalysis({ ...state, files }) : state;
     }
     case 'output/otherSheets':
-      // a merge setting: it cannot change once the merge is done (the controls are disabled; see SettingsBar)
-      return state.phase !== 'files' || state.includeOtherSheets === action.include ? state : { ...state, includeOtherSheets: action.include };
+    case 'output/sourceSheets': {
+      // merge settings: they cannot change once the merge is done (the controls are disabled; see SettingsBar)
+      if (state.phase !== 'files') return state;
+      const cur: SheetOptions = { includeOtherSheets: state.includeOtherSheets, includeSourceSheets: state.includeSourceSheets };
+      const next = action.type === 'output/otherSheets' ? withOtherSheets(cur, action.include) : withSourceSheets(cur, action.include);
+      return sameSheetOptions(cur, next) ? state : { ...state, ...next };
+    }
     case 'base/set': {
       if (!state.files.some((f) => f.id === action.id) || state.baseId === action.id) return state;
       return invalidateAnalysis({ ...state, baseId: action.id, plan: null, planFilesKey: null, manualKeys: {} });

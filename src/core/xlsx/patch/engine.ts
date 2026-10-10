@@ -1222,7 +1222,7 @@ export class Engine {
           for (const cell of row.cells) {
             if (!cell.x || cell.x.indexOf('<f') < 0 || cell.x.indexOf('[') < 0) continue;
             // bring the formula up to date first (a later rename must not meet an older delete's #REF! rule)
-            this.adjustCell(cell, info.name, entries);
+            this.adjustCell(cell, info.name, entries, row.r);
             const f = parseF(cell.x);
             if (!f || !f.text) continue;
             const host = own && row.r >= t.ref.r1 && row.r <= t.ref.r2 && cell.c >= t.ref.c1 && cell.c <= t.ref.c2 ? tl : null;
@@ -1406,15 +1406,18 @@ export class Engine {
     let changed = false;
     for (const row of model.rows) {
       for (const cell of row.cells) {
-        if (this.adjustCell(cell, host, entries)) changed = true;
+        if (this.adjustCell(cell, host, entries, row.r)) changed = true;
       }
     }
     if (changed) model.dirty = true;
     return changed;
   }
 
-  /** Apply the pending entries (from cell.ep) to one cell's formula and array / data-table refs. */
-  adjustCell(cell: CellM, host: string, entries: readonly OpEntry[]): boolean {
+  /**
+   * Apply the pending entries (from cell.ep) to one cell's formula and array / data-table refs. `row`: the cell's row (the premerge row
+   * extension needs to know whether the formula sits inside the data rows, see patch/formula.ts extendArea).
+   */
+  adjustCell(cell: CellM, host: string, entries: readonly OpEntry[], row?: number): boolean {
     const x = cell.x;
     if (!x || cell.ep >= entries.length || x.indexOf('<f') < 0) return false;
     const from = cell.ep;
@@ -1422,7 +1425,7 @@ export class Engine {
     const f = parseF(x);
     if (!f) return false;
     let attrs = f.attrs;
-    const r = f.text ? adjustFormulaOps(f.text, entries, host, 'cell', from) : null;
+    const r = f.text ? adjustFormulaOps(f.text, entries, host, 'cell', from, null, row) : null;
     const ref = getAttr(attrs, 'ref');
     if (ref) {
       const a = parseAreaText(ref);
@@ -1912,18 +1915,30 @@ function mentions(xml: string, needleLower: string): boolean {
   return (low.indexOf('&#') >= 0 || low.indexOf('<![cdata[') >= 0) && unesc(low).includes(needleLower);
 }
 
-/** Cheap pre-filter: can this sheet XML contain references affected by the ops? */
+/** the text mentions `sheet` as a reference prefix ("name!", "'name'!", first sheet of a 3-D range "name:other!"), also in the XML-escaped spellings of the name */
+function namesSheet(hay: string, sheetLower: string): boolean {
+  for (const b of [sheetLower, sheetLower.replace(/'/g, "''")]) {
+    for (const v of new Set([b, esc(b).toLowerCase(), escAttr(b).toLowerCase()])) {
+      if (hay.includes(v + '!') || hay.includes(v + "'!") || hay.includes(v + '&apos;!') || hay.includes(v + ':')) return true;
+    }
+  }
+  return false;
+}
+
+/**
+ * Cheap pre-filter: can this sheet XML contain references affected by the ops? A sheet that is not an op sheet can only reach an op
+ * sheet through a qualified reference ("名簿!A1", "'My Sheet'!A1": the name followed by "!") or a structured reference to one of the tables
+ * the ops touched; a sheet whose name merely contains the op sheet's name (a copy "名簿_名簿" next to the merged sheet "名簿") is not a hit.
+ */
 function mayReference(xml: string, sheetsLower: Set<string>, tablesLower: Set<string>): boolean {
   if (xml.indexOf('<f') < 0 && xml.indexOf('<formula') < 0 && xml.indexOf('<xm:f') < 0 && xml.indexOf('location=') < 0) return false;
   const low = xml.toLowerCase();
-  for (const s of sheetsLower) {
-    if (low.includes(s) || low.includes(escAttr(s).toLowerCase()) || low.includes(s.replace(/'/g, "''")) || low.includes(esc(s.replace(/'/g, "''")).toLowerCase())) return true;
-  }
+  for (const s of sheetsLower) if (namesSheet(low, s)) return true;
   for (const t of tablesLower) if (low.includes(t)) return true;
   // a writer that spells text with numeric character references (&#x540d;) or CDATA: look at the decoded text
   if (low.indexOf('&#') >= 0 || low.indexOf('<![cdata[') >= 0) {
     const dec = unesc(low);
-    for (const s of sheetsLower) if (dec.includes(s)) return true;
+    for (const s of sheetsLower) if (namesSheet(dec, s)) return true;
     for (const t of tablesLower) if (dec.includes(t)) return true;
   }
   return false;

@@ -15,9 +15,10 @@ export function frozenAfter(k: number, op: StructOp): number {
   const ins = (at: number, n: number, kk: number) => (at <= kk ? kk + n : kk);
   const del = (at: number, n: number, kk: number) => {
     const s = at, e = at + n - 1;
-    // the frozen block behaves like the range 1..k; a delete that removes it entirely leaves the split alone
-    // (golden g-plan-ACE-F: moving column A out of a one-column freeze keeps one frozen column)
-    if (s <= 1 && e >= kk) return kk;
+    // the frozen block behaves like the range 1..k; a delete (the delete step of a move too) that removes it entirely leaves ONE frozen line, whatever k was
+    // (golden g-plan-ACE-F: moving column A out of a one-column freeze keeps one frozen column; measured in Excel by the copied-sheets oracle, round 9:
+    // k = 2, 3, 4 columns deleted / moved out -> xSplit = 1, and for rows ySplit = 1; before this the split was left at k)
+    if (s <= 1 && e >= kk) return 1;
     const hit = Math.max(0, Math.min(e, kk) - Math.max(s, 1) + 1);
     return kk - hit;
   };

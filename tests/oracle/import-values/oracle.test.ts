@@ -1,5 +1,6 @@
 /**
- * The import-values oracle (oracle.ts) under vitest.
+ * The import-values oracle (oracle.ts) under vitest. Round 9 (includeSourceSheets): the same oracle with the original sheets of the source
+ * copied (--sources) and the random property test (--random: random source workbooks, Excel computes the source and the merged workbook).
  *  - always: the Node half runs on the repository fixtures (tests/fixtures/formulaimport) without Excel — every premerged package and its
  *    column-moved twin is built, nothing may throw;
  *  - EXCEL_TESTS=1: the whole oracle with real Excel (run.ps1 -> ONE hidden instance of our own): every package opens without repair, every
@@ -33,6 +34,34 @@ describe('import-values oracle: Node half (no Excel)', () => {
   }, 120_000);
 });
 
+describe('import-values oracle with includeSourceSheets: Node half (no Excel)', () => {
+  it('builds every package of the fixtures with the source sheets copied, and its column-moved twin', async () => {
+    const out = fs.mkdtempSync(path.join(os.tmpdir(), 'iv-oracle-src-'));
+    try {
+      await main(['--corpus', FIX, '--out', out, '--configs', 'quick', '--no-excel', '--sources']);
+      const pkgs = fs.readdirSync(path.join(out, 'pkg'));
+      expect(pkgs.length).toBeGreaterThanOrEqual(30);
+      expect(pkgs.every((f) => /\+src(\.moved)?\.xlsx$/.test(f))).toBe(true);
+    } finally {
+      fs.rmSync(out, { recursive: true, force: true });
+    }
+  }, 120_000);
+
+  it('the random corpus (3 row orders x 5 configurations per workbook) builds, every formula column is imported, the copies are read', async () => {
+    const out = fs.mkdtempSync(path.join(os.tmpdir(), 'iv-oracle-rnd-'));
+    try {
+      await main(['--corpus', 'none', '--out', out, '--random', '2', '--seed', '3', '--no-excel']);
+      const jobs = JSON.parse(fs.readFileSync(path.join(out, 'jobs.json'), 'utf8')) as Array<{ id: string; kind: string }>;
+      // per workbook and order: the source itself + 5 configurations x (package + moved twin) (+ a reduced twin when a range was widened)
+      expect(jobs.filter((j) => /\.src$/.test(j.id)).length).toBe(6);
+      expect(jobs.filter((j) => j.kind === 'output' && /\+src$/.test(j.id)).length).toBe(30);
+      expect(fs.readdirSync(path.join(out, 'pkg')).length).toBe(60);
+    } finally {
+      fs.rmSync(out, { recursive: true, force: true });
+    }
+  }, 180_000);
+});
+
 describe.skipIf(!EXCEL)('import-values oracle: real Excel (EXCEL_TESTS=1)', () => {
   it('all packages open without repair, live formulas keep their values, no stale results, column moves keep every value', async () => {
     const out = fs.mkdtempSync(path.join(os.tmpdir(), 'iv-oracle-xl-'));
@@ -56,5 +85,45 @@ describe.skipIf(!EXCEL)('import-values oracle: real Excel (EXCEL_TESTS=1)', () =
     } finally {
       fs.rmSync(out, { recursive: true, force: true });
     }
+  }, 30 * 60_000);
+
+  const runOracle = async (extra: string[]) => {
+    const out = fs.mkdtempSync(path.join(os.tmpdir(), 'iv-oracle-xl-'));
+    try {
+      const ps1 = path.resolve(__dirname, 'run.ps1');
+      const code = await new Promise<number | null>((resolve, reject) => {
+        const child = spawn('powershell.exe', ['-NoLogo', '-NoProfile', '-NonInteractive', '-ExecutionPolicy', 'Bypass', '-File', ps1, '-Out', out, ...extra], { stdio: ['ignore', 'inherit', 'inherit'] });
+        const timer = setTimeout(() => child.kill(), 25 * 60_000);
+        child.on('error', reject);
+        child.on('close', (c) => { clearTimeout(timer); resolve(c); });
+      });
+      const rs = JSON.parse(fs.readFileSync(path.join(out, 'results.json'), 'utf8')) as Array<Record<string, number | string>>;
+      return { code, rs };
+    } finally {
+      fs.rmSync(out, { recursive: true, force: true });
+    }
+  };
+
+  it('includeSourceSheets, the fixtures: every package opens without repair, the formulas read through the copies have the values of the source', async () => {
+    const { code, rs } = await runOracle(['-Corpus', FIX, '-Sources']);
+    expect(code).toBe(0);
+    expect(rs.length).toBeGreaterThan(80);
+    expect(rs.filter((r) => r.open !== 'normal' || r.moveOpen !== 'normal')).toEqual([]);
+    expect(rs.reduce((a, r) => a + (r.mismatches as number), 0)).toBe(0);
+    expect(rs.reduce((a, r) => a + (r.staleCache as number), 0)).toBe(0);
+    expect(rs.reduce((a, r) => a + (r.moveMismatch as number), 0)).toBe(0);
+    expect(rs.reduce((a, r) => a + (r.viaCopy as number), 0)).toBeGreaterThan(1000);
+  }, 30 * 60_000);
+
+  it('property test: random source workbooks, 3 row orders, rows missing on both sides, join left / full — the remapped formula evaluated by Excel equals the source value', async () => {
+    const { code, rs } = await runOracle(['-Random', '8', '-Seed', '1']);
+    expect(code).toBe(0);
+    expect(rs.length).toBe(8 * 3 * 5);
+    expect(rs.filter((r) => r.open !== 'normal' || r.moveOpen !== 'normal')).toEqual([]);
+    expect(rs.reduce((a, r) => a + (r.mismatches as number), 0)).toBe(0);
+    expect(rs.reduce((a, r) => a + (r.moveMismatch as number), 0)).toBe(0);
+    // the comparison is about real values, most of the formulas read the copies
+    expect(rs.reduce((a, r) => a + (r.nonEmpty as number), 0)).toBeGreaterThan(5000);
+    expect(rs.reduce((a, r) => a + (r.viaCopy as number), 0)).toBeGreaterThan(2000);
   }, 30 * 60_000);
 });

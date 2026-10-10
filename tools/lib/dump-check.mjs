@@ -8,7 +8,7 @@
 // `inspectFiles` (tools/lib/inspect.mjs) runs this for every .xlsx / .xlsm and re-inspects in a FRESH Excel instance when it finds
 // a disagreement; a disagreement that survives the retries is reported by the verdict as `inspect-mismatch`.
 import fs from 'node:fs';
-import { extractRefs, arr, sheetByName } from './compare-core.mjs';
+import { extractRefs, arr, sheetByName, parseCell, parseRange } from './compare-core.mjs';
 import { loadPackageModel } from './package-diff.mjs';
 
 /** packages bigger than this are not cross-checked (parsing them costs more than an Excel retry) */
@@ -17,6 +17,12 @@ export const MAX_CHECK_BYTES = 40 * 1024 * 1024;
 /** text constants kept per sheet for the comparison (the first ones in row order: headers and the top of the data) */
 const MAX_TEXTS = 600;
 const normText = (t) => String(t).replace(/\r\n?/g, '\n').trim();
+
+/** is the cell `addr` inside the area of a pivot table of the sheet facts `f` */
+function inPivot(f, addr) {
+  const c = parseCell(addr);
+  return !!c && arr(f.pivotAreas).some((b) => c.row >= b.r1 && c.row <= b.r2 && c.col >= b.c1 && c.col <= b.c2);
+}
 
 /** sorted reference signature of a formula: which ranges it points to ('名簿!1,4,1,63;集計!2,5,2,5'), `$` ignored */
 export function refSignature(formula, sheet) {
@@ -27,7 +33,7 @@ export function refSignature(formula, sheet) {
 /**
  * What the package contains, in the terms of an inspect dump. null when the file is not an OOXML workbook (xls / csv / ods:
  * Excel converts those, there is nothing to compare with) or cannot be parsed.
- * @returns {Promise<null | {names: Array<{name: string, scope: string | null}>, sheets: Array<{name: string, formulas: Map<string, string>, texts: Map<string, string>, cf: number, dv: number, tables: number, charts: number, pivots: number}>}>}
+ * @returns {Promise<null | {names: Array<{name: string, scope: string | null}>, sheets: Array<{name: string, formulas: Map<string, string>, texts: Map<string, string>, cf: number, dv: number, tables: number, charts: number, pivots: number, pivotAreas: Array<{r1: number, c1: number, r2: number, c2: number}>}>}>}
  */
 export async function packageFacts(file) {
   if (!/\.(xlsx|xlsm)$/i.test(String(file))) return null;
@@ -56,6 +62,9 @@ export async function packageFacts(file) {
         // a drawing anchor holding a chart reads 'twoCell(..) title=..|barChart:col:clustered[series]' (bar3DChart, pieChart, ...)
         charts: m.drawings.filter((d) => /[A-Za-z0-9]Chart[:[]/.test(d)).length,
         pivots: m.pivots.length,
+        // the cells a pivot table draws: Excel re-renders them when it refreshes the table (refresh on open, a source that changed), so their text says nothing
+        // about whether the dump is complete
+        pivotAreas: m.pivots.map((p) => parseRange(String(p.location ?? ''))).filter(Boolean),
       });
     }
     return { names, sheets };
@@ -114,14 +123,20 @@ export function dumpIssues(facts, dump) {
     // text constants (the header row above all: every "which header does this column have" judgement reads them)
     if (!d.capped && f.texts.size >= 5) {
       let found = 0;
+      let skipped = 0;
       const absent = [];
       for (const [addr, text] of f.texts) {
+        if (inPivot(f, addr)) {
+          skipped++;
+          continue;
+        }
         const v = d.values?.[addr];
         if (typeof v === 'string' && normText(v) === text) found++;
         else if (absent.length < 3) absent.push(`${addr}「${text.slice(0, 12)}」`);
       }
-      if (found / f.texts.size < 0.9) {
-        issues.push(`「${f.name}」の文字 ${f.texts.size} 件のうち ${f.texts.size - found} 件が Excel の読み取りにありません（例: ${absent.join(' ')}）`);
+      const judged = f.texts.size - skipped;
+      if (judged >= 5 && found / judged < 0.9) {
+        issues.push(`「${f.name}」の文字 ${judged} 件のうち ${judged - found} 件が Excel の読み取りにありません（例: ${absent.join(' ')}）`);
       }
     }
     const presence = (what, inPackage, inDump) => {

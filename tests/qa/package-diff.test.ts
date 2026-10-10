@@ -3,7 +3,7 @@
 import JSZip from 'jszip';
 import { describe, expect, it } from 'vitest';
 import { compareInspections, formatComparison } from '../../tools/lib/compare-core.mjs';
-import { comparePackages, FILTER_LABELS, parseXml } from '../../tools/lib/package-diff.mjs';
+import { comparePackages, FILTER_LABELS, isoDateSerial, parseXml } from '../../tools/lib/package-diff.mjs';
 import { book, sheet } from './helpers';
 
 const NS = 'http://schemas.openxmlformats.org/spreadsheetml/2006/main';
@@ -106,6 +106,20 @@ describe('package view (tools/lib/package-diff.mjs)', () => {
     const text = formatComparison(r.rows, { onlyDiffs: true });
     expect(text).toContain('Filtered (known-benign, not counted)');
     expect(text).toContain(FILTER_LABELS.calcChain.slice(0, 10));
+  });
+
+  it('a t="d" cell (an ISO date, Strict Open XML) is the same value as the date serial Excel writes for it', async () => {
+    expect(isoDateSerial('2024-04-12')).toBe(45394);
+    expect(isoDateSerial('2024-04-12T12:00:00')).toBe(45394.5);
+    expect(isoDateSerial('2024-04-12', true)).toBe(45394 - 1462);
+    expect(isoDateSerial('1900-01-15')).toBeNull(); // (before the 1900 leap-year bug: not converted)
+    expect(isoDateSerial('abc')).toBeNull();
+    const D: Pkg = { ...A, tail: '', sheetData: '<row r="1"><c r="A1" s="3" t="d"><v>2024-04-12</v></c></row>' };
+    const N: Pkg = { ...A, tail: '', sheetData: '<row r="1"><c r="A1" s="3"><v>45394</v></c></row>' };
+    const r = await comparePackages(await xlsx(D), await xlsx(N));
+    expect(diffGroups(r.rows), formatComparison(r.rows, { onlyDiffs: true })).toEqual([]);
+    const O: Pkg = { ...A, tail: '', sheetData: '<row r="1"><c r="A1" s="3"><v>45395</v></c></row>' };
+    expect(diffGroups((await comparePackages(await xlsx(D), await xlsx(O))).rows)).toContain('values');
   });
 
   it('reports real differences: formula text, resolved style, merges, widths, names', async () => {

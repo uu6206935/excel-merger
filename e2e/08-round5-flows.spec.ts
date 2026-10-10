@@ -28,6 +28,7 @@ import {
   SAMPLES_DIR,
   samplePaths,
   selectColumns,
+  setSheetMode,
   step,
   typeInCell,
   waitMergeReady,
@@ -140,7 +141,7 @@ test.describe.serial('ラウンド5: 3 ファイルを別の順番で投入し�
         label: order.label,
         base: samplePath(order.files[0]),
         file,
-        check: { ...(order.sheet ? { sheet: order.sheet } : {}), headerRow: order.headerRow },
+        check: { ...(order.sheet ? { sheet: order.sheet } : {}), headerRow: order.headerRow, singleSheet: true },
       })),
     );
     for (const [i, r] of v.entries()) {
@@ -291,7 +292,7 @@ test('(c) 出力 → 編集 → 出力 → 元に戻すを最後まで → 出�
     test.info().annotations.push({ type: '結合直後(内蔵) vs 全部戻した(Excel本体)', description: c.text.slice(0, 3000) });
     expect(c.formulaDiffs, `Excel本体でも、全部戻した出力の数式は結合直後と同じ\n${c.text}`).toBe(0);
   }
-  await verifyCases([{ label: '全部戻した出力', base: BASE_SAMPLE, file: back }]);
+  await verifyCases([{ label: '全部戻した出力', base: BASE_SAMPLE, file: back, check: { singleSheet: true } }]);
 });
 
 // ---------------------------------------------------------------------------------------------------------------------------------
@@ -318,16 +319,14 @@ test.describe('ラウンド5: 警告（サンプル 01 の例）', () => {
     const excel = await excelInstalled(page);
     const hint = server && excel ? 'Excel本体モードで確実に保持されます' : 'Excel本体モード（Excel のある PC でアプリを起動）で出力すると確実です';
 
-    // 01 alone: the workbook has one chart and one pivot table
+    // 01 alone: the workbook has one chart and one pivot table — but the app's default output holds ONLY the merged sheet (the chart and the
+    // pivot live on the sheets that are dropped), so nothing is promised about them
     await step(page, errors, 'ファイル読み込み', () => loadFiles(page, samplePaths([SAMPLE_FILES[0]])));
     await waitIdle(page);
     let w = await warningState(page);
-    test.info().annotations.push({ type: '01 だけの警告', description: w.items.map((i) => `[${i.severity}] ${i.text}`).join('\n') });
+    test.info().annotations.push({ type: '01 だけの警告（既定: 結合した 1 シートだけ）', description: w.items.map((i) => `[${i.severity}] ${i.text}`).join('\n') });
     expect(w.open, '既定では閉じている').toBe(false);
-    expect(w.count).toBe('2');
-    expect(w.badgeClass, '注意（warning）がある').toContain('badge-warn');
-    expect(w.items.map((i) => i.text)).toEqual([`グラフ 1 個: ${hint}`, `ピボットテーブル 1 個: 元データ範囲は ${hint}（出力後に「更新」してください）`]);
-    expect(w.items.map((i) => i.severity)).toEqual(['info', 'warning']);
+    expect(w.count, '既定（1 シートだけ）では、他のシートにあるグラフ・ピボットの注意は出さない').toBe('0');
 
     // the other samples: csv / xls keep only values; 02 and 05 add nothing
     await page.getByTestId('file-input').setInputFiles(samplePaths(SAMPLE_FILES.slice(1)));
@@ -335,6 +334,13 @@ test.describe('ラウンド5: 警告（サンプル 01 の例）', () => {
     await waitMergeReady(page, errors);
     await waitIdle(page);
     w = await warningState(page);
+    expect(w.count, '形式の注意（03 の 2 件・04 の 1 件）だけ').toBe('3');
+    // 「他のシートも出力に含める」: the base's chart and pivot table are part of the output again, and so is the note about them
+    await setSheetMode(page, 'base');
+    await waitIdle(page);
+    w = await warningState(page);
+    expect(w.badgeClass, '注意（warning）がある').toContain('badge-warn');
+    expect(w.items.map((i) => i.text).filter((t) => /^(グラフ|ピボット)/.test(t))).toEqual([`グラフ 1 個: ${hint}`, `ピボットテーブル 1 個: 元データ範囲は ${hint}（出力後に「更新」してください）`]);
     test.info().annotations.push({ type: '5 ファイルの警告', description: w.items.map((i) => `[${i.severity}] ${i.text}`).join('\n') });
     const texts = w.items.map((i) => i.text);
     expect(w.count).toBe('5');
@@ -347,10 +353,12 @@ test.describe('ラウンド5: 警告（サンプル 01 の例）', () => {
     await mergeNow(page, errors);
     w = await warningState(page);
     test.info().annotations.push({ type: '結合後の警告', description: w.items.map((i) => `[${i.severity}] ${i.text}`).join('\n') });
-    expect(w.count).toBe('8');
+    // (since round 8 the formulas that stayed formulas are reported in the side panel's 「数式の取り込み」, not in this list: the list says only what did NOT
+    // stay a formula — tests/ui/formula-report.spec.ts)
+    expect(w.count, w.items.map((i) => `[${i.severity}] ${i.text}`).join('\n')).toBe('7');
     expect(w.items.map((i) => i.text)).toEqual(expect.arrayContaining(texts));
     const added = w.items.map((i) => i.text).filter((t) => !texts.includes(t));
-    expect(added.some((t) => /^取り込んだ数式 \d+ 件は数式のまま残しました/.test(t)), '取り込んだ数式を数式のまま残した').toBe(true);
+    expect(added.some((t) => /数式のまま残しました/.test(t)), '数式のまま残したことは警告には繰り返さない（サイドパネルの「数式の取り込み」に出る）').toBe(false);
     expect(added.some((t) => t.includes('フィルターの範囲を取り込んだ列まで広げました')), 'フィルターの範囲を広げた').toBe(true);
     expect(added.some((t) => t.includes('「04_適性検査」は値だけを読み込める形式のため、書式なし（標準）で取り込みました')), '04 は書式なしで取り込んだ').toBe(true);
 

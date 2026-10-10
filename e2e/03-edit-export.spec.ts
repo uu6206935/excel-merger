@@ -22,6 +22,7 @@ import {
   ROOT,
   runExport,
   samplePaths,
+  setSheetMode,
   step,
   watchErrors,
   type CheckOutputResult,
@@ -50,6 +51,8 @@ test.describe.serial('結合 → 列の編集 → 出力', () => {
   test('結合すると、基準の列の後ろに他ファイルの列が並ぶ', async () => {
     await openApp(page);
     await loadFiles(page, samplePaths());
+    // this flow checks the formulas of the 集計 sheet: keep the base file's other sheets (「他のシートも出力に含める」; the app's default is the merged sheet only)
+    await setSheetMode(page, 'base');
     await mergeNow(page, errors);
     await requireTestIds(page, ['column-list', 'undo-button', 'redo-button', 'export-button'], '結合後の画面');
     const titles = await columnTitles(page);

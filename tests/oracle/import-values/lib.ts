@@ -48,12 +48,14 @@ export interface Pipeline {
 }
 
 /** The app's pipeline for ONE other file: analysis -> default plan -> join. `imports`: 'default' = the app's default (key columns excluded), 'all' = every column. */
-export function buildPipeline(base: KeySource, src: KeySource, opts: { imports: 'default' | 'all'; joinType: 'left' | 'full' }): Pipeline {
+export function buildPipeline(base: KeySource, src: KeySource, opts: { imports: 'default' | 'all' | number[]; joinType: 'left' | 'full' }): Pipeline {
   const analysis = analyzeSources(base, [src]);
   const plan = { ...defaultPlan(analysis), joinType: opts.joinType };
   const join = joinSources(analysis, plan);
   let imports: ImportColumnSpec[] = join.defaultImports.filter((d) => d.sourceId === src.id).map((d) => (d.header ? { sourceId: d.sourceId, col: d.col, header: d.header } : { sourceId: d.sourceId, col: d.col }));
-  if (opts.imports === 'all') {
+  // an explicit list of source columns (the property test: some columns of the source are NOT imported)
+  if (Array.isArray(opts.imports)) imports = opts.imports.map((col) => ({ sourceId: src.id, col }));
+  else if (opts.imports === 'all') {
     const r = src.region;
     imports = [];
     for (let c = r.firstCol; c <= r.lastCol; c++) imports.push({ sourceId: src.id, col: c });
@@ -158,6 +160,8 @@ export interface Counts {
   uncached: number;
   /** kept: a key column was replaced by the base's partner column */
   substituted: number;
+  /** kept: reads the copies of the source's sheets (includeSourceSheets; absent when none) */
+  viaCopy?: number;
 }
 
 export function summarize(trace: FormulaTrace[]): Counts {
@@ -168,6 +172,7 @@ export function summarize(trace: FormulaTrace[]): Counts {
       if (t.widened) c.widened++;
       if (t.cached === false) c.uncached++;
       if (t.substituted) c.substituted++;
+      if (t.viaCopy) c.viaCopy = (c.viaCopy ?? 0) + 1;
     } else {
       c[t.outcome]++;
       const why = t.reason ?? 'unknown';

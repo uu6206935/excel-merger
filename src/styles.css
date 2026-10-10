@@ -3062,3 +3062,93 @@ body.card-dragging * {
 .side-panel:has(.formula-section) .check-section {
   min-height: 150px;
 }
+
+/* ---- round 9 (plan A): 「他のファイルのシートも含める」 / 「出力されるシート」 / 「シート一覧」 ------------------- */
+
+/* the two sheet checkboxes: one under the other, the second one indented */
+.settings-sheets {
+  display: inline-flex;
+  flex: 0 0 auto;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+
+.settings-check-sub {
+  margin-left: 18px;
+}
+
+.engine-sheets-hint {
+  color: var(--accent-dark);
+}
+
+/* 出力されるシート (merge preview) */
+.sheet-plan {
+  list-style: none;
+  max-height: 320px;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  border: 1px solid var(--border-light);
+  border-radius: 4px;
+  background: #fff;
+}
+
+.sheet-plan-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 3px 8px;
+  padding: 4px 10px;
+  border-bottom: 1px solid var(--border-light);
+  font-size: 12px;
+  line-height: 1.5;
+}
+
+.sheet-plan-item:last-child {
+  border-bottom: 0;
+}
+
+.sheet-plan-item.kind-merged {
+  background: var(--accent-soft);
+}
+
+.sheet-plan-item .src-dot {
+  margin-right: 0;
+}
+
+.sheet-no {
+  flex: 0 0 auto;
+  min-width: 18px;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+}
+
+.sheet-name {
+  min-width: 0;
+  font-weight: 600;
+  overflow-wrap: anywhere;
+}
+
+.sheet-from {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+/* シート一覧 (side panel, after the merge) */
+.sheet-list-section .side-details > summary {
+  margin-bottom: 4px;
+}
+
+.sheet-list li {
+  flex-wrap: wrap;
+}
+
+.sheet-list li.kind-merged {
+  background: var(--accent-soft);
+}
+
+.sheet-list .src-dot {
+  margin-right: 0;
+}

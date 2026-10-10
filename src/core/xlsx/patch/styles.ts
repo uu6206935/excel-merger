@@ -26,6 +26,8 @@ export class Styles {
   private items: Partial<Record<Section, string[]>> = {};
   private added: Partial<Record<Section, string[]>> = {};
   private index = new Map<string, number>();
+  /** per section: how many records (file records first, then the added ones) are in `index` already */
+  private indexedN = new Map<Section, number>();
   private numFmtCodes = new Map<number, string>();
   private numFmtByCode = new Map<string, number>();
   /** ids of every <numFmt> in the file, empty codes included: a new custom format never reuses one */
@@ -66,20 +68,30 @@ export class Styles {
   /** index of an equal record (canonical compare) or append it */
   add(s: Section, el: string): number {
     const key = s + '\u0000' + canon(el);
-    const ex = this.index.get(key);
+    const ex = this.find(s, el, key);
     if (ex !== undefined) return ex;
-    const all = this.list(s);
-    for (let i = 0; i < all.length; i++) {
-      const k = s + '\u0000' + canon(all[i]);
-      if (!this.index.has(k)) this.index.set(k, i);
-    }
-    const again = this.index.get(key);
-    if (again !== undefined) return again;
     const i = this.count(s);
     this.added[s]!.push(el);
     this.index.set(key, i);
+    if (this.indexedN.get(s) === i) this.indexedN.set(s, i + 1); // find() has just indexed everything before it
     this.changed = true;
     return i;
+  }
+
+  /** index of an equal record (canonical compare), undefined when there is none (nothing is added) */
+  find(s: Section, el: string, key = s + '\u0000' + canon(el)): number | undefined {
+    const ex = this.index.get(key);
+    if (ex !== undefined) return ex;
+    // index what has not been looked at yet (records of the file, records pushed without add()): every record is canonised once
+    const n = this.count(s);
+    const from = this.indexedN.get(s) ?? 0;
+    if (from >= n) return undefined;
+    for (let i = from; i < n; i++) {
+      const k = s + '\u0000' + canon(this.get(s, i)!);
+      if (!this.index.has(k)) this.index.set(k, i);
+    }
+    this.indexedN.set(s, n);
+    return this.index.get(key);
   }
 
   numFmtCode(id: number): string | undefined {
@@ -350,6 +362,14 @@ export class Styles {
    * font schemes are dropped so the imported cells look the same as in the source file.
    */
   importXf(src: Styles, i: number, themeRgb: string[] | null, cache: Map<number, number>, indexedRgb: string[] | null = null): number {
+    return this.importXfLimited(src, i, themeRgb, cache, indexedRgb, Infinity) as number;
+  }
+
+  /**
+   * importXf that refuses to grow cellXfs beyond `max` records (Excel's limit is 64,000): returns -1 (and caches nothing) when a NEW record
+   * would be needed and there is no room; a record that already exists is always found.
+   */
+  importXfLimited(src: Styles, i: number, themeRgb: string[] | null, cache: Map<number, number>, indexedRgb: string[] | null, max: number): number {
     const c = cache.get(i);
     if (c !== undefined) return c;
     const xf = src.xf(i);
@@ -379,9 +399,33 @@ export class Styles {
     if (align) o += ' applyAlignment="1"';
     if (prot) o += ' applyProtection="1"';
     const el = align || prot ? `${o}>${align}${prot}</xf>` : `${o}/>`;
+    if (this.count('cellXfs') >= max && this.find('cellXfs', el) === undefined) return -1;
     const r = this.add('cellXfs', el);
     cache.set(i, r);
     return r;
+  }
+
+  /**
+   * Import dxf `id` (conditional formats, table styles) of `src`: colours converted like imported cell styles, custom number formats
+   * re-registered in this styles.xml (the dxf carries the format code, the id is ours). Deduplicated; null when `src` has no such dxf.
+   */
+  importDxf(src: Styles, id: number, themeRgb: string[] | null, indexedRgb: string[] | null = null): number | null {
+    const d = src.get('dxfs', id);
+    if (d === undefined) return null;
+    return this.add('dxfs', this.convertDxfXml(d, themeRgb, indexedRgb));
+  }
+
+  /** a dxf body (also the inline <x14:dxf> of extension rules) for this package: colours converted, number format ids made ours */
+  convertDxfXml(d: string, themeRgb: string[] | null, indexedRgb: string[] | null = null): string {
+    let el = convertColors(d, themeRgb, indexedRgb);
+    el = el.replace(/<numFmt\b[^>]*\/>/g, (m) => {
+      const code = getAttr(m, 'formatCode');
+      if (code === undefined || code.trim() === '') return m;
+      const builtin = BUILTIN_BY_CODE.get(code);
+      const nid = builtin ?? this.numFmtId(code);
+      return setAttr(m, 'numFmtId', String(nid));
+    });
+    return el;
   }
 }
 
@@ -507,6 +551,37 @@ export function convertColors(el: string, themeRgb: string[] | null, indexedRgb:
   let x = themeRgb ? themeToRgb(el, themeRgb) : el;
   if (indexedRgb) x = indexedToRgb(x, indexedRgb);
   return x;
+}
+
+const COLOR_TAG = /<((?:[\w.-]+:)?\w*[Cc]olor\w*)\b([^>]*?)(\/?)>/g;
+
+/**
+ * convertColors for XML that is not a font / fill / border record: every element whose name contains "color" (<tabColor>,
+ * <x14:negativeFillColor>, <x14:colorSeries>, <color> of data bars / colour scales ...) with a theme="n" or indexed="n" attribute becomes
+ * an rgb colour of the SOURCE package's palette. Theme font schemes are not touched.
+ */
+export function convertColorTags(el: string, themeRgb: string[] | null, indexedRgb: string[] | null): string {
+  if (!themeRgb && !indexedRgb) return el;
+  if (el.indexOf('theme=') < 0 && el.indexOf('indexed=') < 0) return el;
+  return el.replace(COLOR_TAG, (m0, tag: string, attrs: string, sc: string) => {
+    const t = getAttr(attrs, 'theme');
+    if (themeRgb && t != null) {
+      const base = themeRgb[Number(t)];
+      if (!base) return m0;
+      const tint = Number(getAttr(attrs, 'tint') ?? 0);
+      const rgb = tint ? applyTint(base, tint) : base;
+      const a = setAttr(setAttr(setAttr(attrs, 'theme', null), 'tint', null), 'rgb', 'FF' + rgb.replace(/^#/, '').toUpperCase());
+      return `<${tag}${a}${sc}>`;
+    }
+    const n = getAttr(attrs, 'indexed');
+    if (indexedRgb && n != null) {
+      const i = Number(n);
+      const rgb = Number.isInteger(i) && i >= 0 && i < indexedRgb.length ? indexedRgb[i] : undefined;
+      if (!rgb) return m0;
+      return `<${tag}${setAttr(setAttr(attrs, 'indexed', null), 'rgb', 'FF' + rgb.replace(/^#/, '').toUpperCase())}${sc}>`;
+    }
+    return m0;
+  });
 }
 
 /** `indexed="n"` (0..63) colours of an element as rgb, by `palette` (64 / 65 are the system colours and stay). */

@@ -305,12 +305,18 @@ test.describe('カードの並べ替え（結合前）', () => {
     await page.keyboard.press('Alt+ArrowRight');
     await expect(page.getByTestId('card-live')).toContainText('「02_面接評価.xlsx」を 3 番目に移動しました（全 5 件）');
     expect(await cardIds(page)).toEqual(['s1', 's3', 's2', 's4', 's5']);
+    // (a card cannot be moved while the key analysis that follows a move is still running: wait until 「結合する」 is enabled again;
+    //  without it the next key press could arrive too early and be ignored — a race that failed this test at the round-9 baseline)
+    await expect(page.getByTestId('merge-button')).toBeEnabled();
     await settle(page);
     await expect(card(page, 's2')).toBeFocused();
     await page.keyboard.press('Alt+ArrowLeft');
+    await expect(page.getByTestId('merge-button')).toBeEnabled();
     await settle(page);
     await expect(card(page, 's2')).toBeFocused();
     await page.keyboard.press('Alt+ArrowLeft');
+    await expect.poll(() => cardIds(page)).toEqual(['s2', 's1', 's3', 's4', 's5']);
+    await expect(page.getByTestId('merge-button')).toBeEnabled();
     await settle(page);
     expect(await cardIds(page)).toEqual(['s2', 's1', 's3', 's4', 's5']);
     await expect(page.getByTestId('card-live')).toContainText('1 番目');
@@ -596,6 +602,10 @@ test.describe('他のシートも出力に含める', () => {
     await page.getByTestId('remerge-button').click();
     await expect(box).toBeEnabled();
     await box.check();
+    // (round 9) ticking it also ticks 「他のファイルのシートも含める」; this test is about the BASE file's sheets only: clear that one again
+    await expect(page.getByTestId('include-source-sheets')).toBeChecked();
+    await page.getByTestId('include-source-sheets').uncheck();
+    await expect(box).toBeChecked();
     await settle(page);
     await expect(page.getByTestId('preview-sheets')).toContainText('そのまま出力に含めます');
     await mergeNow(page);

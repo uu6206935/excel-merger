@@ -183,6 +183,12 @@ export interface AppState {
    * handed to buildPremerged as options.dropOtherSheets = !includeOtherSheets, so it can only change before the merge.
    */
   includeOtherSheets: boolean;
+  /**
+   * 「他のファイルのシートも含める」 (round 9, plan A; default false): copy every sheet of the 2nd, 3rd … files into the output,
+   * handed to buildPremerged as options.includeSourceSheets. Coupled to includeOtherSheets (see ./sheetPlan.ts: ticking it ticks
+   * the first one, clearing the first one clears it) and, like it, a merge setting that only changes before the merge.
+   */
+  includeSourceSheets: boolean;
   phase: Phase;
   merged: MergedState | null;
   selection: ColSelectionState;

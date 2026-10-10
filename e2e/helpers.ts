@@ -143,8 +143,12 @@ export async function waitMergeReady(page: Page, errors: { messages: string[] })
   });
 }
 
+/** the files on the cards at the time of the merge (the card row is gone afterwards): what check-output --with-copies needs as sources */
+const cardMemory = new WeakMap<Page, { base: SourceFile | null; others: SourceFile[] }>();
+
 export async function mergeNow(page: Page, errors: { messages: string[] }): Promise<void> {
   await waitMergeReady(page, errors);
+  cardMemory.set(page, await cardSources(page).catch(() => ({ base: null, others: [] })));
   const before = (await toastLog(page)).length;
   await page.getByTestId('merge-button').click();
   await step(page, errors, '結合', async () => {
@@ -394,16 +398,48 @@ export interface CheckOutputResult {
   stats: Record<string, unknown>;
 }
 
+/** a file whose sheets were copied into the output (check-output --source): its path and the name the app saw (default: the file's own name) */
+export interface SourceFile {
+  path: string;
+  name?: string;
+}
+
 export interface CheckOptions {
   /** the merged sheet / its header row (default: guessed from the base) */
   sheet?: string;
   headerRow?: number;
+  /** the output holds ONLY the merged sheet (the app's default): check-output --single-sheet */
+  singleSheet?: boolean;
+  /** the output also holds the sheets of the other files (<file>_<sheet>): check-output --with-copies --source ... */
+  withCopies?: boolean;
+  /** the other files in card order (to compare the copies with their sources) */
+  sources?: SourceFile[];
+}
+
+/** the check-output flags of a sheet mode (see setSheetMode): single = --single-sheet, base = none, all = --with-copies */
+export function checkOptionsFor(mode: SheetMode | undefined, sources?: SourceFile[]): CheckOptions {
+  switch (mode) {
+    case 'single':
+      return { singleSheet: true };
+    case 'all':
+      return { withCopies: true, ...(sources ? { sources } : {}) };
+    case 'copies':
+      return { singleSheet: true, withCopies: true, ...(sources ? { sources } : {}) };
+    default:
+      return {};
+  }
 }
 
 /** node tools/check-output.mjs <file> --base <base> --json (needs Excel: our own hidden instance). */
 export function checkOutput(file: string, base = BASE_SAMPLE, opts: CheckOptions = {}): Promise<CheckOutputResult> {
   return new Promise((resolve, reject) => {
-    const extra = [...(opts.sheet ? ['--sheet', opts.sheet] : []), ...(opts.headerRow ? ['--header-row', String(opts.headerRow)] : [])];
+    const extra = [
+      ...(opts.sheet ? ['--sheet', opts.sheet] : []),
+      ...(opts.headerRow ? ['--header-row', String(opts.headerRow)] : []),
+      ...(opts.singleSheet ? ['--single-sheet'] : []),
+      ...(opts.withCopies ? ['--with-copies'] : []),
+      ...(opts.sources ?? []).flatMap((s) => ['--source', s.path, ...(s.name ? ['--source-name', s.name] : [])]),
+    ];
     const child = spawn(process.execPath, [path.join(ROOT, 'tools', 'check-output.mjs'), file, '--base', base, ...extra, '--json'], { cwd: ROOT, windowsHide: true });
     let out = '';
     let err = '';
@@ -436,6 +472,14 @@ export const MUST_NOT_FAIL = [
   'chart-series',
   'pivots-lost',
   'table-lost',
+  // the output shapes of round 9 (tools/lib/verdict.mjs, copies.mjs)
+  'not-single-sheet', // --single-sheet: the output holds other sheets
+  'dangling-sheet-ref', // --single-sheet: a formula reads a sheet that is not in the output
+  'copy-missing', // --with-copies: a copy is not there under the name the rule gives
+  'copy-unexpected',
+  'copy-order',
+  'copy-differs', // a copy is not its source sheet
+  'copy-new-error',
 ];
 
 export function describeVerdict(v: CheckOutputResult): string {
@@ -574,17 +618,78 @@ export const OUT_DIR = path.join(ROOT, 'test-results', 'e2e-downloads');
 
 export interface Outputs {
   files: Array<{ engine: 'js' | 'excel'; file: string }>;
+  /** which sheets the output holds (read from the settings bar when it was exported): decides what check-output is asked (--single-sheet / --with-copies) */
+  mode?: SheetMode;
+  /** mode 'all': the other files in card order (their sheets are in the output as copies) */
+  sources?: SourceFile[];
 }
 
 export const engineLabel = (e: 'js' | 'excel') => (e === 'js' ? '内蔵エンジン' : 'Excel本体');
 
-/** Exports with the JS engine and (server mode + Excel installed) with the Excel engine. */
-export async function exportBoth(page: Page, errors: { messages: string[] }, stem: string): Promise<Outputs> {
+/**
+ * Exports with the JS engine and (server mode + Excel installed) with the Excel engine. The sheet mode is read from the settings bar
+ * (the two checkboxes keep their state after the merge, greyed out), so verifyAndProbe asks check-output for the right output shape.
+ * `sources`: the files whose sheets were copied (mode 'all'); default: the sample files that are on the cards.
+ */
+export async function exportBoth(page: Page, errors: { messages: string[] }, stem: string, o: { sources?: SourceFile[] } = {}): Promise<Outputs> {
+  const mode = await sheetModeOf(page);
   const files: Outputs['files'] = [];
   files.push({ engine: 'js', file: await runExport(page, errors, 'js', `${stem}_内蔵エンジン.xlsx`, OUT_DIR) });
   if (await excelInstalled(page)) files.push({ engine: 'excel', file: await runExport(page, errors, 'excel', `${stem}_Excel本体.xlsx`, OUT_DIR) });
   else test.info().annotations.push({ type: 'Excel本体', description: 'Excel本体エンジンは使えないため内蔵エンジンのみ出力しました' });
-  return { files };
+  const sources = mode === 'all' || mode === 'copies' ? o.sources ?? cardMemory.get(page)?.others : undefined;
+  return { files, mode, ...(sources ? { sources } : {}) };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// round 9: which sheets the output holds (the two checkboxes of the settings bar)
+// ---------------------------------------------------------------------------------------------------------------
+
+/**
+ * single = 「他のシートも出力に含める」 off (the app's default): ONLY the merged sheet
+ * base   = only that box ticked and 「他のファイルのシートも含める」 cleared again: the merged sheet + the base file's other sheets (what rounds 1-6 produced)
+ * all    = both ticked (ticking the first one ticks the second one too): + the original sheets of every other file as <file>_<sheet>
+ * copies = (API level only: the UI cannot reach it) the merged sheet + the copies, without the base's other sheets
+ */
+export type SheetMode = 'single' | 'base' | 'all' | 'copies';
+
+/** What the settings bar says now (the checkboxes are greyed out, but keep their state, once the merge is done). */
+export async function sheetModeOf(page: Page): Promise<SheetMode> {
+  const other = page.getByTestId('include-other-sheets');
+  const source = page.getByTestId('include-source-sheets');
+  if (!(await other.count())) return 'single';
+  const o = await other.isChecked();
+  const s = (await source.count()) ? await source.isChecked() : false;
+  return o ? (s ? 'all' : 'base') : s ? 'copies' : 'single';
+}
+
+/** Sets the two checkboxes BEFORE the merge (they are locked afterwards): single / base / all. */
+export async function setSheetMode(page: Page, mode: Exclude<SheetMode, 'copies'>): Promise<void> {
+  await requireTestIds(page, ['include-other-sheets', 'include-source-sheets'], '出力するシートの設定');
+  const other = page.getByTestId('include-other-sheets');
+  const source = page.getByTestId('include-source-sheets');
+  await other.setChecked(mode !== 'single');
+  // ticking the first box ticks the second one too: 'base' clears it again
+  await source.setChecked(mode === 'all');
+  await expect(other).toBeChecked({ checked: mode !== 'single' });
+  await expect(source).toBeChecked({ checked: mode === 'all' });
+}
+
+/** The files on the cards, as check-output wants them: the base file and the other files in card order (only the samples can be found by name). */
+export async function cardSources(page: Page): Promise<{ base: SourceFile | null; others: SourceFile[] }> {
+  const n = await page.locator('[data-testid^="file-card-"]').count();
+  let base: SourceFile | null = null;
+  const others: SourceFile[] = [];
+  for (let i = 0; i < n; i++) {
+    const name = (await page.getByTestId(`file-card-${i}`).locator('h2').first().innerText()).trim();
+    const full = path.join(SAMPLES_DIR, name);
+    if (!fs.existsSync(full)) continue;
+    if ((await page.getByTestId(`file-excluded-${i}`).count()) > 0) continue; // 結合対象外: takes no part
+    const isBase = (await page.getByTestId(`base-toggle-${i}`).getAttribute('aria-pressed')) === 'true';
+    if (isBase) base = { path: full, name };
+    else others.push({ path: full, name });
+  }
+  return { base, others };
 }
 
 /**
@@ -624,7 +729,10 @@ export async function verifyAndProbe(out: Outputs, o: { base?: string; check?: C
     return res;
   }
   const base = o.base ?? BASE_SAMPLE;
-  const files = [base, ...out.files.map((f) => f.file)];
+  // the output shape (single sheet / copies of the other files) comes from the settings bar at the time of the export, unless the caller says
+  const shape = { ...checkOptionsFor(out.mode, out.sources), ...(o.check ?? {}) };
+  const srcFiles = shape.withCopies ? shape.sources ?? [] : [];
+  const files = [base, ...out.files.map((f) => f.file), ...srcFiles.map((s) => s.path)];
   const dumps = await inspectFiles(files, { recalc: true, ...(o.cells?.length ? { probeCells: o.cells } : {}) });
   noteInspectionRetries(dumps, files);
   dumps.forEach((d, i) => {
@@ -634,9 +742,10 @@ export async function verifyAndProbe(out: Outputs, o: { base?: string; check?: C
 ${dumps[0].error ?? ''}`);
   res.dumps = dumps;
   res.probes = dumps.map((d) => d.cellProbes ?? {});
+  const sources = srcFiles.map((s, k) => ({ name: s.name ?? path.basename(s.path), dump: dumps[1 + out.files.length + k] }));
   out.files.forEach((f, i) => {
     const d = dumps[i + 1];
-    const verdict = checkOutputDumps(dumps[0], d, { sheet: o.check?.sheet, headerRow: o.check?.headerRow });
+    const verdict = checkOutputDumps(dumps[0], d, { sheet: shape.sheet, headerRow: shape.headerRow, singleSheet: shape.singleSheet, withCopies: shape.withCopies, sources });
     const v: CheckOutputResult = { ...verdict, openMode: d.openMode } as CheckOutputResult;
     assertValid(v, engineLabel(f.engine));
     res.verdicts.set(f.engine, v);

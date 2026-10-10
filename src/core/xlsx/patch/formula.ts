@@ -46,20 +46,37 @@ export type AdjustMode = 'cell' | 'name';
 
 const lower = (s: string | null | undefined) => (s == null ? null : s.toLowerCase());
 
-/** Row-append extension: an area spanning [<=first, last] grows by the inserted rows (premerge only). */
-export function extendArea(orig: Area, adjusted: Area, e: OpEntry): Area {
+/**
+ * Row-append extension: an area spanning [<=first, last] grows by the inserted rows (premerge only), so that a total / count row BELOW
+ * (or above) the table, or a formula that totals the whole data column, includes the appended rows.
+ *
+ * `hostRow`: the row of the formula's cell AFTER the insert, when the formula sits on the sheet of the op (undefined for formulas of other
+ * sheets, names, charts, CF / DV rules ...). A formula INSIDE the data rows (as of before the insert) keeps a range that merely ends at
+ * the old last data row when that end is its own row and relative: =SUM($D$2:D31) in row 31 is a running total, it must not start
+ * summing the appended people (found by the consistency oracle, class append-range-running). A range that cannot be a running total —
+ * its end lies below the formula's row, or its end row is absolute ($D$31) — covers the whole data column and grows like a total row.
+ */
+export function extendArea(orig: Area, adjusted: Area, e: OpEntry, hostRow?: number): Area {
   const op = e.op;
   if (!e.ext || op.type !== 'insert' || op.axis !== 'row') return adjusted;
   if (orig.kind !== 'area' && orig.kind !== 'rows') return adjusted;
   const lo = Math.min(orig.r1, orig.r2), hi = Math.max(orig.r1, orig.r2);
   if (!(lo <= e.ext.firstDataRow && hi === e.ext.lastDataRow && hi < op.at)) return adjusted;
+  if (hostRow !== undefined) {
+    // the formula's row before the insert (rows from `at` on moved down by `count`)
+    const before = hostRow >= op.at + op.count ? hostRow - op.count : hostRow;
+    if (before >= e.ext.firstDataRow && before <= e.ext.lastDataRow && before === hi) {
+      const endAbsolute = orig.r1 <= orig.r2 ? orig.ar2 : orig.ar1;
+      if (!endAbsolute) return adjusted; // a running total
+    }
+  }
   const g = { ...adjusted };
   if (g.r1 > g.r2) g.r1 = hi + op.count; else g.r2 = hi + op.count;
   return g;
 }
 
-/** One op applied to one area (extension + name rules), null = #REF! */
-export function adjustAreaEntry(a: Area, e: OpEntry, mode: AdjustMode): Area | null {
+/** One op applied to one area (extension + name rules), null = #REF!. `hostRow`: see extendArea. */
+export function adjustAreaEntry(a: Area, e: OpEntry, mode: AdjustMode, hostRow?: number): Area | null {
   const na = mode === 'name' ? adjustNameArea(a, e.op) : adjustArea(a, e.op);
   if (!na) return null;
   if (e.ext) {
@@ -67,7 +84,7 @@ export function adjustAreaEntry(a: Area, e: OpEntry, mode: AdjustMode): Area | n
       const abs = e.op.axis === 'row' ? a.ar1 && a.ar2 : a.ac1 && a.ac2;
       if (!abs) return na;
     }
-    const g = extendArea(a, na, e);
+    const g = extendArea(a, na, e, hostRow);
     if (g !== na) return g;
   }
   return na;
@@ -85,6 +102,7 @@ function srefBroken(t: Token, hits: Map<string, TableHit>): boolean {
  * Apply ops[from..] to a formula (tokenized once).
  * `host` = sheet containing the formula (unqualified refs resolve to it); null for names / charts.
  * `skipSheet`: entries on this sheet are ignored (already applied by an anchored per-op pass).
+ * `hostRow`: the row of the cell that holds the formula (cell formulas only; see extendArea).
  */
 export function adjustFormulaOps(
   formula: string,
@@ -93,6 +111,7 @@ export function adjustFormulaOps(
   mode: AdjustMode = 'cell',
   from = 0,
   skipSheet: string | null = null,
+  hostRow?: number,
 ): AdjustOut {
   const out: AdjustOut = { text: formula, changed: false, refError: false, unsafe: false };
   if (from >= ops.length || !formula) return out;
@@ -127,7 +146,7 @@ export function adjustFormulaOps(
       const e = ops[i];
       if (e.sheet.toLowerCase() !== sheetL) continue;
       if (skipL != null && sheetL === skipL) continue;
-      const na = adjustAreaEntry(a!, e, mode);
+      const na = adjustAreaEntry(a!, e, mode, hostRow !== undefined && sheetL === hostL ? hostRow : undefined);
       if (!na) { a = null; break; }
       if (na !== a) { touched = true; a = na; }
     }

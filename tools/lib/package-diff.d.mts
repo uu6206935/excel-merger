@@ -56,6 +56,8 @@ export interface FilteredCategory {
   examples: string[];
 }
 
+/** the serial number of an ISO 8601 date / date-time text (a t="d" cell), or null (not a date, or before 1900-03-01) */
+export function isoDateSerial(text: string, date1904?: boolean): number | null;
 export const FILTER_LABELS: Record<string, string>;
 export function loadPackageModel(input: string | Uint8Array): Promise<PackageModel>;
 export function comparePackageModels(a: PackageModel, b: PackageModel, opts?: { pivotLayout?: boolean }): { rows: ComparisonRow[]; filtered: FilteredCategory[] };

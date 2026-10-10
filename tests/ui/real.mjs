@@ -1,12 +1,14 @@
 // Full flow of the REAL app (no mock) through the real local server, with the samples:
 //   PORT=5192 NO_OPEN=1 node server/server.mjs          (another terminal; DIST_DIR / OUTPUT_DIR may point elsewhere)
-//   node tests/ui/real.mjs [baseUrl] [--js-only] [--insert-after=<見出し>] [--prefix=<name>] [--no-shots] [file ...]
+//   node tests/ui/real.mjs [baseUrl] [--js-only] [--insert-after=<見出し>] [--prefix=<name>] [--sheets=single|base|all] [--no-shots] [file ...]
 // Loads the files through the file input, prints what the cards / summary / check lists show, merges, moves
 // columns (an imported one via the side-panel column list, a base one across the merged title -> the
 // 「結合を解除して移動」 confirmation), inserts a column, types a date / % / =SUM / =UNIQUE, deletes a column that
 // formulas depend on (convert to values), exports with Excel本体 and with the built-in engine, prints the saved
-// paths as `OUT excel <path>` / `OUT js <path>` lines. Screenshots: tests/ui/shots/real-*.png. Exit 1 on a failed
-// check or a console error.
+// paths as `OUT excel <path>` / `OUT js <path>` lines (and `SHEETS <mode>`: which sheets the output holds, for verify-outputs.mjs).
+// --sheets=single (default, the app's default: ONLY the merged sheet) | base (「他のシートも出力に含める」 only: the base's other sheets) |
+// all (both boxes: the base's sheets + the original sheets of every other file, <file>_<sheet>).
+// Screenshots: tests/ui/shots/real-*.png. Exit 1 on a failed check or a console error.
 import { chromium } from '@playwright/test';
 import { mkdirSync } from 'node:fs';
 import { dirname, join } from 'node:path';
@@ -27,6 +29,9 @@ const insertAfter = [...flags].find((f) => f.startsWith('--insert-after='))?.sli
 // --prefix=<name>: output file names <prefix>_excel.xlsx / <prefix>_js.xlsx
 const prefix = [...flags].find((f) => f.startsWith('--prefix='))?.slice('--prefix='.length) || 'u2';
 const noShots = flags.has('--no-shots');
+// --sheets=single|base|all: which sheets the output holds (the two checkboxes of the settings bar, set before the merge)
+const sheetsMode = [...flags].find((f) => f.startsWith('--sheets='))?.slice('--sheets='.length) || 'single';
+if (!['single', 'base', 'all'].includes(sheetsMode)) throw new Error(`--sheets must be single, base or all (got ${sheetsMode})`);
 
 const browser = await chromium.launch({ channel: 'msedge', headless: true });
 const ctx = await browser.newContext({ viewport: { width: 1440, height: 900 }, acceptDownloads: true, locale: 'ja-JP' });
@@ -133,6 +138,16 @@ if (await page.locator('[data-testid=key-detail-button]').count()) {
 }
 
 // ---------------------------------------------------------------------------------------------- merge
+// the sheets of the output: the app's default is the merged sheet only; 「他のシートも出力に含める」 also ticks 「他のファイルのシートも含める」
+if (sheetsMode !== 'single' && (await page.locator('[data-testid=include-other-sheets]').count())) {
+  await page.check('[data-testid=include-other-sheets]');
+  if (sheetsMode === 'base') await page.uncheck('[data-testid=include-source-sheets]');
+  check(
+    (await page.isChecked('[data-testid=include-other-sheets]')) && (await page.isChecked('[data-testid=include-source-sheets]')) === (sheetsMode === 'all'),
+    `sheet options set to "${sheetsMode}"`,
+  );
+}
+console.log(`SHEETS ${sheetsMode}`);
 if (!(await page.locator('[data-testid=merge-button]:not([disabled])').count())) {
   console.log('merge button disabled:', await page.locator('[data-testid=merge-button]').getAttribute('title'));
   failures.push('merge button disabled');

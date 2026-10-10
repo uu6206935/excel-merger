@@ -301,17 +301,38 @@ function parseRows(body: string): { rows: RowM[]; problem: string | null } {
       let sorted = true;
       while ((cm = reCell.exec(inner))) {
         let ca = cm[1];
-        const rr = /\sr\s*=\s*(["'])\$?([A-Za-z]+)\$?(\d*)\1/.exec(ca);
-        let c = rr ? colToNum(rr[2]) : prevC + 1;
-        if (rr) {
-          if (!(c >= 1 && c <= MAX_COL)) problem ??= `${rr[2]}${rr[3]} は Excel の範囲（XFD 列）外のセルです`;
-          else if (rr[3] !== '' && Number(rr[3]) !== r) problem ??= `${r} 行目の中に ${rr[2]}${rr[3]} のセルがあります`;
-        } else if (/\sr\s*=/.test(ca)) problem ??= 'セル番地の書き方が不正です';
+        let c = 0;
+        let fast = false;
+        // fast path (what Excel and most writers produce): ` r="AB12"` first, upper-case letters, then the row digits
+        if (ca.charCodeAt(0) === 32 && ca.charCodeAt(1) === 114 && ca.charCodeAt(2) === 61 && ca.charCodeAt(3) === 34) {
+          const q = ca.indexOf('"', 4);
+          let k = 4;
+          let col = 0;
+          while (k < q) { const ch = ca.charCodeAt(k); if (ch < 65 || ch > 90) break; col = col * 26 + ch - 64; k++; }
+          let rowNo = 0;
+          let d = k;
+          while (d < q) { const ch = ca.charCodeAt(d); if (ch < 48 || ch > 57) break; rowNo = rowNo * 10 + ch - 48; d++; }
+          if (q > 0 && k - 4 >= 1 && k - 4 <= 3 && d === q && d > k && d - k <= 7) {
+            if (!(col >= 1 && col <= MAX_COL)) problem ??= `${ca.slice(4, k)}${rowNo} は Excel の範囲（XFD 列）外のセルです`;
+            else if (rowNo !== r) problem ??= `${r} 行目の中に ${ca.slice(4, q)} のセルがあります`;
+            c = col;
+            ca = ca.slice(q + 1);
+            fast = true;
+          }
+        }
+        if (!fast) {
+          const rr = /\sr\s*=\s*(["'])\$?([A-Za-z]+)\$?(\d*)\1/.exec(ca);
+          c = rr ? colToNum(rr[2]) : prevC + 1;
+          if (rr) {
+            if (!(c >= 1 && c <= MAX_COL)) problem ??= `${rr[2]}${rr[3]} は Excel の範囲（XFD 列）外のセルです`;
+            else if (rr[3] !== '' && Number(rr[3]) !== r) problem ??= `${r} 行目の中に ${rr[2]}${rr[3]} のセルがあります`;
+          } else if (/\sr\s*=/.test(ca)) problem ??= 'セル番地の書き方が不正です';
+          if (rr) ca = ca.slice(0, rr.index) + ca.slice(rr.index + rr[0].length);
+        }
         if (!Number.isFinite(c) || c < 1) c = prevC + 1;
         if (c <= prevC) sorted = false;
         prevC = c;
-        if (rr) ca = ca.slice(0, rr.index) + ca.slice(rr.index + rr[0].length);
-        ca = ca.replace(/\s+$/, '');
+        if (ca.length && ca.charCodeAt(ca.length - 1) <= 32) ca = ca.replace(/\s+$/, '');
         cells.push({ c, a: ca, x: cm[3] !== undefined ? cm[3] : null, ep: 0 });
       }
       if (!sorted) {

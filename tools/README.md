@@ -14,7 +14,7 @@ of a flow in ONE Excel instance (`verifyAndProbe` in `e2e/helpers.ts`).
 |---|---|
 | `npm run samples` | Regenerates `samples/` (see `samples/README.md`): data from `lib/sample-data.mjs` (deterministic), workbooks built by `make-samples.ps1` in Excel, CSV (Shift_JIS) and `truth.json` in Node. `--no-excel` = CSV + truth only. |
 | `node tools/inspect.mjs <file...> [--json <dir>] [--recalc]` | What Excel sees: open mode (`normal` / `repair` / `extract` / `failed`, repair log), names, and per sheet every formula (`Formula2`) + value + error, CF, DV, tables, charts (series formulas), pivots (source, fields), merges, widths, hidden columns, freeze panes, autofilter, style probes. |
-| `node tools/check-output.mjs <out.xlsx> --base <base.xlsx> [--json] [--self-check]` | Verdict for an exported workbook (exit 0 = PASS, 1 = FAIL, 2 = could not run). `--self-check` reads both files a second time in another Excel instance and requires the two readings to be identical (exit 2 otherwise). |
+| `node tools/check-output.mjs <out.xlsx> --base <base.xlsx> [--json] [--self-check] [--single-sheet] [--with-copies --source <file> [--source-name <name>] ...]` | Verdict for an exported workbook (exit 0 = PASS, 1 = FAIL, 2 = could not run). `--self-check` reads both files a second time in another Excel instance and requires the two readings to be identical (exit 2 otherwise). `--single-sheet` / `--with-copies --source …` judge the output shapes of round 9, see "Output shapes" below. |
 | `node tools/compare.mjs <a> <b> [--excel-only\|--package-only] [--no-values] [--no-recalc] [--pivot-layout] [--all] [--json]` | "Same op log, two engines": diff of two workbooks (or two `inspect --json` dumps) that reports only REAL differences — see below. Exit 0 = identical, 1 = differences, 2 = could not run. |
 
 ## compare: two views, real differences only
@@ -59,6 +59,22 @@ counted)** with a count and examples per category:
 | Excel view: pivot layout | widths / used range / probes of sheets holding a pivot table (`--pivot-layout` compares them) |
 
 Everything else is a real difference. Unit tests: `tests/qa/package-diff.test.ts`, `tests/qa/compare-core.test.ts`.
+
+## Output shapes (round 9: 「他のシートも出力に含める」 / 「他のファイルのシートも含める」)
+
+The app's default output holds ONLY the merged sheet; with the two settings it also holds the base file's other sheets and the ORIGINAL sheets of every
+other file as `<file>_<sheet>` (`(1)`, `(2)` … on the one added later when a name is taken). What the verdict expects is told by two flags
+(the E2E helpers read them off the settings bar: `sheetModeOf` in `e2e/helpers.ts`, `verifyAndProbe` → `checkOptionsFor`):
+
+| flags | the output is expected to hold | what changes in the verdict |
+|---|---|---|
+| none (default, the old strictness) | every sheet of the base file | a sheet that is gone is FAIL `sheets-lost` (its message names `--single-sheet` when the output has one sheet only) |
+| `--single-sheet` | the merged sheet only | the base's other sheets (`sheets-dropped`), the names that belonged to them (`names-dropped`), charts that read them (`charts-dropped`), conditional formats and validation lists that read them (`cf-dropped`, `dv-literalized`; also through a defined name) are INFO. FAIL `not-single-sheet` when more sheets are there, FAIL `dangling-sheet-ref` when a formula still reads a sheet that is not in the output (such formulas must be values). A rule that reads the MERGED sheet is still judged strictly |
+| `--with-copies --source <file> …` | + the sheets of the other files (the files in the order of the cards; `--source-name` = the name the app saw) | the names are computed by `lib/sheetnames.mjs` (a plain-JS copy of `planSheetNames`; `tests/qa/sheetnames-port.test.ts` keeps them equal): FAIL `copy-missing` / `copy-unexpected` / `copy-order`; every copy is compared with its source sheet as Excel recalculated both (`lib/copies.mjs`: values, formulas modulo the renamed sheet prefixes and `_2` table names, merges, CF, DV, tables, charts, pivots, hyperlinks, hidden state / columns, style probes): FAIL `copy-differs`, `copy-new-error` (#REF! / #NAME? the source does not have). INFO `copied-sheets` (the list), `copy-date-system` (1904 <-> 1900: dates move by 1462 days); WARN `copy-leftout` (a different number of pictures / shapes / notes: slicers, form controls, SmartArt, ink are not copied and a threaded comment becomes a note) |
+| both | merged sheet + copies | the two columns above |
+
+The errors and #REF! texts of the copies are not counted against the base file (they are compared with their sources). A source Excel cannot read is a WARN (`copy-source`); the names are still checked.
+Unit tests: `tests/qa/verdict-shapes.test.ts` (synthetic dumps), `tests/qa/sheetnames-port.test.ts`. The same output shapes are what `e2e/12-round9-sheets.spec.ts` and `tests/oracle/copied-sheets/` check in real Excel.
 
 ## check-output verdict
 
@@ -136,10 +152,24 @@ round 2; `06` round 3 (non-contiguous moves, base = 02, **結合対象外 + the 
 empty, not-a-workbook, .txt / lock files, duplicates); `08` three files in three orders checked row by row against `samples/truth.json`,
 export twice, undo all the way back = the untouched merge, the 警告 section, Ctrl+Z / Ctrl+Y / Ctrl+Shift+Z; `09` the Excel engine fails
 (every runner error code, a crash, no output, 中止) → the built-in engine takes over; `10` clumsy users (double clicks, odd export names, removing
-the base file); `11` drops on the window (synthesised DragEvents) and Ctrl+S / Ctrl+O / F6. Every run writes into its own `test-results/e2e-run-<id>`
+the base file); `11` drops on the window (synthesised DragEvents) and Ctrl+S / Ctrl+O / F6; `12` **round 9** (the two sheet options: default = the merged sheet only, all sheets with `<file>_<sheet>` names, base sheets only, the same file name twice → `(1)`, imported formulas that read the copies, edits that never change a copy, the check-output command with `--single-sheet` / `--with-copies`). Every run writes into its own `test-results/e2e-run-<id>`
 (and builds into `e2e-dist-<id>`): a second `playwright test` in the same repo clears ITS outputDir at startup, which used to delete the trace files
 of a test running here. A dump that needed a second Excel start is noted in the test annotations and in `test-results/e2e-inspect-retries.log`. Helpers: `helpers.ts` (contract, export, verification),
 `round5.ts` (hostile-file builders, `alignmentProblems`, `verifyCases` = many outputs in ONE Excel start, `setFakeExcel`).
+**Which sheets an output holds** (round 9): the app's default is the merged sheet only. `exportBoth` reads the two checkboxes of the settings bar when it exports (`sheetModeOf`: single / base / all) and `verifyAndProbe` asks check-output accordingly (`--single-sheet`, `--with-copies --source …` = `checkOptionsFor`); specs that need the base's 集計 sheet call `setSheetMode(page, 'base')` before the merge (03, 05 e, 06 g, 08 d); `verifyCases` (round5.ts) defaults to `singleSheet: true` — pass `{ singleSheet: false }` for an output that keeps the base's sheets. `tests/ui/real.mjs --sheets=single|base|all` prints a `SHEETS <mode>` line; `tests/ui/verify-outputs.mjs --case "…|<excel>|<js>|<mode>|<source;source>"` takes it.
+
+## Copied-sheets oracle (`tests/oracle/copied-sheets/`, task V9)
+
+"The output of plan A — the merged sheet first, then the original sheets of every file as `<file>_<sheet>` — is exactly what was asked, in BOTH export engines, after random edits of
+the merged sheet", proven in real Excel and re-runnable: `powershell -NoProfile -ExecutionPolicy Bypass -File tests\oracle\copied-sheets\run.ps1 [-Out <dir>] [-Only <regex>] [-Limit N]
+[-CheckOutput N] [-Negative] [-NoRunner] [-NoExcel] [-Reuse]` (the whole run: > 70 combinations, about 1.5 hours; `-Only` narrows it); vitest: `tests/oracle/copied-sheets/oracle.test.ts` (the
+combinations + the Node half always, the real run with `EXCEL_TESTS=1`, `EXCEL_ORACLE_ONLY` = regex), `judge.test.ts` (the judge on hand-made dumps: every planted fault is found).
+Files: `combos.ts` (the combinations: samples in several card orders as base and other files, 41 foreign / Excel-authored files, the object fixtures of A2, three files with one name,
+a long name, forbidden characters, tricky sheet names, the rich formula sets), `pipeline.ts` (the app's pipeline with `includeSourceSheets`; a file takes part as 'join' or 'copy'),
+`oracle.ts` (orchestration; reuses `tests/oracle/consistency/` for the op logs, the baseline, the value-invariance judge, the engine parity and the package diff), `excel-book.ps1` + `excel.ts`
+(ONE hidden Excel per batch of 24 workbooks: values + formulas of every sheet after CalculateFull, and for the sheets that matter how Excel renders them — formats, widths, hidden rows / columns, rules,
+objects, pivot values; a dead Excel is replaced by another of our own), `judge.ts` (names = planSheetNames over the files; every copy against its source; defined names; reader view), `toolcheck.ts`
+(`-CheckOutput N`: check-output --single-sheet / --with-copies and compare over N scenarios), `negative.ts` (`-Negative`: 12 planted faults, the judge must find each). Results and failure classes: `RESULTS.md`.
 
 ## Consistency oracle (`tests/oracle/consistency/`, task V1)
 

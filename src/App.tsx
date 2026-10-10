@@ -23,7 +23,8 @@ import { FormulaReport } from './components/FormulaReport';
 import { HelpDialog } from './components/HelpPanel';
 import { KeyDetailModal } from './components/KeyDetailModal';
 import { MergePreview } from './components/MergePreview';
-import { KeyControls, OtherSheetsOption, SettingsBar } from './components/SettingsBar';
+import { SheetListSection } from './components/OutputSheets';
+import { KeyControls, SettingsBar, SheetOptions } from './components/SettingsBar';
 import { SidePanel } from './components/SidePanel';
 import { Toast } from './components/Toast';
 import type { Cell, SourceBook } from './core/types';
@@ -49,8 +50,9 @@ import {
   toggleFamily,
   unmatchedEverywhere,
 } from './state/keysPlan';
-import { droppedSheetsLine, fidelityNotes, formulasDetachedLine } from './state/notes';
+import { droppedBaseSheetsLine, droppedSheetsLine, fidelityNotes, formulasDetachedLine } from './state/notes';
 import { currentStep, hasEdits, initialState, reducer, type Action } from './state/reducer';
+import { addedSheetCount, outputSheetCounts, outputSheetRows, outputSheetsLine } from './state/sheetPlan';
 import type { Services } from './state/services';
 import type { AppState, ColSelectionState } from './state/types';
 import { canRedo, canUndo } from './core/doc';
@@ -270,8 +272,9 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
         excluded,
         merged: phase === 'merged',
         dropOtherSheets: !state.includeOtherSheets,
+        includeSourceSheets: state.includeSourceSheets,
       }),
-    [files, baseId, excelAvailable, merged?.report, labels, exportWarnings, excluded, phase, state.includeOtherSheets],
+    [files, baseId, excelAvailable, merged?.report, labels, exportWarnings, excluded, phase, state.includeOtherSheets, state.includeSourceSheets],
   );
   const keyRoles = useMemo(() => keyRolesFromPlan(analysis, plan), [analysis, plan]);
   const keyColsByFile = useMemo(() => Object.fromEntries(files.map((f) => [f.id, fileKeyColumns(analysis, plan, f.id)])), [files, analysis, plan]);
@@ -454,6 +457,8 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
         onJoinType={ctrl.setJoinType}
         includeOtherSheets={state.includeOtherSheets}
         onIncludeOtherSheets={ctrl.setIncludeOtherSheets}
+        includeSourceSheets={state.includeSourceSheets}
+        onIncludeSourceSheets={ctrl.setIncludeSourceSheets}
       />
     );
   } else if (phase === 'merged' && analysis && plan) {
@@ -467,7 +472,7 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
             {excluded.includes(s) ? '結合対象外' : tierLabels(analysis, plan, s)}
           </span>
         ))}
-        <OtherSheetsOption checked={state.includeOtherSheets} disabled />
+        <SheetOptions includeOtherSheets={state.includeOtherSheets} includeSourceSheets={state.includeSourceSheets} disabled />
       </span>
     );
   } else if (phase === 'files' && readyCount >= 2 && analyzing) {
@@ -477,6 +482,13 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
       </span>
     );
   }
+
+  // plan A: the sheets of the merged workbook (as read back) -> 「出力は N シート（…）」 and the 「シート一覧」
+  const sheetCounts = useMemo(
+    () => (merged ? outputSheetCounts(merged.book.sheets.length, addedSheetCount(merged.layout, merged.report)) : null),
+    [merged],
+  );
+  const sheetRows = useMemo(() => (merged ? outputSheetRows(merged.book.sheets, merged.layout, merged.report) : []), [merged]);
 
   const sideSummary =
     phase === 'merged' && doc && merged ? (
@@ -488,9 +500,15 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
         <div className="muted">
           結合後の変更 {merged.history.past.length} 件{merged.history.future.length ? `（やり直し可能 ${merged.history.future.length}）` : ''}
         </div>
+        {state.includeSourceSheets && (
+          // plan A: the line replaces the 「出力は結合した 1 シートのみ」 note (the output holds the sheets of the other files too)
+          <div className="side-note" data-testid="side-output-sheets" data-sheet-total={sheetCounts?.total} data-sheet-added={sheetCounts?.added}>
+            {sheetCounts ? outputSheetsLine(sheetCounts) : null}
+          </div>
+        )}
         {(merged.report.droppedSheets?.length ?? 0) > 0 && (
           <div className="side-note" data-testid="side-dropped-sheets">
-            {droppedSheetsLine(merged.report.droppedSheets!)}
+            {state.includeSourceSheets ? droppedBaseSheetsLine(merged.report.droppedSheets!) : droppedSheetsLine(merged.report.droppedSheets!)}
           </div>
         )}
         {(merged.report.formulasDetached ?? 0) > 0 && (
@@ -613,6 +631,7 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
                 analyzing={analyzing}
                 excluded={excluded}
                 includeOtherSheets={state.includeOtherSheets}
+                includeSourceSheets={state.includeSourceSheets}
                 onImports={(changes) => dispatch({ type: 'imports/set', changes })}
                 onOpenDetail={(tab) => dispatch({ type: 'modal/open', modal: { kind: 'keyDetail', tab: tab ?? null } })}
               />
@@ -636,6 +655,7 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
             onRedo={ctrl.redo}
             onRemerge={ctrl.requestRemerge}
             summary={sideSummary}
+            sheets={phase === 'merged' && sheetRows.length > 1 ? <SheetListSection rows={sheetRows} colors={colors} /> : undefined}
             formulas={phase === 'merged' && formulaViews.length > 0 ? <FormulaReport views={formulaViews} colors={colors} canJump onJump={jumpToFormulaCell} /> : undefined}
             checks={
               <CheckPanel
@@ -714,6 +734,7 @@ export default function App({ services, demo }: { services: Services; demo?: Dem
           server={state.server}
           exportState={state.exportState}
           editCount={merged.history.past.length}
+          includeSourceSheets={state.includeSourceSheets}
           onExport={(fileName, engine) => void ctrl.runExport({ fileName, engine })}
           onCancelExport={ctrl.cancelExport}
           onOpenFile={() => void ctrl.openSavedFile()}

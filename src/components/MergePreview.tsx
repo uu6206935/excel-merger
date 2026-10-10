@@ -6,7 +6,9 @@ import type { JoinPlan, JoinResult, KeyAnalysis } from '../core/contracts';
 import { importChoices, importKey, pairIds, previewRows } from '../state/keysPlan';
 import { formulaColumnsOf, PREVIEW_FORMULA_HINT } from '../state/formulaReport';
 import { droppedSheetsLine, otherSheetNames } from '../state/notes';
+import { plannedOutputSheets } from '../state/sheetPlan';
 import type { FileEntry } from '../state/types';
+import { PlannedSheets } from './OutputSheets';
 
 export interface MergePreviewProps {
   files: FileEntry[];
@@ -20,6 +22,8 @@ export interface MergePreviewProps {
   excluded?: string[];
   /** 「他のシートも出力に含める」: false (default) = the output holds only the merged sheet */
   includeOtherSheets?: boolean;
+  /** 「他のファイルのシートも含める」: the sheet list of the output (名前 = ファイル名_シート名) is shown */
+  includeSourceSheets?: boolean;
   onImports: (changes: Record<string, boolean>) => void;
   onOpenDetail: (tab?: string) => void;
 }
@@ -225,12 +229,19 @@ export function MergePreview(props: MergePreviewProps) {
           「結合する」を押すと、基準ファイル（★）の表の右側にこれらの列を追加します。元のファイルは変更されません。
           {plan.joinType === 'full' && joinResult && joinResult.summary.appended > 0 && ` 他ファイルにしかない ${joinResult.summary.appended} 行は表の末尾に追加します。`}
         </p>
-        {otherSheets.length > 0 && (
+        {otherSheets.length > 0 && !props.includeSourceSheets && (
           <p className="preview-foot preview-sheets" data-testid="preview-sheets" data-single-sheet={props.includeOtherSheets ? 'false' : 'true'}>
             {props.includeOtherSheets ? `基準ファイルの他のシート ${otherSheets.length} 枚（${otherSheets.map((n) => `「${n}」`).join('')}）も、そのまま出力に含めます。` : `${droppedSheetsLine(otherSheets)}。`}
           </p>
         )}
       </section>
+
+      {props.includeSourceSheets && (
+        <PlannedSheets
+          plan={plannedOutputSheets(files, analysis.baseId, [...excluded], { includeOtherSheets: !!props.includeOtherSheets, includeSourceSheets: true })}
+          colors={Object.fromEntries(files.map((f) => [f.id, f.color]))}
+        />
+      )}
     </div>
   );
 }

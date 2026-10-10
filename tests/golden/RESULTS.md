@@ -353,3 +353,135 @@ against the source with the unplaced rows deleted by Excel); 15,341 stored resul
 powershell -NoProfile -ExecutionPolicy Bypass -File tests\oracle\import-values\run.ps1 [-Regenerate] [-Only f04_]   # corpus: gen_corpus.py + author.ps1
 EXCEL_TESTS=1 npx vitest run tests/oracle
 ```
+
+## Round 9 — sheet copier (task A1; `PremergeOptions.includeSourceSheets`)
+
+`buildPremerged` with `includeSourceSheets` writes every sheet (visible / hidden / very hidden; the data sheet too) of every other participating file into the
+merged workbook as well, named by `planSheetNames` (`<file>_<sheet>`, <= 31 characters, `(1)` on later collisions), in the order: merged sheet, base's other
+sheets, then file by file (`src/core/xlsx/patch/addsheets.ts`, `copysheet.ts`, `copyformula.ts`, `copyrules.ts`, `copynames.ts`, `bookinfo.ts`). Cells, shared
+strings (rich text), styles (xf import with dedupe, dxfs, number formats, theme -> RGB when the themes differ), formulas (sheet references renamed token-based
+in cells / arrays / CF / DV / x14 / hyperlinks / names / sparklines; external / 3-D / structured references become their cached value with ONE warning per sheet),
+defined names (sheet-scoped on every copy), sheet-level parts and the 1904 <-> 1900 date shift are copied; drawings, comments, tables, pivots ... are not (phase 1,
+reported as `sheetCopyLimits`; the extension point is `copySheetObjects`).
+
+### Excel as the oracle (48 combinations, ONE hidden Excel of our own per run)
+
+`tests/golden/tools/make-addsheets-outputs.ts` writes 46 premerged workbooks (+2 with `EXCEL_ENGINE=1`) WITH copies (the app's samples in 4 card orders with keep / drop of the other sheets, the
+join with imports + `replayLog` after random edits, the 5 Excel-authored fixtures in `tests/fixtures/addsheets/`, a base whose data sheet is not first, three
+files with the same name, a long file name, 20 foreign corpus files (Google Sheets, LibreOffice, Mac Excel 2011 1904, Excel 2007, Strict OOXML,
+shared formulas, hidden first sheet, names + CF + DV, theme 2013, external link, ExcelJS, write-excel-file, openpyxl, XlsxWriter) and Excel-authored macro-enabled
+workbooks as source and as base). `tests/golden/com/check-addsheets.ps1` opens each one and the files it was built from:
+
+**46 outputs + 2 outputs whose edits were replayed by the app's Excel engine (`EXCEL_ENGINE=1`, `excel-runner.ps1`, one Excel start each) = 48 / 48 ok**:
+open `normal` 48 / 48 (no repair log), sheet names exactly as planned 48 / 48, 133 copied sheets compared with their sources, 0 value differences, 0 formula
+differences, 0 format / width / CF / DV / hyperlink differences, 0 new `#REF!` / `#NAME?` (cells and names). Counted apart and not copier differences:
+`lenientValueDiffs` 42 (hc-37 external link: 10, py-04 table: 32 — formulas into other workbooks / tables are copied as their stored values, a cell without a stored
+result stays empty, and the warning says so), `fontNameDiffs` 283 cells (5 corpus files written by openpyxl / ExcelJS / XlsxWriter: a cell font `Calibri` with `<scheme val="minor"/>` is
+shown by Japanese Excel as the theme's Japanese font, the copy keeps the explicit name `Calibri` — known gap, see below). Each combination takes 1.5 - 20 s in Excel.
+The first run had one failure, `corpus-py-06-openpyxl-date1904`, caused by the CHECK (it compared `Text`, which is `########` in a too-narrow column on both sides but
+with a different number of `#`; PowerShell's `.Value` is a parameterized property and never returned a date): the check now compares `Value2` and accepts the 1462-day
+shift only for cells with a date / time number format; the 4 files with a 1904 source or base pass.
+
+Checked per output: it opens WITHOUT repair; the sheet names are exactly the planned ones, in order, with the source's visibility; after `CalculateFull` every copied
+cell has the source's value (`Value2`; across date systems a cell with a date / time format may differ by the 1462 days of the shift); formula text equals the source's modulo the renamed sheet prefixes (sheets copied completely);
+sampled cells equal in number format / font / fill / alignment / merge; column widths equal IN PIXELS (`Columns.Item(c).Width`, +-1.6 pt); tab colour,
+conditional-format, validation and hyperlink counts; no `#REF!` / `#NAME?` that the source did not have, in cells or in names.
+
+Facts measured on the way (all implemented):
+
+* A column width is a number of characters of the workbook's default font: a copy keeps the PIXEL width. Digit widths that Excel itself reports: Calibri 11 and Arial 10 = 7 px, the Japanese
+  fonts at 11 pt (游ゴシック, ＭＳ Ｐゴシック, メイリオ ...) = 8 px. A scheme font (`<scheme val="minor"/>`, written by openpyxl / ExcelJS / XlsxWriter) is resolved through the theme as Japanese Excel does
+  (the theme's `ea` font, else its Japanese script font): such a "Calibri" is ＭＳ Ｐゴシック = 8 px. A source without `<sheetFormatPr>` gets one with `defaultColWidth` when the digit widths differ; an unknown font leaves the widths alone.
+* The corpus file `hc-31-macro-enabled.xlsm` cannot be opened by Excel at all (also as an INPUT), so the macro-enabled coverage uses `ex-macro.xlsm` authored by Excel (one run of
+  `make-fixtures-addsheets.ps1 -OnlyMacro`); hc-31 stays in the unit tests.
+* Counted apart (not differences of the copier): `fontNameDiffs` — a cell font with `<scheme val="minor"/>` of a source with another theme is shown by Japanese Excel as the
+  Japanese font of THAT theme (ＭＳ Ｐゴシック for the openpyxl / ExcelJS / XlsxWriter themes); the copy keeps the explicit font name (`Calibri`), like the imported columns of premerge;
+  `lenientValueDiffs` — sources with external links or tables: their formulas into other workbooks / tables are copied as stored values (a cell without a stored result is empty) while Excel recomputes the source's own.
+* A hidden Excel instance sometimes disappears mid-run (3 times in the 46 files, whichever file it was working on; the same file passes when redone); the script restarts its own instance and retries the file (`{"type":"excel","restart":true}` lines).
+
+Speed (`tests/xlsx/addsheets-perf.test.ts`, `ADDSHEETS_PERF=1` for the full run): 10 sheets x 20,000 rows x 30 columns (6,000,000 cells, 250 MB of sheet XML) took 16.7 s on a quiet machine (replayLog on that package: 3 s); while other programs used about 70 % of the CPU 17.6 - 21.5 s (the full test asserts < 20 s, so it can fail on a loaded machine).
+Native deflate (`node:zlib`, output parts > 1 MB), native inflate of source sheets > 256 KB (under the reader's declared-size guard), a one-match well-formedness check and a fast cell parser keep it inside the budget; peak memory about 2 GB.
+
+Re-running:
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\golden\com\make-fixtures-addsheets.ps1 -OutDir tests\fixtures\addsheets [-OnlyMacro]   # only when the fixtures must change
+npx tsx tests/golden/tools/make-addsheets-outputs.ts %TEMP%\addsheets-out [<regex of combination names>]
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\golden\com\check-addsheets.ps1 -Dir %TEMP%\addsheets-out [-Only regex]          # one JSON line per output + summary
+EXCEL_TESTS=1 npx vitest run tests/golden/addsheets-excel.test.ts                                                                          # all of the above, asserts ok for every output
+ADDSHEETS_PERF=1 npx vitest run tests/xlsx/addsheets-perf.test.ts
+```
+
+Known gaps of the copier (phase 1; drawings / charts / pictures / notes / tables / pivot tables are copied since phase 2, see "Round 9, objects" below; slicers / SmartArt / form controls stay left out and named): formulas with structured references (`Table[Col]`) and 3-D / external references become their stored value; chart / macro / dialog sheets and VBA code are not copied; row heights are copied
+as they are (only column widths are converted between default fonts); a default font whose digit width is not known (neither Calibri 11 / Arial 10 nor a Japanese font at 11 pt) leaves the widths unconverted;
+scheme fonts of a source with another theme become their explicit name (`Calibri`), not the font Japanese Excel shows for them.
+
+
+## Round 9, objects — sheet copier phase 2 (task A2; `src/core/xlsx/patch/addsheets-objects*.ts`)
+
+Phase 2 copies what a source sheet owns besides its cells (`copySheetObjects`, wired in `addsheets.ts`): **drawings** (charts, new-style charts (chartEx), pictures, shapes,
+text boxes, group shapes, connectors; picture links / cell links / macro names / links to other sheets of the shapes), **chart sheets** (copied as chart sheets; they take a name
+in the naming rule like the worksheets), **notes** (comments part + VML; threaded comments become notes with their text), **tables** (unique id / name / column ids, formats, custom
+table styles, calculated-column and totals formulas, structured references of every other formula follow a renamed table), **pivot tables** (definition + cache + records, new cacheId,
+shared caches once; sources that are not a range of a copied sheet stay as cell values), **the sheet background picture**. Left out and named (counts, one `sheetCopyLimits` warning
+per sheet): slicers / timelines, SmartArt, ink, form controls / ActiveX / OLE objects, header / footer pictures (the last three are named by `addsheets.ts`), pivot tables of external /
+data-model / consolidation sources, XML-mapped / query tables, and — between a Strict and a transitional package — all drawings (DrawingML values differ). Every object is staged and
+written only when it is complete (`Stage` in `addsheets-objects-core.ts`): a damaged part leaves nothing behind (no orphan part, no dangling relationship), the object is left out and named.
+
+Fixtures authored by Excel (`tests/golden/com/make-fixtures-addsheets-objects.ps1`, one hidden Excel of our own, 18 s): `tests/fixtures/addsheets-objects/` —
+`ob-charts` (column + line combo with a secondary axis and a title linked to a cell embedded on the data sheet; own-sheet combo + pie + two new-style charts with style / colour parts; a chart sheet),
+`ob-shapes` (4 pictures from 3 images, linked text box, shapes with hyperlinks to another sheet, group, connector, line, background picture), `ob-comments` (visible / hidden / long notes, 2 threaded comments, one with a reply),
+`ob-table` (2 tables, calculated column, totals row, custom table style, structured references / a name over a column on another sheet, a chart on the table), `ob-pivot` (range source with 2 pivot tables sharing a cache + number formats,
+Table source, pivot chart), `ob-slicer-control` (table slicer, pivot slicer, check box, button, note on the same sheet), `ob-strict` (the same kinds saved as Strict Open XML Spreadsheet). ActiveX could not be authored
+(`OLEObjects.Add` fails in the hidden instance; covered by a hand-made package only).
+
+### Excel as the oracle (39 combinations, ONE hidden Excel of our own per run)
+
+`tests/golden/tools/make-addsheets-objects-outputs.ts` (+ `EXCEL_ENGINE=1`) writes 39 premerged workbooks with copies: each fixture alone, all of them together, the same file twice (table / pivot / VML id collisions), as the base
+(tables / pivots / notes of the base stay, new ids continue), a base with another theme, Strict as other file / as base / Strict with Strict, after random edits replayed by the built-in engine and — one Excel start —
+by the app's Excel engine, a source whose chart series read workbook names (followed as plain ranges), the golden fixtures and the foreign corpus files that own objects (`torture`, `g-table`, `pm-base-*`, `r2-table`, `r3-misc`, Google Sheets,
+openpyxl / XlsxWriter charts, tables ...). `tests/golden/com/check-addsheets-objects.ps1` opens each one and the files it was built from:
+
+**39 / 39 ok**: open `normal` 39 / 39 (no repair log), sheet names exactly as planned 39 / 39, 156 copied sheets compared with their sources — 141 shapes (pictures, text boxes, shapes, groups: type, name, text, link target;
+position / size apart), 86 charts (series count, series formula modulo sheet prefixes, values, categories, series names, chart type, axis group, series / point colours, title, legend), 61 notes (text, visibility, threaded comments =
+notes), 40 tables (name modulo `_2`, range, totals row, style, column names, calculated-column formulas), 30 pivot tables (name, range, source data, cell values, then `PivotCache.Refresh` on the copy: 30 / 30 refresh cleanly
+and give the source's values again) — 0 differences, 0 new `#REF!` / `#NAME?`. About 2.4 s per combination in Excel (92 s in all). The Excel engine's re-save of a premerged workbook with copies passes as well.
+
+Negative controls (the check must be able to fail): four hand-damaged outputs (a chart series pointing at another column, a note text, a pivot table name, a text box text) are all reported (4 / 4). The first version of the text compare
+did NOT catch the text box (`Shape.HasTextFrame` is not reachable through this COM binding: the text range itself is asked now) — found by exactly this control.
+
+Facts measured on the way (all implemented):
+
+* An in-document link of a shape (`Target="#'Sheet'!A1"`) is an internal relationship without `TargetMode`; it follows the renamed sheet and is written as it is (not as a part path).
+* Charts made by Excel 2007 / 2010 / openpyxl / XlsxWriter have no colour of their own: they take the colours of the workbook's theme. Charts of Excel 2013+ (`AddChart2`) carry `schemeClr` on every series: converted to the source
+  theme's RGB when the themes differ (also theme fonts `+mn-lt`), so they look like the source. **Automatic colours are not pinned** (see the gaps).
+* Strict OOXML: percentages are written `60%` (not `60000`), the note of a comment is described twice (VML + `<commentPr>`) and linked by `shapeId`. Excel REPAIRS (removes the comments of) a Strict workbook whose `shapeId` is not the one it wrote
+  (measured with variants of one file: only the original numbering and 0 on a sheet that has other comments open normally). Strict into Strict therefore copies the notes verbatim (same ids), transitional targets get `shapeId="0"` and
+  no `<commentPr>`. DrawingML parts are not converted between the two flavours (they are left out and named).
+* The type of a slicer shape is `msoSlicer = 25` (not 24); the hidden placeholders of form controls in the drawing (`a14:compatExt`) are not shapes of the copy.
+* Table names and pivot table names must be workbook-unique (`_2`, `_3` ...); a table name may not equal a defined name; table ids and pivot cache ids are workbook-unique; VML `idmap` blocks are numbered anew (1024 ids each).
+
+Re-running:
+```
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\golden\com\make-fixtures-addsheets-objects.ps1 -OutDir tests\fixtures\addsheets-objects [-Only regex]   # only when the fixtures must change
+npx tsx tests/golden/tools/make-addsheets-objects-outputs.ts %TEMP%\objout [<regex of combination names>]                      # EXCEL_ENGINE=1 adds the Excel-engine combination
+powershell -NoProfile -ExecutionPolicy Bypass -File tests\golden\com\check-addsheets-objects.ps1 -Dir %TEMP%\objout [-Only regex]                  # one JSON line per output + summary
+EXCEL_TESTS=1 npx vitest run tests/golden/addsheets-objects-excel.test.ts                                                                          # all of the above, asserts ok for every output
+npx vitest run tests/xlsx/addsheets-objects                                                                                                        # without Excel: fixtures, units, corpus (110 packages), damaged parts
+```
+
+Unit tests (no Excel): `tests/xlsx/addsheets-objects-fixtures.test.ts` (11, the fixtures; counts / formulas / cache values / names / Strict), `-units.test.ts` (30, hand-made packages: literal chart data, slicers / SmartArt /
+controls left out, query / XML tables, pivot caches of external data, collisions with the base, theme conversion, chartEx, chart sheets, pivot charts, dxf ids, VML numbering), `-corpus.test.ts` (110: every package of the repository as the other
+file of a merge: linter + object counts), `-damaged.test.ts` (7: every object part of every fixture removed / truncated / emptied / its relationships removed: the output stays valid).
+`tests/xlsx/addsheets-leftout.test.ts` (A1's) encoded the phase-1 behaviour (objects left out) and was updated.
+
+Known gaps (phase 2):
+
+* **Row heights / geometry.** A copy keeps the stored row heights; rows without one take the default height of the TARGET workbook's font. Objects are anchored to cells, so a source whose default font gives other row heights
+  (a Calibri / scheme-font file from openpyxl or XlsxWriter in a 游ゴシック base: 13.5 pt rows become 18.75 pt) gets charts and pictures that move and stretch (`corpus-py-18`: chart height 195 pt -> 268.5 pt; `py-11`, `py-27`: tops 13.5 -> 18.8).
+  Counted apart as `geomDiffs` (5 in 3 corpus files), not a failure. It is the row-height gap of the core copy (phase 1: "row heights are never converted"); the fix belongs there (`customHeight` default row height of the copy).
+* **Automatic chart colours** follow the theme of the workbook they are in (a chart without a colour of its own in a source with another theme changes its palette: `corpus-py-11`, `py-18`, `py-27`, `torture`; skipped by the check when the themes differ).
+* Threaded comments become notes (author = the person, text = comment + replies); the conversation structure is lost.
+* Chart series that read a workbook-level defined name that is ONE plain range (`[0]!Name`, or `Sheet!Name`) are re-pointed to that range in the copy (Excel: 6 charts open normally, series follow the copied cells). Series that read a name that computes (OFFSET / INDEX / several areas), another workbook or a sheet that is not copied keep their cached values as literal data (the chart no longer follows the cells; the warning counts them).
+* A table / pivot cache of a sheet that the core copy cannot write at all (damaged sheet → empty sheet) is still named in the formulas of the other copies; Excel would repair such a file (a damaged source sheet only).
+* Core-copy defects found on the way (not fixed, files of phase 1): `splitTop` (copysheet.ts) reads everything after the first form control of a sheet as nothing (nested `<mc:AlternateContent>`): `<tableParts>` is recovered by the object phase, but the extension list
+  (x14 conditional formats / validations / sparklines) is lost (`it.fails` in `addsheets-objects-units.test.ts`); `updateAppSheets` does not know the Strict relationship type / namespace of `docProps/app.xml` (stale sheet list, harmless).

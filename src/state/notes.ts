@@ -15,6 +15,9 @@ export interface Note {
 
 const MAX_SHEET_NAMES = 3;
 
+/** CheckItem.code of the things a copied sheet (includeSourceSheets) could not take along */
+export const SHEET_COPY_LIMITS = 'sheetCopyLimits';
+
 /** 「出力は結合した 1 シートのみです（他のシート N 枚「集計」「マスタ」… は含めません）」 */
 export function droppedSheetsLine(names: readonly string[]): string {
   const shown = names
@@ -22,6 +25,19 @@ export function droppedSheetsLine(names: readonly string[]): string {
     .map((n) => `「${n.length > 16 ? `${n.slice(0, 15)}…` : n}」`)
     .join('');
   return `出力は結合した 1 シートのみです（他のシート ${names.length} 枚${shown}${names.length > MAX_SHEET_NAMES ? '…' : ''} は含めません）`;
+}
+
+/**
+ * 「基準ファイルの他のシート N 枚「集計」… は含めません」 — the wording of droppedSheetsLine for an output that is NOT a one-sheet
+ * file because the sheets of the other files are copied (includeSourceSheets). Reachable through the API only: the two checkboxes
+ * of the UI are coupled, so the base's sheets are never dropped while the others are copied.
+ */
+export function droppedBaseSheetsLine(names: readonly string[]): string {
+  const shown = names
+    .slice(0, MAX_SHEET_NAMES)
+    .map((n) => `「${n.length > 16 ? `${n.slice(0, 15)}…` : n}」`)
+    .join('');
+  return `基準ファイルの他のシート ${names.length} 枚${shown}${names.length > MAX_SHEET_NAMES ? '…' : ''} は含めません`;
 }
 
 /** 「他のシートを参照していた数式 N 個は値にしました」 */
@@ -49,13 +65,22 @@ export function otherSheetNames(base: Pick<FileEntry, 'book' | 'sheet' | 'region
  *        pivot tables, slicers, images, comments …) are counted for the WHOLE book and cannot be told apart by sheet, so while
  *        the other sheets are dropped (and there are some) the notes that promise their preservation are not shown: they may
  *        live on a dropped sheet. The report says what was dropped (droppedSheets / formulasDetached).
+ * @param extra.includeSourceSheets 「他のファイルのシートも含める」: the sheets of the other files are copied into the output, so
+ *        their charts / pictures / pivot tables travel with the copies (the copy limits arrive as 'sheetCopyLimits' report items)
  */
 export function fidelityNotes(
   files: readonly FileEntry[],
   baseId: string | null,
   excelAvailable: boolean,
   report?: MergeReport | null,
-  extra?: { labels?: Record<string, string>; exportWarnings?: readonly string[]; excluded?: readonly string[]; merged?: boolean; dropOtherSheets?: boolean },
+  extra?: {
+    labels?: Record<string, string>;
+    exportWarnings?: readonly string[];
+    excluded?: readonly string[];
+    merged?: boolean;
+    dropOtherSheets?: boolean;
+    includeSourceSheets?: boolean;
+  },
 ): Note[] {
   const out: Note[] = [];
   // files without a key: listed first, they are the thing the user can still act on
@@ -107,14 +132,25 @@ export function fidelityNotes(
     const ft = b.features;
     const objs = ft.charts + ft.pivotTables + ft.images + ft.slicers;
     if (objs > 0) {
-      out.push({ key: `${f.id}-objs`, severity: 'info', text: `${f.fileName}: グラフ・図・ピボットは取り込まれません（取り込むのはセルの値と書式です）` });
+      out.push({
+        key: `${f.id}-objs`,
+        severity: 'info',
+        text: extra?.includeSourceSheets
+          ? // the sheets of this file are copied as they are: its charts / pictures / pivot tables go with the copies, not into the merged table
+            `${f.fileName}: グラフ・図・ピボットなど ${objs} 個は、コピーしたシート側に入ります（結合した表には取り込まれません。コピーできないものは、結合後の警告に表示します）`
+          : `${f.fileName}: グラフ・図・ピボットは取り込まれません（取り込むのはセルの値と書式です）`,
+      });
     }
     b.warnings.forEach((w, i) => out.push({ key: `${f.id}-w${i}`, severity: 'warning', text: `${f.fileName}: ${w}` }));
   }
 
   if (report) {
     if (report.droppedSheets && report.droppedSheets.length > 0) {
-      out.push({ key: 'dropped-sheets', severity: 'info', text: droppedSheetsLine(report.droppedSheets) });
+      out.push({ key: 'dropped-sheets', severity: 'info', text: extra?.includeSourceSheets ? droppedBaseSheetsLine(report.droppedSheets) : droppedSheetsLine(report.droppedSheets) });
+    }
+    // plan A was asked for but the engine reported no copied sheet at all: say so instead of promising sheets that are not there
+    if (extra?.includeSourceSheets && extra.merged && (report.addedSheets?.length ?? 0) === 0) {
+      out.push({ key: 'sheets-not-added', severity: 'warning', text: '他のファイルのシートは、出力に追加されませんでした（結合した表のシートだけを出力します）' });
     }
     if (report.formulasDetached && report.formulasDetached > 0) {
       out.push({ key: 'formulas-detached', severity: 'info', text: formulasDetachedLine(report.formulasDetached) });
@@ -139,7 +175,8 @@ export function fidelityNotes(
     report.items.forEach((it, i) => {
       if (hasStats && isFormulaImportItem(it) && it.code !== 'formulasPlaceholderCache') return;
       const where = checkItemWhere(it, extra?.labels ?? {});
-      out.push({ key: `r${i}`, severity: it.severity, text: where ? `${it.message}（${where}）` : it.message });
+      // sheetCopyLimits: things a copied sheet could not take along (the message names the sheet and what was left out)
+      out.push({ key: `${it.code === SHEET_COPY_LIMITS ? 'sheetcopy' : 'r'}${i}`, severity: it.severity, text: where ? `${it.message}（${where}）` : it.message });
     });
   }
   (extra?.exportWarnings ?? []).forEach((w, i) => out.push({ key: `export-w${i}`, severity: 'warning', text: `出力: ${w}` }));

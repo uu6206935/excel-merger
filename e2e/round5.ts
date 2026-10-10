@@ -141,7 +141,8 @@ export async function verifyCases(cases: VerifyCase[]): Promise<CheckOutputResul
     const b = dumps[bases.indexOf(c.base)];
     const d = dumps[bases.length + i];
     if (b.openMode === 'failed') throw new Error(`基準ファイルを Excel で開けませんでした: ${c.base}\n${b.error ?? ''}`);
-    const verdict = checkOutputDumps(b, d, { sheet: c.check?.sheet, headerRow: c.check?.headerRow });
+    // (the app's default output holds ONLY the merged sheet: pass { singleSheet: false } for an output that keeps the base file's other sheets)
+    const verdict = checkOutputDumps(b, d, { sheet: c.check?.sheet, headerRow: c.check?.headerRow, singleSheet: c.check?.singleSheet ?? true });
     const v: CheckOutputResult = { ...verdict, openMode: d.openMode } as CheckOutputResult;
     assertValid(v, c.label);
     return v;

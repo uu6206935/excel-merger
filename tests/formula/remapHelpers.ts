@@ -49,3 +49,46 @@ export function why(f: string, sr = 5, tr = sr, over: Over = {}): RemapReason | 
 export function names(list: Array<[string, string | null, string]>): Over {
   return { names: list.map(([name, scope, refersTo]) => ({ name, scope, refersTo })) };
 }
+
+// ---------------------------------------------------------------------------------------------------------------------
+// round 9: the copies of the source's sheets (PremergeOptions.includeSourceSheets), see remap-copies*.test.ts
+// ---------------------------------------------------------------------------------------------------------------------
+
+/** lower-cased sheet of the source -> its copy in the output (names as planSheetNames makes them: "<file>_<sheet>", "(1)" for a later duplicate) */
+export const COPIES: ReadonlyMap<string, string> = new Map([
+  ['評価', 'src_評価'],
+  ['レート', 'src_レート'],
+  ['master', 'src_Master'],
+  ['my sheet', 'src_My Sheet'],
+  ["o'brien", "src_O'Brien"],
+  ['sheet2', 'src_Sheet2(1)'],
+]);
+
+/** only C and D are imported (to E and F): the columns A, B (keys) and E, F of the source are NOT in the merged table */
+export const PARTIAL: Over = { colMap: new Map([[3, 5], [4, 6]]) };
+/** the key columns A and B are not imported, but the base has the same text in its columns A and B */
+export const KEYS: Over = { partnerCols: new Map([[1, 1], [2, 2]]) };
+/** source rows 2..11 without row 4 / 7: those people matched nothing */
+export const without = (...rows: number[]): Array<[number, number]> => identity().filter(([r]) => !rows.includes(r));
+
+/** remap with the copies (`array`: the source cell holds an array / dynamic-array formula) */
+export function runC(f: string, sr = 5, tr = sr, over: Over = {}, array = false, srcCol?: number) {
+  return new FormulaRemapper(spec({ sheetCopies: COPIES, ...over })).remap(f, sr, tr, srcCol, array);
+}
+
+export function okC(f: string, sr = 5, tr = sr, over: Over = {}, array = false): string {
+  const r = runC(f, sr, tr, over, array);
+  if (!r.ok) throw new Error(`expected ok for ${f}: ${r.reason} ${r.detail ?? ''}`);
+  return r.formula;
+}
+
+export function whyC(f: string, sr = 5, tr = sr, over: Over = {}, array = false): RemapReason | 'ok' {
+  const r = runC(f, sr, tr, over, array);
+  return r.ok ? 'ok' : r.reason;
+}
+
+/** did the formula come out reading a copy? (undefined for a failure) */
+export function viaC(f: string, sr = 5, tr = sr, over: Over = {}, array = false): boolean | undefined {
+  const r = runC(f, sr, tr, over, array);
+  return r.ok ? r.viaCopy === true : undefined;
+}

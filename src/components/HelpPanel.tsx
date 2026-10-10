@@ -10,7 +10,7 @@ export const HELP_STEPS: ReadonlyArray<{ num: string; title: string; body: strin
   { num: '①', title: 'ファイル', body: 'まとめたいExcel（.xlsx / .xls / .csv など）を2つ以上、ここにドロップします。最初のファイルが「基準」（出力の元になる表）です。' },
   { num: '②', title: '結合キー', body: 'ID・氏名など、同じ人を見分ける列を自動で探します。合っているか確認して「結合する」を押します（「詳細設定…」で変更できます）。' },
   { num: '③', title: '列の編集', body: '列見出しをクリックして選び、ドラッグで移動。右クリックで挿入・削除、Ctrl+Z で元に戻せます。セルの編集もできます。' },
-  { num: '④', title: '出力', body: '「Excel出力」で、結合した表（1つのシート）を数式・書式を保ったまま保存します。元のファイルは変更されません。' },
+  { num: '④', title: '出力', body: '「Excel出力」で、結合した表を数式・書式を保ったまま保存します（ふつうは1つのシート。「他のシートも出力に含める」「他のファイルのシートも含める」にチェックすると、元のシートも入ります）。元のファイルは変更されません。' },
 ];
 
 export const SHORTCUTS: ReadonlyArray<{ keys: string; what: string }> = [

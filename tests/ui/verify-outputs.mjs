@@ -1,7 +1,9 @@
 // check-output + compare for the outputs of the UI flows (tests/ui/real.mjs, real-excluded.mjs) with ONE Excel start
 // (every Excel start costs time and ~80 MB of Office diagnostics in %TEMP%):
-//   node tests/ui/verify-outputs.mjs --case "<base.xlsx>|<sheet or ->|<header row or ->|<excel-output.xlsx>|<js-output.xlsx>" [--case ...]
-// For every case: tools/lib/verdict.mjs (the same verdict as tools/check-output.mjs) for BOTH outputs, then the same
+//   node tests/ui/verify-outputs.mjs --case "<base.xlsx>|<sheet or ->|<header row or ->|<excel-output.xlsx>|<js-output.xlsx>[|<sheets>[|<source;source;...>]]" [--case ...]
+// <sheets> = what the output holds, as real.mjs printed on its `SHEETS` line: single (the default, the app's default: only the merged sheet →
+// check-output --single-sheet) | base (the base's other sheets are kept: no flag) | all (+ the sheets of the other files: --with-copies, compared with the
+// <source> files, given in card order and ';'-separated). For every case: tools/lib/verdict.mjs (the same verdict as tools/check-output.mjs) for BOTH outputs, then the same
 // comparison as tools/compare.mjs (Excel view + package view) of the Excel本体 output against the built-in engine's.
 // Exit 0 = every verdict PASS and no formula differences between the engines, 1 = otherwise, 2 = could not run.
 import path from 'node:path';
@@ -19,8 +21,16 @@ const args = process.argv.slice(2);
 const cases = [];
 for (let i = 0; i < args.length; i++) {
   if (args[i] !== '--case') continue;
-  const [base, sheet, headerRow, excel, js] = String(args[++i]).split('|');
-  cases.push({ base: path.resolve(base), sheet: sheet && sheet !== '-' ? sheet : undefined, headerRow: headerRow && headerRow !== '-' ? Number(headerRow) : undefined, excel: path.resolve(excel), js: path.resolve(js) });
+  const [base, sheet, headerRow, excel, js, mode = 'single', sources = ''] = String(args[++i]).split('|');
+  cases.push({
+    base: path.resolve(base),
+    sheet: sheet && sheet !== '-' ? sheet : undefined,
+    headerRow: headerRow && headerRow !== '-' ? Number(headerRow) : undefined,
+    excel: path.resolve(excel),
+    js: path.resolve(js),
+    mode,
+    sources: sources ? sources.split(';').filter(Boolean).map((s) => path.resolve(s)) : [],
+  });
 }
 if (!cases.length) {
   process.stderr.write('usage: node tests/ui/verify-outputs.mjs --case "<base>|<sheet or ->|<headerRow or ->|<excel out>|<js out>" ...\n');
@@ -31,7 +41,7 @@ if (!excelAvailable()) {
   process.exit(2);
 }
 
-const files = [...new Set(cases.flatMap((c) => [c.base, c.excel, c.js]))];
+const files = [...new Set(cases.flatMap((c) => [c.base, c.excel, c.js, ...c.sources]))];
 const t0 = Date.now();
 const dumps = await inspectFiles(files, { recalc: true });
 console.log(`inspected ${files.length} files in ONE Excel instance in ${Date.now() - t0} ms`);
@@ -43,9 +53,15 @@ for (const f of files) if (dumpOf(f).error && dumpOf(f).openMode === 'failed') {
 }
 
 for (const c of cases) {
-  console.log(`\n==== ${path.basename(c.base)} -> ${path.basename(c.excel)} / ${path.basename(c.js)}`);
+  console.log(`\n==== ${path.basename(c.base)} -> ${path.basename(c.excel)} / ${path.basename(c.js)}  (sheets: ${c.mode})`);
   for (const [label, file] of [['Excel本体', c.excel], ['内蔵エンジン', c.js]]) {
-    const v = checkOutput(dumpOf(c.base), dumpOf(file), { sheet: c.sheet, headerRow: c.headerRow });
+    const v = checkOutput(dumpOf(c.base), dumpOf(file), {
+      sheet: c.sheet,
+      headerRow: c.headerRow,
+      singleSheet: c.mode === 'single',
+      withCopies: c.mode === 'all',
+      sources: c.sources.map((s) => ({ name: path.basename(s), dump: dumpOf(s) })),
+    });
     console.log(`-- check-output (${label}): ${v.verdict} (open mode: ${dumpOf(file).openMode})`);
     console.log(formatVerdict(v, path.basename(file)));
     if (!v.ok || v.verdict !== 'PASS' || dumpOf(file).openMode !== 'normal') bad++;

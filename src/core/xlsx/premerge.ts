@@ -14,6 +14,8 @@
  *     base's partner column, defined names and table structured references are resolved. What cannot be remapped (other sheets,
  *     cells outside the table, positional functions …) is imported as the cached value, counted per reason in
  *     MergeReport.formulaStats; a formula that cannot be kept AND has no stored result is the only way to get an empty cell;
+ *     with includeSourceSheets (round 9) the ORIGINAL sheets of the source are in the output, and what the merged table cannot represent
+ *     reads those copies instead (remap.ts rules h-j): such formulas are kept (formulaStats.reasons.viaCopy, item 'formulasViaCopy');
  *  4. a base ListObject / AutoFilter over the region grows over the imported columns (and the appended rows).
  */
 import { numToCol, parseAreaText, type Area } from '../formula/excelRef';
@@ -22,13 +24,16 @@ import { FormulaRemapper, type RemapName, type RemapReason, type RemapResult, ty
 import type { CellType, CheckItem, MergeReport, MergedRowPlan, SourceBook } from '../types';
 import { cellText } from './cellText';
 import type { KeyFillEntry, KeySource, PremergeInput, PremergeLayout, PremergeResult, ProgressFn } from '../contracts';
+import { addSourceSheets, planSourceSheets, type CopyPlan } from './patch/addsheets';
+import { is1904, samePalette, sameTheme, themeXml } from './patch/bookinfo';
 import { dropCheckItems, dropOtherSheets, type DropResult } from './patch/dropsheets';
 import { Engine, colName, tableColumns, to1904Serial, type SheetState, type TableState } from './patch/engine';
-import { PatchError, isRel, toPatchError } from './patch/pkg';
+import { PatchError, toPatchError } from './patch/pkg';
+import { convertRich } from './patch/richtext';
 import { cellRef, parseF, type CellM } from './patch/sheet';
 import { isoToSerial } from './sheet';
 import { isRichOrPhonetic, siText, type Sst } from './patch/sst';
-import { Styles, convertColors, themeColors } from './patch/styles';
+import { Styles, themeColors } from './patch/styles';
 import { escAttr, getAttr, setAttr, unesc } from './patch/xml';
 
 /**
@@ -56,6 +61,8 @@ export interface FormulaTrace {
   widened?: boolean;
   /** kept: a non-imported key column was replaced by the base's partner column */
   substituted?: boolean;
+  /** kept (includeSourceSheets): at least one reference reads the COPY of a sheet of the source (original coordinates) */
+  viaCopy?: boolean;
 }
 
 export type FormulaTraceFn = (t: FormulaTrace) => void;
@@ -131,6 +138,7 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
     extendTable: o.extendTable ?? true,
     headerConflict: o.headerConflict ?? 'suffix',
     dropOtherSheets: o.dropOtherSheets === true,
+    includeSourceSheets: o.includeSourceSheets === true,
   };
   const region = base.region;
   validateRegion(region.sheet, region);
@@ -172,6 +180,32 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
   }
   for (const c of ctxs.values()) if (c.valuesOnly && imports.some((i) => i.sourceId === c.ks.id)) {
     items.push({ severity: 'info', code: 'valuesOnly', sourceId: c.ks.id, message: `「${c.ks.label}」は値だけを読み込める形式のため、書式なし（標準）で取り込みました。` });
+  }
+
+  // ---- 0b. the names of the sheets copied from the other files (includeSourceSheets): known before the cells are written, so that imported
+  // formulas can be re-pointed at the copies. The merged sheet and the base's other sheets (those that are kept) are never renamed.
+  let copyPlan: CopyPlan | null = null;
+  /** source id -> (lower-cased sheet name of the source -> name of its copy) */
+  let sheetCopies: Map<string, Map<string, string>> | null = null;
+  const copyEngines = new Map<string, Engine>();
+  if (options.includeSourceSheets && sources.length) {
+    report(0.2, 'コピーするシートの名前を決めています…');
+    copyPlan = await planSourceSheets(eng.sheets.map((s) => s.name), sources, async (ks) => {
+      const c = ctxs.get(ks.id);
+      if (c) return c.eng;
+      let e = copyEngines.get(ks.id);
+      if (!e) {
+        try {
+          e = await Engine.open(ks.book.bytes);
+        } catch (err) {
+          const why = err instanceof PatchError ? err.message : '';
+          throw new PatchError(`「${ks.label}」を開けませんでした（ファイルが壊れている可能性があります）。${why}`);
+        }
+        copyEngines.set(ks.id, e);
+      }
+      return e;
+    });
+    sheetCopies = new Map(copyPlan.sources.map((sp) => [sp.ks.id, new Map(sp.sheets.filter((s) => s.name !== null).map((s) => [s.original.toLowerCase(), s.name!]))]));
   }
 
   // ---- 1. appended rows -------------------------------------------------------------------------------------
@@ -287,7 +321,7 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
   // A formula the remapper cannot handle (even by a defect in it) becomes a value: it must never fail the whole merge
   const GIVE_UP: RemapResult = { ok: false, reason: 'unsupported', detail: 'internal error' };
   const remappers = new Map<string, FormulaRemapper | null>();
-  const remapFormula = (sid: string, f: string, srcRow: number, targetRow: number, srcCol: number): RemapResult => {
+  const remapFormula = (sid: string, f: string, srcRow: number, targetRow: number, srcCol: number, array: boolean): RemapResult => {
     try {
       let r = remappers.get(sid);
       if (r === undefined) {
@@ -295,13 +329,14 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
           r = createRemapper({
             c: ctxs.get(sid)!, ctxs, rows, targets, region, N, insertAt, M, imports, headers, srcHeaderText,
             keyPairs: input.keyPairs?.[sid] ?? [], keyFill, baseKs: base, st, bsst,
+            sheetCopies: sheetCopies?.get(sid) ?? null,
           });
         } catch {
           r = null;
         }
         remappers.set(sid, r);
       }
-      return r ? r.remap(f, srcRow, targetRow, srcCol) : GIVE_UP;
+      return r ? r.remap(f, srcRow, targetRow, srcCol, array) : GIVE_UP;
     } catch {
       return GIVE_UP;
     }
@@ -309,7 +344,7 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
   const stats = new Map<string, FStat>();
   const statOf = (sid: string): FStat => {
     let s = stats.get(sid);
-    if (!s) { s = { kept: 0, toValues: 0, empty: 0, reasons: {}, valueReasons: {}, emptyReasons: {}, reasonRows: new Map(), emptyRows: [], widened: 0, recalc: 0, recalcRows: [], widenedRows: [] }; stats.set(sid, s); }
+    if (!s) { s = { kept: 0, toValues: 0, empty: 0, reasons: {}, valueReasons: {}, emptyReasons: {}, reasonRows: new Map(), emptyRows: [], widened: 0, recalc: 0, recalcRows: [], widenedRows: [], viaCopy: 0, viaCopyRows: [], viaCopySheets: new Set() }; stats.set(sid, s); }
     return s;
   };
   let kept = 0, toValues = 0;
@@ -363,7 +398,7 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
         else if (isUnsafeFormula(v.f)) reason = 'unsafe';
         else if (v.arr && !isSingleCellArray(v.arrRef)) reason = 'array';
         else {
-          res = remapFormula(c.ks.id, v.f, sr!, target, imp.col);
+          res = remapFormula(c.ks.id, v.f, sr!, target, imp.col, !!v.arr);
           if (!res.ok) reason = res.reason;
         }
         if (res && res.ok) {
@@ -375,7 +410,13 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
           stat.kept++;
           if (!cached) { stat.recalc++; if (stat.recalcRows.length < 20 && !stat.recalcRows.includes(target)) stat.recalcRows.push(target); }
           if (res.widened) { stat.widened++; if (stat.widenedRows.length < 20 && !stat.widenedRows.includes(target)) stat.widenedRows.push(target); }
-          trace?.({ ...at, outcome: 'kept', formula: res.formula, cached, exact: res.exact, widened: res.widened, substituted: res.substituted });
+          // includeSourceSheets: the formula reads the copies of the source's sheets (kept; counted separately for the report)
+          if (res.viaCopy) {
+            stat.viaCopy++;
+            for (const n of res.copySheets ?? []) stat.viaCopySheets.add(n);
+            if (stat.viaCopyRows.length < 20 && !stat.viaCopyRows.includes(target)) stat.viaCopyRows.push(target);
+          }
+          trace?.({ ...at, outcome: 'kept', formula: res.formula, cached, exact: res.exact, widened: res.widened, substituted: res.substituted, ...(res.viaCopy ? { viaCopy: true } : {}) });
           continue;
         }
         toValues++;
@@ -406,7 +447,8 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
   for (const [sid, s] of stats) {
     const c = ctxs.get(sid)!;
     const label = c.ks.label;
-    formulaStats.push({ sourceId: sid, label, kept: s.kept, toValues: s.toValues, empty: s.empty, reasons: { ...s.reasons } });
+    // 'viaCopy' (informational, counted among the kept ones): kept formulas that read the copies of the source's sheets
+    formulaStats.push({ sourceId: sid, label, kept: s.kept, toValues: s.toValues, empty: s.empty, reasons: { ...s.reasons, ...(s.viaCopy ? { viaCopy: s.viaCopy } : {}) } });
     if (c.placeholderCache) {
       items.push({
         severity: 'warning', code: 'formulasPlaceholderCache', sourceId: sid,
@@ -415,6 +457,14 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
     }
     if (s.kept) {
       items.push({ severity: 'info', code: 'formulasKept', sourceId: sid, message: `「${label}」の数式 ${s.kept} 件は数式のまま残しました（参照先を結合後の列・行に付け替えました）。` });
+    }
+    if (s.viaCopy) {
+      const names = [...s.viaCopySheets];
+      const shown = names.slice(0, 3).map((n) => `「${n}」`).join('');
+      items.push({
+        severity: 'info', code: 'formulasViaCopy', sourceId: sid, rows: s.viaCopyRows,
+        message: `「${label}」: ${s.viaCopy} 件の数式は元のシート（コピー）を参照して数式のまま残しました（参照先: ${shown}${names.length > 3 ? ` ほか ${names.length - 3} 枚` : ''}）。`,
+      });
     }
     if (s.widened) {
       items.push({
@@ -453,7 +503,18 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
     const shifted = (r: number) => (N && appendAt != null && r >= appendAt ? r + N : r);
     items.unshift(...dropCheckItems(drop, shifted));
   }
-  report(0.92, 'ファイルを作成中…');
+
+  // ---- 5. the sheets of the other files (includeSourceSheets) --------------------------------------------------------------------
+  let addedSheets: PremergeLayout['addedSheets'];
+  if (copyPlan) {
+    report(0.9, '他のファイルのシートをコピー中…');
+    const xfCaches = new Map<string, Map<number, number>>();
+    for (const [id, c] of ctxs) xfCaches.set(id, c.xfCache);
+    const added = await addSourceSheets({ eng, merged: st, plan: copyPlan, baseStyles, bsst: await eng.sst(), baseTheme, base1904, xfCaches, progress: report });
+    addedSheets = added.added;
+    items.push(...added.items);
+  }
+  report(0.98, 'ファイルを作成中…');
   const bytes = await eng.finish();
   report(1, '完了');
   const reportOut: MergeReport = {
@@ -466,9 +527,10 @@ async function build(input: PremergeInput, onProgress?: ProgressFn, trace?: Form
     formulasToValues: toValues,
     formulaStats,
     ...(drop ? { droppedSheets: drop.dropped, formulasDetached: drop.detached } : {}),
+    ...(addedSheets?.length ? { addedSheets: addedSheets.map((s) => s.name) } : {}),
     items,
   };
-  const layout: PremergeLayout = { sheet, insertAt, imported: layoutImported, appendAt, appended: layoutAppended };
+  const layout: PremergeLayout = { sheet, insertAt, imported: layoutImported, appendAt, appended: layoutAppended, ...(addedSheets?.length ? { addedSheets } : {}) };
   return { bytes, layout, report: reportOut };
 }
 
@@ -493,24 +555,6 @@ function validatePlan(rows: PremergeInput['rows'], imports: PremergeInput['impor
   }
 }
 
-async function themeXml(eng: Engine): Promise<string | null> {
-  const rel = (await eng.pkg.relTargets(eng.wbPath)).find((r) => isRel(r.type, 'theme'));
-  return rel ? eng.pkg.read(rel.path) : null;
-}
-
-function fontScheme(theme: string | null): string {
-  return /<a:fontScheme\b[\s\S]*?<\/a:fontScheme>/.exec(theme ?? '')?.[0].replace(/\sname="[^"]*"/, '') ?? '';
-}
-
-function is1904(eng: Engine): boolean {
-  return /<workbookPr\b[^>]*\sdate1904="(1|true)"/.test(eng.wbXml);
-}
-
-function samePalette(a: Styles, b: Styles): boolean {
-  const pa = a.effectivePalette(), pb = b.effectivePalette();
-  return pa.every((c, i) => c === pb[i]);
-}
-
 async function openSource(ks: KeySource, baseTheme: string | null, base1904: boolean, baseStyles: Styles): Promise<SourceCtx> {
   let eng: Engine;
   try {
@@ -528,7 +572,7 @@ async function openSource(ks: KeySource, baseTheme: string | null, base1904: boo
   }
   const srcTheme = await themeXml(eng);
   const srcStyles = await eng.styles();
-  const same = JSON.stringify(themeColors(srcTheme)) === JSON.stringify(themeColors(baseTheme)) && fontScheme(srcTheme) === fontScheme(baseTheme);
+  const same = sameTheme(srcTheme, baseTheme);
   return {
     ks,
     eng,
@@ -600,27 +644,6 @@ function writeValue(eng: Engine, cell: CellM, v: SrcVal, ep: number, bsst: Sst, 
   eng.setCellSync(cell, null, ep, bsst);
   cell.a = setAttr(cell.a, 't', 's');
   cell.x = `<v>${idx}</v>`;
-}
-
-/**
- * A source <si> body in the base package: run fonts are inline (<rPr>), theme colours / theme font schemes are
- * converted when the themes differ (like imported cell styles); <phoneticPr fontId> refers to a font of the source
- * styles.xml and is re-pointed at the same font imported into the base (dropped when it does not exist).
- */
-function convertRich(xml: string, c: SourceCtx, base: Styles): string {
-  let x = xml;
-  if (c.indexedRgb && !c.themeRgb) x = x.replace(/<rPr>([\s\S]*?)<\/rPr>/g, (_m, inner: string) => `<rPr>${convertColors(inner, null, c.indexedRgb)}</rPr>`);
-  if (c.themeRgb) {
-    const rgb = c.themeRgb;
-    x = x.replace(/<rPr>([\s\S]*?)<\/rPr>/g, (_m, inner: string) => `<rPr>${convertColors(inner, rgb, c.indexedRgb)}</rPr>`);
-  }
-  x = x.replace(/<phoneticPr\b[^>]*\/>/g, (el) => {
-    const id = getAttr(el, 'fontId');
-    if (id === undefined) return el;
-    const nid = base.importFont(c.styles, Number(id), c.themeRgb, c.indexedRgb);
-    return nid === null ? '' : setAttr(el, 'fontId', String(nid));
-  });
-  return x;
 }
 
 /** Runs without <rPr> get the font of source xf `xf` as <rPr> (<name> becomes <rFont>); theme refs are converted later. */
@@ -784,6 +807,11 @@ interface FStat {
   /** kept without a stored result (Excel recalculates on load) */
   recalc: number;
   recalcRows: number[];
+  /** kept: reads the copies of the source's sheets (includeSourceSheets) */
+  viaCopy: number;
+  viaCopyRows: number[];
+  /** names of the copies the kept formulas read */
+  viaCopySheets: Set<string>;
 }
 
 /** the reasons in plain Japanese ("<phrase> N 件は値にしました") */
@@ -874,6 +902,11 @@ interface RemapperArgs {
   baseKs: KeySource;
   st: SheetState;
   bsst: Sst;
+  /**
+   * includeSourceSheets: lower-cased sheet name of THIS source -> the name of its copy in the output (every worksheet of the source is
+   * copied, so a formula may read these instead of the source sheets). null = the sheets of the sources are not copied.
+   */
+  sheetCopies: Map<string, string> | null;
 }
 
 function hasContent(cell: CellM): boolean {
@@ -932,6 +965,7 @@ function createRemapper(a: RemapperArgs): FormulaRemapper {
     tables: sourceTables(c),
     hasContentOutside,
     headerSame: (col) => headerOf.get(col) === true,
+    ...(a.sheetCopies ? { sheetCopies: a.sheetCopies } : {}),
   });
 }
 

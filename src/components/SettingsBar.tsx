@@ -29,6 +29,39 @@ export function OtherSheetsOption({ checked, disabled, onChange }: { checked: bo
   );
 }
 
+export const SOURCE_SHEETS_LABEL = '他のファイルのシートも含める';
+export const SOURCE_SHEETS_HINT =
+  '2つ目以降のファイルの元のシートを、すべてそのまま入れます。シート名は「ファイル名_シート名」になり、名前が重なるときは(1)(2)…が付きます。元のシートを参照している数式もエラーにならずに動きます';
+
+/**
+ * 「他のファイルのシートも含める」 (round 9, plan A; default off): every sheet of the 2nd, 3rd … files is copied into the output as it
+ * is. Indented under 「他のシートも出力に含める」; the two are coupled (see state/sheetPlan.ts), and like it this is a merge setting.
+ */
+export function SourceSheetsOption({ checked, disabled, onChange }: { checked: boolean; disabled?: boolean; onChange?: (include: boolean) => void }) {
+  return (
+    <label className={`settings-check settings-check-sub${disabled ? ' is-disabled' : ''}`} title={disabled ? `${SOURCE_SHEETS_HINT}\n（${OTHER_SHEETS_LOCKED_HINT}）` : SOURCE_SHEETS_HINT}>
+      <input type="checkbox" data-testid="include-source-sheets" checked={checked} disabled={disabled} onChange={(e) => onChange?.(e.target.checked)} />
+      <span>{SOURCE_SHEETS_LABEL}</span>
+    </label>
+  );
+}
+
+/** The two sheet checkboxes, one under the other (the second one indented). */
+export function SheetOptions(props: {
+  includeOtherSheets: boolean;
+  includeSourceSheets: boolean;
+  disabled?: boolean;
+  onIncludeOtherSheets?: (include: boolean) => void;
+  onIncludeSourceSheets?: (include: boolean) => void;
+}) {
+  return (
+    <span className="settings-sheets" data-testid="sheet-options">
+      <OtherSheetsOption checked={props.includeOtherSheets} disabled={props.disabled} onChange={props.onIncludeOtherSheets} />
+      <SourceSheetsOption checked={props.includeSourceSheets} disabled={props.disabled} onChange={props.onIncludeSourceSheets} />
+    </span>
+  );
+}
+
 export interface KeyControlsProps {
   analysis: KeyAnalysis;
   plan: JoinPlan;
@@ -37,9 +70,11 @@ export interface KeyControlsProps {
   onToggleFamily: (family: 'id' | 'name', on: boolean) => void;
   onOpenDetail: () => void;
   onJoinType: (t: JoinType) => void;
-  /** 「他のシートも出力に含める」 (next to 結合方法) */
+  /** 「他のシートも出力に含める」 (next to 結合方法) and, indented under it, 「他のファイルのシートも含める」 */
   includeOtherSheets: boolean;
   onIncludeOtherSheets: (include: boolean) => void;
+  includeSourceSheets: boolean;
+  onIncludeSourceSheets: (include: boolean) => void;
 }
 
 function Chip({ chip, onToggle }: { chip: ChipView; onToggle: (on: boolean) => void }) {
@@ -116,7 +151,12 @@ export function KeyControls(props: KeyControlsProps) {
           ))}
         </select>
       </label>
-      <OtherSheetsOption checked={props.includeOtherSheets} onChange={props.onIncludeOtherSheets} />
+      <SheetOptions
+        includeOtherSheets={props.includeOtherSheets}
+        includeSourceSheets={props.includeSourceSheets}
+        onIncludeOtherSheets={props.onIncludeOtherSheets}
+        onIncludeSourceSheets={props.onIncludeSourceSheets}
+      />
     </>
   );
 }

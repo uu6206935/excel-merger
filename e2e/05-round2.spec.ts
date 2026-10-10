@@ -22,6 +22,7 @@ import {
   SAMPLE_FILES,
   samplePaths,
   selectColumns,
+  setSheetMode,
   step,
   typeInCell,
   verifyAndProbe,
@@ -262,7 +263,8 @@ test.describe('ラウンド2: タイトル結合・キー詳細・行の追加�
   test('(e) 数式が参照している列（年齢）を値に変換して削除 → どちらのエンジンでも #REF! がない', async ({ page }) => {
     test.setTimeout(15 * 60_000);
     const errors = watchErrors(page);
-    await mergeSamples(page, errors, TWO);
+    // 集計 is a sheet of the base file: keep it (the app's default output is the merged sheet only)
+    await mergeSamples(page, errors, TWO, () => setSheetMode(page, 'base'));
     const before = await columnTitles(page);
     await selectColumns(page, ['年齢']);
     await page.keyboard.press('Delete');

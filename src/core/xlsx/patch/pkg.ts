@@ -11,6 +11,7 @@
  */
 import type JSZip from 'jszip';
 import { MAX_PART_BYTES, ReadBookError, loadZip, readEntryBytes } from '../zip';
+import { compressParts, nativeInflateEntry } from './nativezip';
 import { xmlProblem } from './wellformed';
 import { decodeBytes, getAttr, normalizeAttrQuotes, normalizeRelPrefix, stripMainPrefix, unesc, escAttr } from './xml';
 
@@ -113,7 +114,10 @@ export const REL_TYPE = {
   calcChain: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/calcChain',
 };
 
-const CT_SST = 'application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml';
+/** parts with at least this many characters are compressed by the native codec (nativezip.ts) */
+const NATIVE_MIN_CHARS = 1 << 20;
+
+const CT_SST ='application/vnd.openxmlformats-officedocument.spreadsheetml.sharedStrings+xml';
 
 export class Pkg {
   zip: JSZip;
@@ -191,6 +195,15 @@ export class Pkg {
     return text;
   }
 
+  /**
+   * Forget the cached text of a part that was read but not changed (the sheet copier reads a big source sheet once; the text is not
+   * needed any more). A later read inflates the entry again. Parts that were written are never released.
+   */
+  release(path0: string): void {
+    const path = this.canon(path0);
+    if (!this.dirty.has(path)) this.cache.delete(path);
+  }
+
   async readBytes(path0: string): Promise<Uint8Array | null> {
     const path = this.canon(path0);
     const f = this.zip.file(path);
@@ -200,7 +213,7 @@ export class Pkg {
   /** Inflate one entry under reader R's guards (declared size cap, optional `maxBytes`); a broken entry is a PatchError. */
   private async inflate(f: JSZip.JSZipObject, path: string, maxBytes?: number): Promise<Uint8Array> {
     try {
-      const b = await readEntryBytes(f, false, maxBytes);
+      const b = (await nativeInflateEntry(f, maxBytes)) ?? (await readEntryBytes(f, false, maxBytes));
       this.verified.add(path);
       return b;
     } catch {
@@ -325,6 +338,9 @@ export class Pkg {
    */
   async generate(): Promise<Uint8Array> {
     await this.verifyUntouched();
+    // Big parts (a copied sheet is 25 MB of text) are deflated natively and handed to JSZip as finished entries (nativezip.ts); the rest
+    // (and any part the native codec could not do) goes through JSZip's own compression.
+    const big: Array<{ path: string; text: string }> = [];
     for (const p of this.dirty) {
       let t = this.cache.get(p)!;
       if (/\.(xml|rels)$/i.test(p)) {
@@ -333,7 +349,14 @@ export class Pkg {
       }
       // the text is stored as UTF-8 (JSZip): a UTF-16 part's declaration must say so (either quote style)
       if (this.utf16.has(p)) t = t.replace(/^(<\?xml[^>]*?\sencoding\s*=\s*)(["'])[^"']*\2/i, '$1$2UTF-8$2');
-      this.zip.file(p, t);
+      if (t.length >= NATIVE_MIN_CHARS) big.push({ path: p, text: t });
+      else this.zip.file(p, t);
+    }
+    if (big.length) {
+      const ready = await compressParts(this.zip, big);
+      const done = new Set<string>();
+      for (const r of ready ?? []) { this.zip.file(r.path, r.entry as never); done.add(r.path); }
+      for (const b of big) if (!done.has(b.path)) this.zip.file(b.path, b.text);
     }
     this.dirty.clear();
     this.utf16.clear();

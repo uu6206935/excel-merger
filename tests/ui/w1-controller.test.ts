@@ -167,6 +167,10 @@ describe('「他のシートも出力に含める」', () => {
     });
     env.ctrl.setIncludeOtherSheets(true);
     expect(env.st.state.includeOtherSheets).toBe(true);
+    // (round 9) ticking it also ticks 「他のファイルのシートも含める」; this test is about the BASE file's sheets only, so that one is cleared again
+    expect(env.st.state.includeSourceSheets).toBe(true);
+    env.ctrl.setIncludeSourceSheets(false);
+    expect(env.st.state.includeOtherSheets).toBe(true);
     await env.ctrl.merge();
     expect(seen).toEqual([false]);
     expect(env.st.state.merged!.book.sheets.map((s) => s.name)).toEqual(['応募者一覧', '集計']);

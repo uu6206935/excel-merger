@@ -512,7 +512,7 @@ export const INFO_CLASSES = /^(skipped|runner-fallback|convert-blank|cf-quirk|ci
 /**
  * Defects the oracle FOUND that are not fixed because the code belongs to someone else (reported in RESULTS.md with a minimal repro). They are
  * shown as "open" in the summary and do not fail the run; delete the entry when the owner has fixed it (the run then shows none of it).
- *   append-range-running  join 'full': a running total in the LAST base row (=SUM($D$2:D31) in row 31) grows over the appended rows like a
- *                         total row below the table (premerge range-extension rule, patch/formula.ts extendArea): it then sums the new rows too
+ *   (none)  append-range-running was FIXED in round 9 (patch/formula.ts extendArea: a formula inside the data rows keeps a relative range
+ *           that ends at its own row; regress.test.ts)
  */
-export const KNOWN_OPEN = /^append-range-running/;
+export const KNOWN_OPEN = /^(?!)/;

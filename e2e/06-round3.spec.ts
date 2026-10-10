@@ -31,6 +31,7 @@ import {
   SAMPLES_DIR,
   samplePaths,
   selectColumns,
+  setSheetMode,
   step,
   toastLog,
   verifyAndProbe,
@@ -111,7 +112,8 @@ test.describe('ラウンド3: 離れた列の一括移動・基準ファイル�
   test('(g) Ctrl で離れた列（学年・年齢・判定）を選んで 1 回のドラッグで移動 → 両エンジンで PASS、集計の数式は同じ見出しの列を指す', async ({ page }) => {
     test.setTimeout(15 * 60_000);
     const errors = watchErrors(page);
-    await mergeSamples(page, errors, TWO);
+    // the formulas of 集計 are checked below: keep the base file's other sheets (the app's default output is the merged sheet only)
+    await mergeSamples(page, errors, TWO, () => setSheetMode(page, 'base'));
     const before = await columnTitles(page);
     // two base columns inside the title merge (学年 F, 年齢 J) and one imported column far to the right (判定)
     const moved = ['学年', '年齢', '判定'];

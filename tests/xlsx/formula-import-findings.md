@@ -240,4 +240,70 @@ npx tsx tests/oracle/import-values/diagnose.ts --dir <corpus> --engine both     
 npx tsx tests/oracle/import-values/diagnose.ts --foreign --dir tests/fixtures/foreign/corpus --engine both
 npx tsx tests/oracle/import-values/make-expected.ts                                                # rewrite tests/fixtures/formulaimport/expected.json
 EXCEL_TESTS=1 npx vitest run tests/oracle                                                          # the oracle under vitest (fixtures)
+powershell ... run.ps1 -Sources                                                                   # includeSourceSheets: the same comparison with the copies (round 9)
+powershell ... run.ps1 -Random 14 -Seed 7                                                          # the property test: random workbooks, Excel computes the source (round 9)
+npx tsx tests/oracle/import-values/make-expected.ts --copies                                       # rewrite tests/fixtures/formulaimport/expected-copies.json
 ```
+
+## 8. Round 9 (task F2): the formulas fall back to the copies of the source's sheets (includeSourceSheets)
+
+With `PremergeOptions.includeSourceSheets` the ORIGINAL sheets of every other file are in the output (named `<file>_<sheet>`, "(1)" for the one added later,
+31 characters), so what the merged table cannot keep can read those copies and stay a formula. `FormulaRemapper` (`RemapSpec.sheetCopies`) works in three
+steps, and the first one is exactly round 8:
+
+1. **Merged table** (rules a-e): a formula that round 8 keeps is never touched (same text, same stored result; `viaCopy` unset). Checked on the whole corpus:
+   every formula round 8 kept is kept with the same text.
+2. **Hybrid**: every reference that rules a-e cannot keep reads the copy of its sheet at the ORIGINAL coordinates (`'<copy>'!C5`, the source row of the
+   person — the copy keeps the original rows). A reference to another sheet of the source always reads its copy; defined names are inlined (a name of a side
+   cell / another sheet, or an expression over absolute single cells, in parentheses), structured references are resolved to A1 on the copy (totals rows too).
+3. **Copy mode** (every reference reads the copies = the source formula with renamed sheets): when a hybrid formula would be wrong — a range of the merged
+   table and a range of a copy in one formula are not row-aligned (SUMIF / SUMPRODUCT / INDEX-MATCH / `SUM(a)/SUM(b)`), `INDEX(merged range, position read
+   from a copy)`, reference operators (`:` / intersection / union) between operands of two sheets — and for `ROW(ref)`, `COLUMN(ref)`, `OFFSET(ref, …)`.
+
+Stays a value (reason of round 8): `ROW()` / `COLUMN()` without an argument, `INDIRECT`, `ADDRESS`, `CELL`, `FORMULATEXT`, `SHEET(S)`, `INFO`, 3-D references,
+external workbooks, spills, dynamic names (`OFFSET` in a name), and a **multi-cell range that now lives on another sheet in a place where Excel intersects it
+implicitly** (a bare `Master!A2:A10*2`: the source took the cell of ITS row, a different row on the merged sheet) — kept only as a bare argument of a function
+that takes a range, inside SUMPRODUCT / LOOKUP, or in an array formula.
+
+Stored results: the copy reads the very same cells, so a formula that reads only copies (and same-row merged cells) keeps the source's result.
+`MergeReport.formulaStats[].reasons.viaCopy` (informational, counted among `kept`; NOT part of `toValues + empty`) and the info item `formulasViaCopy`
+(「N 件の数式は元のシート（コピー）を参照して数式のまま残しました」) report them.
+
+| corpus (tests/fixtures/formulaimport, 19 files x 4 configurations, 16,032 formulas) | kept | values | empty cells | via a copy |
+|---|---|---|---|---|
+| round 8 (`expected.json`) | 12,746 | 1,536 | 1,750 | – |
+| round 9 (`expected-copies.json`) | **15,074** | 436 | 522 | 2,328 |
+
+What is left: positional (`ROW()-1`, `HYPERLINK(…ROW())`, `INDIRECT`) 560, dynamic names 112, 3-D references 112, external workbooks 112, odd syntax 58, spills 4.
+
+Real Excel (hidden own instance; `run.ps1 -Sources` / `-Random`, results in the tables below; `EXCEL_TESTS=1 npx vitest run tests/oracle` runs a smaller version):
+
+| run | packages | kept (via copy) | compared | MISMATCH | stale results | moved-column cells |
+|---|---|---|---|---|---|---|
+| generated corpus, 48 files x 5 configurations, `-Sources` | 240 | 46,654 (6,896) | 44,747 (10,355 widened) | **0** | 0 / 19,309 | 131,974 / 0 differ |
+| random workbooks `-Random 14 -Seed 7` (3 row orders x 5 configurations) | 210 | 18,648 (11,639) | 18,147 | **0** | – | 44,352 / 0 |
+| random workbooks `-Random 16 -Seed 11` (with the name variants) | 240 | 20,829 (12,992) | 20,055 | **0** | – | 50,688 / 0 |
+| random workbooks `-Random 16 -Seed 23` | 240 | 20,379 (13,726) | 20,025 | **0** | – | 50,688 / 0 |
+
+The random property test (tests/oracle/import-values/random.ts): a source workbook with the data sheet 評価 (ID, 氏名, three distinct-valued score columns, 8 formula
+columns drawn from 40 templates: same-row arithmetic, side cell, footer, lookups into Master / レート, previous rows, running totals, whole-table ranges, half-imported
+SUMIF / SUMPRODUCT / INDEX-MATCH, `ROW(ref)` / `OFFSET`, `ROW()`), 3 base people missing in the source, 3 people only the source has, in three row orders, imported
+in 5 configurations (default imports with join left / full; the formula columns plus only C, plus only D and E, or every other formula column — so that formulas read
+columns that are NOT imported). Names vary: plain, with spaces / parentheses / an apostrophe / a leading digit,
+and long enough that the two long sheet names are cut to 31 characters and collide ("(1)"). Excel computes the source; every kept formula of the merged workbook is
+compared with the source value of the same person (formulas over a whole table are compared with the source after Excel deleted the rows that were not placed).
+Mutation check: with the alignment rule removed from `remap.ts` the same run reports 365 mismatches in 4 workbooks (all `SUMIF($E…,$C…)` and `INDEX($C…,MATCH(E…,$E…))`
+over a half-imported table); with it, 0.
+
+Hazards the design had to rule out (unit tests in tests/formula/remap-copies.test.ts; the mutation check above proves the first one): a range of the merged table
+next to a range of a copy (the rows are not aligned); `INDEX(range of the merged table, position read from a cell of the source)`; a bare multi-cell range on another
+sheet (Excel intersects it with the row of the FORMULA = the merged row, not the source row); `:` / space / union between operands of two sheets.
+
+### Known gaps (round 9)
+
+- `ROW()` / `COLUMN()` without an argument stay values (they are the position of the formula cell, which changes).
+- `INDEX(range, cell)` where BOTH the range and the cell are imported and the merged order differs from the source order: kept live by round 8 (the cell is read as a
+  position into the merged table, the source meant its own row order). Repro: source rows P3 P1 P5 …, `=INDEX($C$2:$C$11,E2)` with C, E imported and a base in another order.
+- A copy cell that A1 could not copy as a formula (structured reference / 3-D / external reference without a stored result) is empty on the copy: a formula that reads it
+  reads an empty cell.
+- `HYPERLINK("#'評価'!A1", …)` text constants are not renamed (they never were).

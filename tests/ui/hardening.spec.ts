@@ -833,6 +833,10 @@ test.describe('スタンドアロン（dist/index.html を直接開く）', () =
     await expect(page.getByTestId('help-panel')).toBeVisible();
     await page.getByTestId('file-input').setInputFiles([sample('01_学生名簿.xlsx'), sample('02_面接評価.xlsx'), sample('03_連絡先.csv')]);
     await settle(page);
+    // (since round 7 the default output holds ONLY the merged sheet, so no formula of another sheet depends on 「大学」 any more and the
+    //  deletion would not ask: keep the base file's other sheets for this flow, as the test always assumed; this test failed at the
+    //  round-9 baseline for that reason)
+    await page.getByTestId('include-other-sheets').check();
     await merge(page);
     await page.getByTestId('grid-header-3').click();
     await page.keyboard.press('Control+Minus');

@@ -523,8 +523,8 @@ function followsDetachedArray(f: string, masters: Set<string>): boolean {
   return false;
 }
 
-/** the formula of `cell` goes, its cached result stays as the value (a string result becomes a shared string) */
-function detachCell(cell: CellM, f: ParsedF, sst: Sst | null): void {
+/** the formula of `cell` goes, its cached result stays as the value (a string result becomes a shared string); also used by the sheet copier */
+export function detachCell(cell: CellM, f: ParsedF, sst: Sst | null): void {
   const x = cell.x ?? '';
   const rest = x.slice(0, f.start) + x.slice(f.end);
   let a = setAttr(cell.a, 'cm', null);

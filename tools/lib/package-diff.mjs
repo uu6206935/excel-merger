@@ -294,7 +294,8 @@ function buildStyles(doc) {
   for (const n of kids(kid(doc, 'numFmts'), 'numFmt')) numFmts.set(Number(n.attrs.numFmtId), n.attrs.formatCode ?? '');
   const fmt = (id) => {
     const n = Number(id ?? 0);
-    if (numFmts.has(n)) return numFmts.get(n);
+    // (the format name "General" is case-insensitive: LibreOffice writes GENERAL, Excel General)
+    if (numFmts.has(n)) return /^general$/i.test(numFmts.get(n)) ? 'General' : numFmts.get(n);
     return BUILTIN_FMT[n] ?? `#${n}`;
   };
   const fonts = kids(kid(doc, 'fonts'), 'font');
@@ -302,7 +303,8 @@ function buildStyles(doc) {
   const borders = kids(kid(doc, 'borders'), 'border');
   const xfs = kids(kid(doc, 'cellXfs'), 'xf');
   const styleNames = new Map();
-  for (const cs of kids(kid(doc, 'cellStyles'), 'cellStyle')) if (!styleNames.has(Number(cs.attrs.xfId))) styleNames.set(Number(cs.attrs.xfId), cs.attrs.name ?? '');
+  // (builtinId 0 is the built-in style "Normal": a Japanese Excel saves it under its localized name 「標準」 — the same style)
+  for (const cs of kids(kid(doc, 'cellStyles'), 'cellStyle')) if (!styleNames.has(Number(cs.attrs.xfId))) styleNames.set(Number(cs.attrs.xfId), cs.attrs.builtinId === '0' ? 'Normal' : cs.attrs.name ?? '');
   const dxfs = kids(kid(doc, 'dxfs'), 'dxf');
   const xfCache = new Map();
   const xfSig = (i) => {
@@ -407,7 +409,8 @@ async function chartSig(pkg, part) {
       const fOf = (name) => {
         const n = kid(s, name);
         if (!n) return '';
-        for (const d of walk(n)) if (d.local === 'f') return textOf(d);
+        // (a series reference is absolute whether it is written with $ or without: Excel adds them)
+        for (const d of walk(n)) if (d.local === 'f') return textOf(d).replace(/\$/g, '');
         const v = kid(n, 'v');
         return v ? `"${textOf(v)}"` : '';
       };
@@ -482,7 +485,22 @@ async function pivotSig(pkg, part) {
   };
 }
 
-async function parseSheet(pkg, part, name, styles, sst) {
+/**
+ * A cell of type t="d" (an ISO 8601 date / date-time text, what Strict Open XML writes for a date) as the serial number Excel reads it as; null when the text is not one.
+ * Dates before 1900-03-01 (the 1900 leap-year bug) are not converted.
+ */
+export function isoDateSerial(text, date1904 = false) {
+  const m = /^(\d{4})-(\d{2})-(\d{2})(?:[T ](\d{2}):(\d{2})(?::(\d{2})(?:\.(\d+))?)?)?Z?$/.exec(String(text).trim());
+  if (!m) return null;
+  const day = Date.UTC(Number(m[1]), Number(m[2]) - 1, Number(m[3])) / 86400000;
+  const epoch = date1904 ? Date.UTC(1904, 0, 1) / 86400000 : Date.UTC(1899, 11, 30) / 86400000;
+  const serial = day - epoch;
+  if (!date1904 && serial < 61) return null;
+  const frac = (Number(m[4] ?? 0) * 3600 + Number(m[5] ?? 0) * 60 + Number(m[6] ?? 0) + Number('0.' + (m[7] ?? '0'))) / 86400;
+  return serial + frac;
+}
+
+async function parseSheet(pkg, part, name, styles, sst, date1904 = false) {
   const doc = await pkg.xml(part);
   const rels = await pkg.rels(part);
   const sh = { name, part, cells: new Map(), rows: new Map(), cols: [], extras: {} };
@@ -491,19 +509,26 @@ async function parseSheet(pkg, part, name, styles, sst) {
   sh.dimension = kid(doc, 'dimension')?.attrs.ref ?? '';
   const fp = kid(doc, 'sheetFormatPr');
   sh.defaultColWidth = fp?.attrs.defaultColWidth != null ? Number(fp.attrs.defaultColWidth) : null;
-  sh.formatPr = fp ? `baseColWidth=${fp.attrs.baseColWidth ?? ''},defaultColWidth=${fp.attrs.defaultColWidth ?? ''},zeroHeight=${fp.attrs.zeroHeight ?? ''}` : '';
+  // (values equal to the schema default are the same as no value: baseColWidth 8, zeroHeight false; true / 1 and false / 0 are the same)
+  const b01 = (v, d) => (v == null ? d : v === 'true' || v === '1' ? '1' : '0');
+  sh.formatPr = fp ? `baseColWidth=${fp.attrs.baseColWidth && fp.attrs.baseColWidth !== '8' ? fp.attrs.baseColWidth : ''},defaultColWidth=${fp.attrs.defaultColWidth ?? ''},zeroHeight=${b01(fp.attrs.zeroHeight, '0') === '1' ? '1' : ''}` : '';
+  if (sh.formatPr === 'baseColWidth=,defaultColWidth=,zeroHeight=') sh.formatPr = ''; // an element with nothing in it = no element
+  // a sheet whose default row height is custom (Google Sheets: customHeight="1" defaultRowHeight="15.75") has that height on every row without its own;
+  // Excel writes it out on each <row>
+  sh.defaultRowHeight = fp?.attrs.defaultRowHeight != null && isTrue(fp.attrs.customHeight) ? Number(fp.attrs.defaultRowHeight) : null;
 
   // sheet view: the pane split is real, selection / scroll position is not
   const sv = kid(kid(doc, 'sheetViews'), 'sheetView');
   const pane = kid(sv, 'pane');
   const va = sv?.attrs ?? {};
   sh.view = [
-    pane && pane.attrs.state !== 'split' ? `pane=${pane.attrs.xSplit ?? 0},${pane.attrs.ySplit ?? 0},${pane.attrs.state ?? 'split'}` : pane ? `split=${pane.attrs.xSplit ?? 0},${pane.attrs.ySplit ?? 0}` : 'pane=none',
+    // (numbers: Google Sheets writes xSplit="2.0", Excel "2")
+    pane && pane.attrs.state !== 'split' ? `pane=${Number(pane.attrs.xSplit ?? 0)},${Number(pane.attrs.ySplit ?? 0)},${pane.attrs.state ?? 'split'}` : pane ? `split=${Number(pane.attrs.xSplit ?? 0)},${Number(pane.attrs.ySplit ?? 0)}` : 'pane=none',
     `zoom=${va.zoomScale ?? '100'}`,
-    `grid=${va.showGridLines ?? '1'}`,
-    `rtl=${va.rightToLeft ?? '0'}`,
-    `zeros=${va.showZeros ?? '1'}`,
-    `headers=${va.showRowColHeaders ?? '1'}`,
+    `grid=${b01(va.showGridLines, '1')}`,
+    `rtl=${b01(va.rightToLeft, '0')}`,
+    `zeros=${b01(va.showZeros, '1')}`,
+    `headers=${b01(va.showRowColHeaders, '1')}`,
     `view=${va.view ?? 'normal'}`,
   ].join('|');
   sh.selection = `${va.tabSelected ?? ''}|${va.topLeftCell ?? ''}|${pane?.attrs.topLeftCell ?? ''}|${pane?.attrs.activePane ?? ''}|${kids(sv, 'selection').map((s) => ser(s)).join('')}`;
@@ -562,8 +587,10 @@ async function parseSheet(pkg, part, name, styles, sst) {
         type = 'e';
         value = vt;
       } else if (t === 'd' && vt != null) {
-        type = 'd';
-        value = vt;
+        // (Strict Open XML stores a date as ISO text: Excel reads it as the date's serial number, and so does the Excel engine's output)
+        const serial = isoDateSerial(vt, date1904);
+        type = serial == null ? 'd' : 'n';
+        value = serial == null ? vt : serial;
       } else if (vt != null && vt !== '') {
         type = 'n';
         value = Number(vt);
@@ -641,11 +668,15 @@ async function parseSheet(pkg, part, name, styles, sst) {
     })
     .sort();
   const prot = kid(doc, 'sheetProtection');
+  // (an attribute that equals its schema default is the same as no attribute: openpyxl writes them all, Excel only what differs)
+  const PROT_DEFAULT = { sheet: '0', objects: '0', scenarios: '0', formatCells: '1', formatColumns: '1', formatRows: '1', insertColumns: '1', insertRows: '1', insertHyperlinks: '1', deleteColumns: '1', deleteRows: '1', selectLockedCells: '0', sort: '1', autoFilter: '1', pivotTables: '1', selectUnlockedCells: '0' };
+  const boolStr = (v) => (v === 'true' ? '1' : v === 'false' ? '0' : v);
   sh.protection = prot
     ? Object.keys(prot.attrs)
         .filter((k) => !/hashValue|saltValue|spinCount|algorithmName|password/.test(k))
+        .filter((k) => !(k in PROT_DEFAULT && boolStr(prot.attrs[k]) === PROT_DEFAULT[k] && k !== 'sheet'))
         .sort()
-        .map((k) => `${k}=${prot.attrs[k]}`)
+        .map((k) => `${k}=${boolStr(prot.attrs[k])}`)
         .join(',')
     : '';
   sh.breaks = ['rowBreaks', 'colBreaks']
@@ -731,7 +762,7 @@ export async function loadPackageModel(input) {
   };
   for (const s of sheets) {
     if (s.kind !== 'worksheet' || !s.part) continue;
-    model.sheetModels.set(s.name, await parseSheet(pkg, s.part, s.name, styles, sst));
+    model.sheetModels.set(s.name, await parseSheet(pkg, s.part, s.name, styles, sst, model.date1904));
   }
   return model;
 }
@@ -994,8 +1025,12 @@ function compareSheet(name, x, y, stA, stB, push, filt, opts) {
   const rDiff = [];
   let rowNoise = 0;
   for (const r of new Set([...x.rows.keys(), ...y.rows.keys()])) {
-    const a = x.rows.get(r);
-    const b = y.rows.get(r);
+    let a = x.rows.get(r);
+    let b = y.rows.get(r);
+    // (a row without its own height has the custom default height of its sheet, if there is one)
+    const withDefault = (row, m) => (row?.ht == null && m.defaultRowHeight != null ? { ...(row ?? {}), ht: m.defaultRowHeight, custom: true } : row);
+    a = withDefault(a, x);
+    b = withDefault(b, y);
     if (a?.custom || b?.custom) {
       if (a?.ht == null || b?.ht == null || Math.abs(a.ht - b.ht) > 0.05) rDiff.push(`${r} 行の高さ ${a?.ht ?? '自動'} -> ${b?.ht ?? '自動'}`);
     } else if ((a?.ht ?? null) !== (b?.ht ?? null)) rowNoise++;

@@ -68,10 +68,10 @@ describe.skipIf(!samplesAvailable() || process.env.EXCEL_TESTS !== '1')('real Ex
 });
 
 // ---------------------------------------------------------------------------------------------------------------------
-// OPEN defect found by the oracle (class append-range-running, premerge / patch/formula.ts extendArea — not mine to change, reported in
-// RESULTS.md). `it.fails` documents it: the test passes while the defect exists and turns RED when somebody fixes it (then make it a plain `it`).
+// Defect V1 found by the oracle (class append-range-running, premerge / patch/formula.ts extendArea), FIXED in round 9 (task A1): a running total in
+// the last base row keeps its own end row. These tests were `it.fails` while the defect was open; they are plain tests now.
 // ---------------------------------------------------------------------------------------------------------------------
-describe('join full: appended rows and the formulas of the base (open defect)', () => {
+describe('join full: appended rows and the formulas of the base (defect V1, fixed)', () => {
   const base = (): BookSpec => ({
     sheet: '名簿',
     rows: [['ID', '氏名', '点', '累計'], ...PEOPLE.map((p, i) => [p, `名前${i + 1}`, 10 * (i + 1), { f: `SUM($C$2:C${i + 2})` }])],
@@ -86,7 +86,7 @@ describe('join full: appended rows and the formulas of the base (open defect)', 
     expect(m.cell(7, 1)!.v).toBe('P9'); // the appended row exists (row 7)
   });
 
-  it.fails('a running total in the LAST base row ends at its own row: =SUM($C$2:C6) must not become =SUM($C$2:C7) (it sums the appended people too)', async () => {
+  it('a running total in the LAST base row ends at its own row: =SUM($C$2:C6) must not become =SUM($C$2:C7) (it sums the appended people too)', async () => {
     const m = await merge({ base: base(), src: src(), imports: [3], rows: plan(), keyFill });
     expect(m.cell(6, 4)!.f).toBe('SUM($C$2:C6)');
   });

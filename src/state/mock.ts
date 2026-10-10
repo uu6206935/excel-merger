@@ -36,6 +36,7 @@ import type {
 import type {
   Cell,
   CellWrite,
+  CheckItem,
   DocColumn,
   EditorSnapshot,
   ExternalFormulaCell,
@@ -53,6 +54,7 @@ import type {
 } from '../core/types';
 import { adjustFormula, movePerm, planMove } from '../core/formula/excelRef';
 import { displayValue } from '../core/display/numfmt';
+import { planSheetNames } from '../core/xlsx/sheetnames';
 import { DEFAULT_OPTIONS, colLetter, extOf, stripExt } from './helpers';
 import type { Services } from './services';
 
@@ -950,6 +952,23 @@ function joinSources(analysis: KeyAnalysis, plan: JoinPlan): JoinResult {
 // =============================================================================================
 // premerge (builds the merged SourceBook in memory; the "bytes" are a token for readBook)
 
+/** A copy of a sheet of another file for the merged book (plan A): own name, styles shifted into the merged style table, sheet references renamed. */
+function copySheetGrid(sh: SheetGrid, name: string, styleOffset: number, renames: ReadonlyMap<string, string>): SheetGrid {
+  const rewrite = (f: string): string => {
+    let out = f;
+    for (const [from, to] of renames) {
+      const esc = from.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      out = out.replace(new RegExp(`(^|[^\\w'])'?${esc}'?!`, 'g'), (_m, pre: string) => `${pre}'${to.replace(/'/g, "''")}'!`);
+    }
+    return out;
+  };
+  return {
+    ...sh,
+    name,
+    rows: sh.rows.map((row) => row?.map((c) => (c ? { ...c, s: (c.s ?? 0) + styleOffset, ...(c.f ? { f: rewrite(c.f) } : {}) } : c))),
+  };
+}
+
 async function buildPremerged(input: PremergeInput, onProgress?: ProgressFn): Promise<PremergeResult> {
   onProgress?.({ ratio: 0.1, message: 'スタイルを統合中…' });
   await sleep(250);
@@ -1081,11 +1100,48 @@ async function buildPremerged(input: PremergeInput, onProgress?: ProgressFn): Pr
       });
     }
   }
+  // plan A (PremergeOptions.includeSourceSheets): every sheet of every other file is copied after the merged sheet and the base's
+  // kept sheets, named <file>_<sheet> by planSheetNames (the real rule); the mock copies cells + styles and renames sheet references
+  const includeSource = input.options.includeSourceSheets === true;
+  const baseKept = dropOther ? [] : baseBook.sheets.filter((s) => s.name !== reg.sheet);
+  const copies: SheetGrid[] = [];
+  const addedSheets: NonNullable<PremergeLayout['addedSheets']> = [];
+  const copyItems: CheckItem[] = [];
+  if (includeSource) {
+    const planned = planSheetNames(
+      [reg.sheet, ...baseKept.map((s) => s.name)],
+      input.sources.map((s) => ({ file: s.book.fileName, sheets: s.book.sheets.map((x) => x.name) })),
+    );
+    let at = 0;
+    for (const src of input.sources) {
+      const mine = src.book.sheets.map((sh) => ({ sh, p: planned[at++] }));
+      const renames = new Map(mine.map(({ sh, p }) => [sh.name, p.name] as const));
+      mine.forEach(({ sh, p }, k) => {
+        copies.push(copySheetGrid(sh, p.name, styleOffset[src.id] ?? 0, renames));
+        // the mock has no chart copier: a book with charts leaves them out of its last sheet (shows the 警告 entry of the real thing)
+        const limited = src.book.features.charts > 0 && k === mine.length - 1;
+        addedSheets.push({ sourceId: src.id, file: src.book.fileName, original: sh.name, name: p.name, suffixed: p.suffixed, complete: !limited });
+        if (p.suffixed) copyItems.push({ severity: 'info', code: 'sheetRenamed', message: `シート名が重なったため「${p.name}」にしました`, sourceId: src.id });
+        if (limited) {
+          copyItems.push({
+            severity: 'warning',
+            code: 'sheetCopyLimits',
+            message: `「${p.name}」: グラフ ${src.book.features.charts} 個はコピーできませんでした（セルの値・数式・書式はコピーしました）`,
+            sourceId: src.id,
+          });
+        }
+      });
+    }
+    if (addedSheets.length) {
+      const first = addedSheets[0].name;
+      copyItems.unshift({ severity: 'info', code: 'sheetsAdded', message: `他のファイルのシート ${addedSheets.length} 枚をコピーしました（${first}${addedSheets.length > 1 ? ' ほか' : ''}）` });
+    }
+  }
   const book: SourceBook = {
     ...baseBook,
     id: 'merged',
     styles,
-    sheets: dropOther ? [merged] : baseBook.sheets.map((s) => (s.name === reg.sheet ? merged : s)),
+    sheets: includeSource ? [merged, ...baseKept, ...copies] : dropOther ? [merged] : baseBook.sheets.map((s) => (s.name === reg.sheet ? merged : s)),
     warnings: [],
   };
   const bytes = new Uint8Array([0x50, 0x4b, 0x03, 0x04, Math.floor(Math.random() * 255)]);
@@ -1095,7 +1151,7 @@ async function buildPremerged(input: PremergeInput, onProgress?: ProgressFn): Pr
   onProgress?.({ ratio: 1, message: '完了' });
   return {
     bytes,
-    layout: { sheet: reg.sheet, insertAt, imported, appendAt: appended.length ? appended[0].row : null, appended },
+    layout: { sheet: reg.sheet, insertAt, imported, appendAt: appended.length ? appended[0].row : null, appended, ...(includeSource ? { addedSheets } : {}) },
     report: {
       mergedRows: input.rows.length,
       matchedRows,
@@ -1113,7 +1169,8 @@ async function buildPremerged(input: PremergeInput, onProgress?: ProgressFn): Pr
         reasons: { unsupported: n },
       })),
       ...(droppedSheets.length ? { droppedSheets, formulasDetached: detached } : {}),
-      items: [],
+      ...(includeSource ? { addedSheets: addedSheets.map((a) => a.name) } : {}),
+      items: copyItems,
     },
   };
 }

@@ -101,7 +101,7 @@ describe('「他のシートも出力に含める」', () => {
     const { st } = await env();
     const s = st.state;
     const html = renderToStaticMarkup(
-      <KeyControls analysis={s.analysis!} plan={s.plan!} labels={{}} onPlan={noop} onToggleFamily={noop} onOpenDetail={noop} onJoinType={noop} includeOtherSheets={false} onIncludeOtherSheets={noop} />,
+      <KeyControls analysis={s.analysis!} plan={s.plan!} labels={{}} onPlan={noop} onToggleFamily={noop} onOpenDetail={noop} onJoinType={noop} includeOtherSheets={false} onIncludeOtherSheets={noop} includeSourceSheets={false} onIncludeSourceSheets={noop} />,
     );
     const join = html.indexOf('data-testid="join-type-select"');
     const other = html.indexOf('data-testid="include-other-sheets"');

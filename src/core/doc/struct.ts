@@ -277,9 +277,9 @@ function adjustRangeText(text: string, op: StructOp): string | null {
 
 function freezeOp(fr: SheetFeatures['freeze'], op: StructOp): SheetFeatures['freeze'] {
   if (!fr || !fr.cols) return fr;
-  // a delete removes the frozen columns it hits — except when it removes ALL of them: then the split stays
-  // (like a range 1..k fully inside a deleted block; Excel golden g-plan-ACE-F, R2b d04/d07)
-  const cut = (k: number, at: number, cnt: number) => (at <= 1 && at + cnt - 1 >= k ? k : k - Math.max(0, Math.min(k, at + cnt - 1) - at + 1));
+  // a delete removes the frozen columns it hits — except when it removes ALL of them: then ONE frozen column stays, whatever k was
+  // (Excel golden g-plan-ACE-F: k = 1 stays 1; measured in Excel by the copied-sheets oracle, round 9: k = 2, 3, 4 -> 1; the doc used to keep k)
+  const cut = (k: number, at: number, cnt: number) => (at <= 1 && at + cnt - 1 >= k ? 1 : k - Math.max(0, Math.min(k, at + cnt - 1) - at + 1));
   let k = fr.cols;
   if (op.type === 'insert') {
     if (op.at <= k) k += op.count;

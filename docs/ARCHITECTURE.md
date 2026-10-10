@@ -221,6 +221,22 @@ Round 6: header chip `disk-low-chip` and export-dialog notice (`export-disk-noti
   hyperlinks, then drawings / charts / images / tables / comments / pivots); what cannot be copied is left out with a 'sheetCopyLimits'
   warning naming the sheet. Imported formulas (round 8) that read other sheets of their source, or cells the merged table cannot
   represent, read the COPIES instead and therefore stay formulas. PremergeLayout.addedSheets / MergeReport.addedSheets list the result.
+  - UI: two checkboxes in the settings bar (`include-other-sheets` = the base's other sheets, `include-source-sheets` = the other files'
+    sheets; turning the first on turns the second on, turning the second on turns the first on, turning the first off turns the second
+    off; default both off = single-sheet output; merge settings, fixed after the merge). State: `AppState.includeSourceSheets`,
+    `Action output/sourceSheets`, `Controller.setIncludeSourceSheets`, pure helpers in `src/state/sheetPlan.ts`. PremergeOptions:
+    `dropOtherSheets = !includeOtherSheets`, `includeSourceSheets`.
+  - data-testids: `include-other-sheets`, `include-source-sheets`, `sheet-options`, `preview-output-sheets`, `planned-sheet-<i>`
+    (`data-kind` merged|base|copy, `data-name`), `planned-sheet-suffixed-<i>`, `planned-sheet-shortened-<i>`, `planned-sheets-skipped`,
+    `side-output-sheets` (`data-sheet-total`, `data-sheet-added`), `sheet-list-details`, `sheet-list`, `sheet-list-item-<i>`,
+    `export-engine-sheets-hint`, `side-dropped-sheets`.
+  - Formulas: `MergeReport.formulaStats[].reasons.viaCopy` (informational, counted among kept), item `formulasViaCopy`; rules in the header
+    comment of `src/core/formula/remap.ts` (hybrid mode: merged-table remap first, then the copies at the original coordinates; copy mode
+    when mixing would give wrong values).
+  - Tools: `tools/check-output.mjs --single-sheet` (only the merged sheet expected) and `--with-copies --source <file>…` (copies must
+    equal their source sheets); e2e `SheetMode` in `e2e/helpers.ts`; real-Excel oracle `tests/oracle/copied-sheets/`.
+  - Frozen panes: when the whole frozen block of columns / rows is moved away or deleted Excel leaves exactly one frozen line; the doc
+    (`doc/struct.ts`) and the built-in engine (`patch/views.ts`) do the same.
 
 Additional data-testids: `file-excluded-<i>`, `excluded-notice`, `excluded-pick-key-<sourceId>`, `preview-excluded-<sourceId>`,
 `side-excluded`, `key-detail-tab-<sourceId>`, `detail-excluded`, `key-candidates`, `key-row-<candidateId>`,
