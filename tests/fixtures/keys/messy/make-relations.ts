@@ -141,7 +141,7 @@ cases.push((() => {
     name: 'one-to-many-lookup-by-id',
     note: 'the BASE has several rows per person (応募履歴), the other file is a person master with one row each → VLOOKUP-style',
     files: [base.file('base', '応募履歴.xlsx'), s1.file('s1', '学生名簿.xlsx')],
-    expect: { matched: { s1: 30 }, plan: { s1: ['ID', '氏名'] }, noItems: ['s1:duplicateBase'] },
+    expect: { matched: { s1: 30 }, plan: { s1: ['ID＋氏名', 'ID', '氏名'] }, noItems: ['s1:duplicateBase'] },
   };
 })());
 

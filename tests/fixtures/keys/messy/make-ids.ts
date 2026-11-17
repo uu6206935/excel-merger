@@ -154,7 +154,7 @@ cases.push((() => {
     name: 'id-scientific-notation',
     note: 'the other file went through CSV: every 12-digit number became text like 2.02345E+11 (digits lost). Must never join on those',
     files: [base.file('base', '名簿_受験番号.xlsx'), s1.file('s1', '回答_指数表記.xlsx')],
-    expect: { matched: { s1: 14 }, items: ['s1:lossyId'], plan: { s1: ['ID', '氏名'] } },
+    expect: { matched: { s1: 14 }, items: ['s1:lossyId'], plan: { s1: ['ID＋氏名', 'ID', '氏名'] } },
   };
 })());
 
@@ -175,7 +175,7 @@ cases.push((() => {
     name: 'id-different-lengths',
     note: '8-digit 学籍番号 in the base, 6-digit (year without the century) in the others; s2 has no name to fall back on',
     files: [base.file('base', '名簿_8桁.xlsx'), s1.file('s1', '回答_6桁と氏名.xlsx'), s2.file('s2', '点数_6桁のみ.xlsx')],
-    expect: { matched: { s1: 14, s2: 14 }, plan: { s1: ['ID（桁数違い・末尾一致）', '氏名'], s2: ['ID（桁数違い・末尾一致）'] }, items: ['s2:checkWarn'] },
+    expect: { matched: { s1: 14, s2: 14 }, plan: { s1: ['ID＋氏名', 'ID（桁数違い・末尾一致）', '氏名'], s2: ['ID（桁数違い・末尾一致）'] }, items: ['s2:checkWarn'] },
   };
 })());
 

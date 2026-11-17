@@ -56,7 +56,7 @@ describe('full join over three files', () => {
       { sourceId: 'S2', row: 4 },
     ]);
     // 田中 一郎 (2001): appended from S1, matched by S2 through the base ID column filled from S1
-    expect(appended[0].matches).toEqual({ S1: { row: 3, via: '追加行', flags: [] }, S2: { row: 3, via: 'ID', flags: [] } });
+    expect(appended[0].matches).toEqual({ S1: { row: 3, via: '追加行', flags: [] }, S2: { row: 3, via: 'ID＋氏名', flags: [] } });
     expect(appended[1].matches).toEqual({ S1: { row: 4, via: '追加行', flags: [] }, S2: null });
     expect(appended[2].matches).toEqual({ S1: null, S2: { row: 4, via: '追加行', flags: [] } });
     // key columns of each pair are filled into the base key columns for appended rows
@@ -66,7 +66,7 @@ describe('full join over three files', () => {
     // base rows in base order first
     expect(res.rows.slice(0, 8).map((r) => r.baseRow)).toEqual([2, 3, 4, 5, 6, 7, 8, 9]);
     const b = byBase(res.rows);
-    expect(b.get(2)?.matches.S1).toEqual({ row: 2, via: 'ID', flags: [] });
+    expect(b.get(2)?.matches.S1).toEqual({ row: 2, via: 'ID＋氏名', flags: [] });
     expect(b.get(6)?.matches.S1?.flags).toEqual(['variant']); // 髙橋 ⟷ 高橋
     expect(b.get(7)?.matches.S2?.flags).toEqual(['variant']); // 渡邊 ⟷ 渡辺
     expect(res.items.filter((i) => i.code === 'unmatchedOther').map((i) => i.severity)).toEqual(['info', 'info']);
@@ -153,9 +153,9 @@ describe('duplicate policy', () => {
 
   it('first / last pick one of identical submissions', () => {
     const first = run(base(), [dup()]).res;
-    expect(byBase(first.rows).get(3)?.matches.D).toEqual({ row: 3, via: 'ID', flags: ['duplicateInSource'] });
+    expect(byBase(first.rows).get(3)?.matches.D).toEqual({ row: 3, via: 'ID＋氏名', flags: ['duplicateInSource'] });
     const last = run(base(), [dup()], { duplicatePolicy: 'last' }).res;
-    expect(byBase(last.rows).get(3)?.matches.D).toEqual({ row: 5, via: 'ID', flags: ['duplicateInSource'] });
+    expect(byBase(last.rows).get(3)?.matches.D).toEqual({ row: 5, via: 'ID＋氏名', flags: ['duplicateInSource'] });
     const item = last.items.find((i) => i.code === 'duplicate');
     expect(item?.message).toBe('「D」でキーが重複している行: 1件（最後の行を採用）');
     expect(item?.rows).toEqual([3]);
@@ -183,8 +183,8 @@ describe('duplicate policy', () => {
       ['1003', '佐藤 翔太', 'A'],
     ]);
     const { res } = run(base(), [bad]);
-    // the ID tier is ambiguous; the 氏名 tier then picks the right row (no veto: IDs equal)
-    expect(byBase(res.rows).get(3)?.matches.D).toEqual({ row: 4, via: '氏名', flags: ['fallback'] });
+    // ID＋氏名 is unique per row: it picks the right row at once (the wrongly typed 中村 優子 / 1002 row has another first-tier key)
+    expect(byBase(res.rows).get(3)?.matches.D).toEqual({ row: 4, via: 'ID＋氏名', flags: [] });
     // 中村 優子 (base 1008) must not receive the row with ID 1002: the ID tier vetoes it
     expect(byBase(res.rows).get(9)?.matches.D).toBeNull();
   });
@@ -211,8 +211,8 @@ describe('duplicate policy', () => {
     const o = sourceFromRows('O', [['受験番号', '名前', '評価'], ['1001', '山田 太郎', 'A'], ['1002', '鈴木 花子', 'B'], ['1003', '佐藤 翔太', 'C']]);
     const { res } = run(b2, [o]);
     const b = byBase(res.rows);
-    expect(b.get(3)?.matches.O).toEqual({ row: 3, via: 'ID', flags: ['duplicateInBase'] });
-    expect(b.get(10)?.matches.O).toEqual({ row: 3, via: 'ID', flags: ['duplicateInBase'] });
+    expect(b.get(3)?.matches.O).toEqual({ row: 3, via: 'ID＋氏名', flags: ['duplicateInBase'] });
+    expect(b.get(10)?.matches.O).toEqual({ row: 3, via: 'ID＋氏名', flags: ['duplicateInBase'] });
     expect(res.items.find((i) => i.code === 'duplicateBase')?.rows).toEqual([3, 10]);
     // 結合しない: neither base row is joined; both are listed as ambiguous (and as base duplicates)
     const skip = run(b2, [o], { duplicatePolicy: 'skip' }).res;
@@ -240,17 +240,17 @@ describe('key normalisation in joins', () => {
       ['１１８', '高橋 一郎', 'D'], // full-width digits
     ]);
     const { an, res } = run(b, [o]);
-    expect(res.reports.O.perTier.ID).toBe(4);
-    for (const r of res.rows) expect(r.matches.O?.via).toBe('ID');
+    expect(res.reports.O.perTier['ID＋氏名']).toBe(4);
+    for (const r of res.rows) expect(r.matches.O?.via).toBe('ID＋氏名');
     expect(res.rows[0].matches.O?.flags).toEqual([]); // 000115 ⟷ 000115 (display text of the number cell)
     expect(res.rows[1].matches.O?.flags).toEqual(['variant']); // 000116 ⟷ 116
     // 先頭ゼロを無視 off: 000116 ≠ 116, and different IDs veto the 氏名 tier (never merged)
     const an2 = analyzeSources(b, [o], { leadingZeros: false });
     expect(an2.options.leadingZeros).toBe(false);
     const res2 = joinSources(an2, defaultPlan(an2));
-    expect(res2.rows[0].matches.O?.via).toBe('ID'); // the number cell SHOWS 000115
+    expect(res2.rows[0].matches.O?.via).toBe('ID＋氏名'); // the number cell SHOWS 000115
     expect(res2.rows[1].matches.O).toBeNull();
-    expect(res2.rows[2].matches.O?.via).toBe('ID'); // 117 ⟷ '117'
+    expect(res2.rows[2].matches.O?.via).toBe('ID＋氏名'); // 117 ⟷ '117'
     expect(res2.items.find((i) => i.code === 'vetoed')?.rows).toEqual([3, 5]);
     expect(an.options.leadingZeros).toBe(true);
   });
@@ -299,12 +299,12 @@ describe('fallbacks and composites', () => {
       [null, '伊藤 陽菜', '一橋大学', 'B'],
     ]);
     const { an, res } = run(base(), [o]);
-    expect(an.pairs.O.candidates.filter((c) => c.selected).map((c) => c.label)).toEqual(['ID', '氏名＋大学', '氏名']);
+    expect(an.pairs.O.candidates.filter((c) => c.selected).map((c) => c.label)).toEqual(['ID＋氏名', 'ID', '氏名＋大学', '氏名']);
     const b = byBase(res.rows);
     expect(b.get(4)?.matches.O).toEqual({ row: 4, via: '氏名＋大学', flags: ['fallback'] });
     expect(b.get(5)?.matches.O).toEqual({ row: 3, via: '氏名＋大学', flags: ['fallback'] });
     expect(b.get(8)?.matches.O?.via).toBe('氏名＋大学');
-    expect(b.get(3)?.matches.O?.via).toBe('ID');
+    expect(b.get(3)?.matches.O?.via).toBe('ID＋氏名');
     const fb = res.items.find((i) => i.code === 'fallback');
     expect(fb?.severity).toBe('warning');
     expect(fb?.rows).toEqual([4, 5, 8]);
@@ -454,7 +454,8 @@ describe('CheckItem.otherRows (rows of the other file)', () => {
 
   it('conflicts name the other file rows too', () => {
     const o = sourceFromRows('O', [['受験番号', '名前', '評価'], ['1001', '中村 恵子', 'A'], ['1002', '鈴木 花子', 'B']]);
-    const it = run(base(), [o]).res.items.find((i) => i.code === 'conflict');
+    // ID agrees, name does not: the default key ID＋氏名 differs, so the row is not joined (vetoed) instead of being joined with an error flag
+    const it = run(base(), [o]).res.items.find((i) => i.code === 'vetoed');
     expect(it?.rows).toEqual([2]);
     expect(it?.otherRows).toEqual([2]);
   });

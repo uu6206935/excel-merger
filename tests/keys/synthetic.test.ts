@@ -69,36 +69,36 @@ describe('synthetic truth (R6 set)', () => {
   it('A ⟷ B with 重複=結合しない reproduces R6: 24 correct, 0 wrong, 5 missed all surfaced', () => {
     const e = evaluate('A', 'B', { duplicatePolicy: 'skip' });
     expect(e.wrong).toEqual([]);
-    expect(e.correct).toBe(24);
+    // 24 before the default key became ID＋氏名: the two rows whose ID agrees but whose name does not (中村 ⟷ 木村 …) are no longer joined
+    expect(e.correct).toBe(22);
     expect(e.missed.length).toBe(e.missedSurfaced);
     expect(e.wrongSuggestions).toEqual([]);
     const rep = e.res.reports.B;
     // Round 5: メール / 電話番号 are tiers of their own (unique on ≥ 90% of the rows), tried after the composite keys
-    expect(rep.plan.map((p) => p.name)).toEqual(['ID', '氏名＋大学', '氏名カナ＋大学', 'メール', '電話番号', '氏名', '氏名カナ']);
+    expect(rep.plan.map((p) => p.name)).toEqual(['ID＋氏名', 'ID', '氏名＋大学', '氏名カナ＋大学', 'メール', '電話番号', '氏名', '氏名カナ']);
     expect(rep.ambiguous.length).toBe(1); // 小林 大輝 submitted twice
   });
 
   it('A ⟷ B with the default policy (先頭の行) also resolves the duplicate submission', () => {
     const e = evaluate('A', 'B');
     expect(e.wrong).toEqual([]);
-    expect(e.correct).toBe(25);
+    expect(e.correct).toBe(23);
     expect(e.missed.length).toBe(e.missedSurfaced);
     expect(e.wrongSuggestions).toEqual([]);
     const kobayashi = e.res.rows.find((r) => r.matches.B?.flags.includes('duplicateInSource'));
     expect(kobayashi?.baseRow).toBe(16); // A row 16 = 000112 小林 大輝
     // flags: ID一致・氏名不一致 (中村/木村) is a conflict, 異体字 matches are variants, 氏名＋大学 matches are fallbacks
     const byRow = new Map(e.res.rows.map((r) => [r.baseRow, r.matches.B]));
-    expect(byRow.get(17)?.flags).toContain('conflict'); // 000113 中村 優子 ⟷ 木村 拓也
+    expect(byRow.get(17)).toBeNull(); // 000113 中村 優子 ⟷ 木村 拓也: same ID, other name → not joined (default key ID＋氏名)
     expect(byRow.get(7)?.flags).toContain('variant'); // 000103 髙橋 一郎 ⟷ 高橋一郎
     const viaComposite = e.res.rows.filter((r) => r.matches.B?.via === '氏名＋大学');
     expect(viaComposite.length).toBe(2);
     for (const r of viaComposite) expect(r.matches.B?.flags).toContain('fallback');
     const items = e.res.items.map((i) => i.code);
-    expect(items).toEqual(expect.arrayContaining(['unmatched', 'duplicate', 'conflict', 'fallback', 'variant', 'suggestion']));
-    const conflict = e.res.items.find((i) => i.code === 'conflict');
-    expect(conflict?.severity).toBe('error');
-    expect(conflict?.rows).toEqual([17]);
-    expect(conflict?.message).toContain('ID一致・氏名不一致');
+    expect(items).toEqual(expect.arrayContaining(['unmatched', 'duplicate', 'vetoed', 'fallback', 'variant', 'suggestion']));
+    // 000113 中村 優子 ⟷ 木村 拓也 (same ID, other name) is not joined: the check list names it as vetoed (it used to be a joined row flagged as an error)
+    const vetoed = e.res.items.find((i) => i.code === 'vetoed');
+    expect(vetoed?.rows).toContain(17);
   });
 
   it('A ⟷ C: 同姓同名 resolved by 氏名＋大学 (姓＋名 virtual column), 10 / 10', () => {
@@ -128,17 +128,16 @@ describe('synthetic truth (R6 set)', () => {
     const an = analyzeKeys(buildTable(src.A), buildTable(src.B));
     expect(an.mode).toBe('oneToOne');
     const r = runJoin(an, { policy: 'skip' });
-    expect(r.matched).toBe(24);
+    expect(r.matched).toBe(22);
     const count = (k: string) => r.flags[k]?.count ?? 0;
     // R6 counted 20 「ID表記の違いを補正」; the 000000-formatted number 115 now also shows as 000115 (vs '115')
-    expect(count('ID表記の違いを補正')).toBe(21);
+    expect(count('ID表記の違いを補正')).toBe(19); // 21 before ID＋氏名: the two not-joined rows carried this flag
     // R6 skipped the name check on 氏名-tier matches; 異体字 matches there are now reported too
     expect(count('異体字の違い')).toBeGreaterThanOrEqual(4);
-    expect(count('似た字の違い')).toBe(1);
-    expect(count('ID一致・氏名不一致')).toBe(1);
-    expect(count('フリガナ不一致')).toBe(1);
+    expect(count('似た字の違い')).toBe(0); // was 1: that ID-equal row now differs in the ID＋氏名 key and is not joined
+    expect(count('ID一致・氏名不一致')).toBe(0); // such rows are not joined any more
+    expect(count('フリガナ不一致')).toBe(0); // was 1: that ID-equal row is not joined any more
     expect(count('姓名の順序違い')).toBe(1);
-    expect(r.flags['ID一致・氏名不一致'].level).toBe('error');
     expect(r.suggestions.every((s) => s.score >= 0.6)).toBe(true);
   });
 

@@ -48,7 +48,7 @@ export function sheetDTO(sourceId: string, t: Table, ps: ColumnProfile[]): Sheet
 /** Chip family of a candidate: ID-like / name-like (incl. composites containing a name) / other. */
 export function familyOf(s: PairStats): CandidateDTO['family'] {
   const sig = s.a.sig;
-  if (sig === 'idFamily') return 'id';
+  if (sig === 'idFamily' || sig.startsWith('idFamily+')) return 'id';
   if (sig === 'discovered') {
     const ps = [...s.a.cols, ...s.b.cols];
     if (ps.some((p) => ID_TYPES.has(p.type) || p.type === 'orgCode')) return 'id';
@@ -69,7 +69,7 @@ function baseLabel(s: PairStats, kind: CandidateDTO['kind']): string {
     const hb = headersOf(s.b.cols);
     return ha === hb ? `値一致（${ha}）` : `値一致（${ha} ⟷ ${hb}）`;
   }
-  return s.a.variant ? s.a.label : sigLabel(s.a.sig);
+  return s.a.variant || s.a.fixedLabel ? s.a.label : sigLabel(s.a.sig);
 }
 
 export function candidateId(kind: CandidateDTO['kind'], s: PairStats, tA: Table, tB: Table): string {
@@ -111,7 +111,9 @@ export function candidateEntries(c: Candidates, tiers: Tier[], tA: Table, tB: Ta
   const tierOf = (s: PairStats) => tiers.findIndex((t) => t.a === s.a && t.b === s.b);
   const raw: Array<{ s: PairStats; kind: CandidateDTO['kind'] }> = [
     ...c.singles.map((s) => ({ s, kind: 'single' as const })),
-    ...c.composites.slice(0, 5).map((s) => ({ s, kind: 'composite' as const })),
+    // the default ID＋名前 key always comes first and does not use up one of the five composite slots
+    ...(c.idName ? [{ s: c.idName, kind: 'composite' as const }] : []),
+    ...c.composites.filter((s) => s !== c.idName).slice(0, 5).map((s) => ({ s, kind: 'composite' as const })),
     ...c.discovered.slice(0, 5).map((s) => ({ s, kind: 'discovered' as const })),
   ];
   const entries: CandidateEntry[] = [];

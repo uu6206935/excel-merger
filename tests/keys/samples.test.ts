@@ -50,19 +50,19 @@ describe('cross-file joins (R6 §9.2)', () => {
     expect(an.pairs.ST.mode).toBe('oneToOne');
     expect(an.pairs.WP.mode).toBe('lookup');
     const selST = an.pairs.ST.candidates.filter((c) => c.selected).map((c) => [c.label, c.family, c.baseColumns[0].header, c.otherColumns[0].header]);
-    expect(selST).toEqual([['ID', 'id', '学生ID', '応募者コード'], ['氏名', 'name', '学生名', '漢字氏名']]);
+    expect(selST).toEqual([['ID＋氏名', 'id', '学生ID', '応募者コード'], ['ID', 'id', '学生ID', '応募者コード'], ['氏名', 'name', '学生名', '漢字氏名']]);
     const selWP = an.pairs.WP.candidates.filter((c) => c.selected);
     expect(selWP.map((c) => [c.kind, c.family, c.baseColumns[0].header, c.otherColumns[0].header])).toEqual([['discovered', 'id', '職場ID', '応募者コード']]);
     expect(an.pairs.HR.candidates.filter((c) => c.selected)).toEqual([]);
     // chips: ID / 氏名 always present, per source
     expect(an.chips.map((c) => c.family)).toEqual(['id', 'name']);
-    expect(an.chips[0].perSource.ST?.label).toBe('ID');
+    expect(an.chips[0].perSource.ST?.label).toBe('ID＋氏名');
     expect(an.chips[0].perSource.HR).toBeNull();
 
     const res = joinSources(an, defaultPlan(an));
     expect(res.summary).toEqual({ baseRows: 30, matchedAny: 30, matchedAll: 0, appended: 0 });
     expect(res.reports.ST.matched).toBe(30);
-    expect(res.reports.ST.perTier.ID).toBe(30);
+    expect(res.reports.ST.perTier['ID＋氏名']).toBe(30);
     expect(res.reports.WP.matched).toBe(30); // every student gets its workplace row (N:1 lookup)
     expect(Object.keys(res.reports.WP.flags)).toEqual([]); // 職場名 ⟷ 漢字氏名 consistency check: 0 disagreements
     expect(res.reports.HR.matched).toBe(0);
@@ -82,7 +82,7 @@ describe('cross-file joins (R6 §9.2)', () => {
     ]);
     // rows: base order, Excel rows
     expect(res.rows.map((r) => r.baseRow)).toEqual(Array.from({ length: 30 }, (_, i) => i + 2));
-    expect(res.rows[0].matches.ST).toEqual({ row: 2, via: 'ID', flags: [] });
+    expect(res.rows[0].matches.ST).toEqual({ row: 2, via: 'ID＋氏名', flags: [] });
     expect(res.rows[0].matches.WP?.flags).toEqual(['duplicateInBase']);
     expect(res.rows[0].matches.HR).toBeNull();
   });
@@ -101,7 +101,7 @@ describe('cross-file joins (R6 §9.2)', () => {
       const an = analyzeSources(base, [MEIBO]);
       const res = joinSources(an, defaultPlan(an));
       expect(res.reports.MEIBO.matched).toBe(n);
-      expect(res.reports.MEIBO.plan.map((p) => p.name)).toEqual(['ID', '氏名']);
+      expect(res.reports.MEIBO.plan.map((p) => p.name)).toEqual(['ID＋氏名', 'ID', '氏名']);
     }
     const an = analyzeSources(ST, [MIHAI]);
     expect(joinSources(an, defaultPlan(an)).reports.MIHAI.matched).toBe(30);

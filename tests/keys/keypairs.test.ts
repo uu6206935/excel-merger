@@ -43,8 +43,9 @@ describe('keyPairs: single columns', () => {
 
   it('ID + 氏名: both pairs, although the ID tier took every row and the 氏名 tier matched none itself', () => {
     const { plan, res } = run(base(), [s1()]);
-    expect(plan.tiers.S1.length).toBe(2);
-    expect(res.reports.S1.perTier).toEqual({ ID: 3, 氏名: 0 });
+    // default key = ID＋氏名 together; the ID and 氏名 tiers behind it only catch rows where one of the two is blank
+    expect(plan.tiers.S1.length).toBe(3);
+    expect(res.reports.S1.perTier).toEqual({ 'ID＋氏名': 3, ID: 0, 氏名: 0 });
     expect(res.keyPairs).toEqual({ S1: [{ baseCol: 1, sourceCol: 1 }, { baseCol: 2, sourceCol: 2 }] });
   });
 

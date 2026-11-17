@@ -72,7 +72,7 @@ describe('performance', () => {
     expect(run.ms).toBeLessThan(budgetMs(3000));
     const res = run.result;
     expect(res.summary.baseRows).toBe(N);
-    expect(res.reports.o1.plan[0].name).toBe('ID');
+    expect(res.reports.o1.plan[0].name).toBe('ID＋氏名');
     // no ID in o2: the stricter 氏名＋メール first, メール alone as a fallback tier
     expect(res.reports.o2.plan.map((p) => p.name)).toEqual(['氏名＋メール', 'メール', '氏名']);
     // ~19,500 existing people, 5% without ID: those only have a heavily duplicated name (323 distinct names)

@@ -86,7 +86,7 @@ describe('samples: join against truth.json', () => {
 
   it('selected keys per file', () => {
     const sel = (id: string) => an.pairs[id].candidates.filter((c) => c.selected).sort((x, y) => (x.tier ?? 99) - (y.tier ?? 99)).map((c) => c.label);
-    expect(sel('IV')).toEqual(['ID', '氏名']);
+    expect(sel('IV')).toEqual(['ID＋氏名', 'ID', '氏名']);
     expect(sel('CT')[0]).toBe('氏名＋電話番号');
     expect(sel('AP')).toEqual(['氏名カナ']);
     expect(sel('AT')[0]).toBe('氏名＋大学');

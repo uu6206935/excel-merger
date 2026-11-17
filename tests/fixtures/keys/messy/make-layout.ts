@@ -141,7 +141,7 @@ cases.push((() => {
     name: 'two-row-merged-header',
     note: '「面接評価」 merged over 評価1/評価2/評価3; in A the key headers are merged over both rows, in B they are not',
     files: [base.file('base', '名簿.xlsx'), a.file('s1', '面接評価_結合ヘッダーA.xlsx'), b.file('s2', '面接評価_結合ヘッダーB.xlsx')],
-    expect: { matched: { s1: 14, s2: 12 }, plan: { s1: ['ID', '氏名'], s2: ['ID', '氏名'] } },
+    expect: { matched: { s1: 14, s2: 12 }, plan: { s1: ['ID＋氏名', 'ID', '氏名'], s2: ['ID＋氏名', 'ID', '氏名'] } },
   };
 })());
 

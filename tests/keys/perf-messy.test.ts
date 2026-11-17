@@ -88,7 +88,7 @@ describe('performance: 50,000 rows', () => {
     console.log(`50k + 3: join (full) ${f.ms.toFixed(0)} ms`);
     expect(f.ms).toBeLessThan(budgetMs(6000));
     const res = f.result;
-    expect(an.pairs.o1.candidates.find((c) => c.selected)?.label).toBe('ID');
+    expect(an.pairs.o1.candidates.find((c) => c.selected)?.label).toBe('ID＋氏名');
     expect(res.reports.o1.matched).toBe(N);
     expect(res.reports.o3.matched).toBeGreaterThan(N * 0.99);
     expect(res.summary.appended).toBeGreaterThan(4000);
@@ -132,7 +132,7 @@ describe('performance: 50,000 rows', () => {
     }
     const r = await bestOf(2, budgetMs(8000), () => run([sourceFromRows('a', a), sourceFromRows('b', b)]));
     expect(r.ms).toBeLessThan(budgetMs(8000));
-    expect(r.result.res.reports.b.perTier.ID).toBe(N * 0.8);
+    expect(r.result.res.reports.b.perTier['ID＋氏名']).toBe(N * 0.8);
     expect(r.result.res.reports.b.matched).toBe(N * 0.8);
     expect(r.result.res.items.some((i) => i.code === 'tooManyDuplicates')).toBe(true);
   }, 120000);

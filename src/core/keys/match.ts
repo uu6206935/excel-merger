@@ -39,6 +39,8 @@ export interface KeySpec {
   variant?: 'prefix' | 'suffix';
   /** pair-specific key recipe for another profile of the same column (rebuildSpec on the extended base) */
   keysFor?: (p: ColumnProfile) => string[];
+  /** the default ID＋名前 key (see idNameComposite): `label` is shown as it is ('ID＋部品名') */
+  fixedLabel?: boolean;
 }
 
 export const SEP = '\u0001';
@@ -290,6 +292,8 @@ export interface Candidates {
   singles: PairStats[];
   discovered: PairStats[];
   composites: PairStats[];
+  /** the default key: the ID column ＋ the name column (氏名 / 部品名 …) together (also the first entry of `composites`) */
+  idName?: PairStats;
 }
 
 const genericSets = new WeakMap<ColumnProfile, { set: Set<string>; list: string[] }>();
@@ -490,7 +494,48 @@ export function findCandidates(A: ColumnProfile[], B: ColumnProfile[]): Candidat
   const singleUnique = (sig: string) => singles.some((s) => s.a.sig === sig && s.uniqA >= 0.999 && s.uniqB >= 0.999);
   const kept = composites.filter((s) => !dominated(s) && !singleUnique(parts(s)[0]));
   kept.sort((p, q) => q.score - p.score);
-  return { singles, discovered, composites: kept };
+  const idName = idNameComposite(singles, discovered);
+  return { singles, discovered, composites: idName ? [idName, ...kept] : kept, ...(idName ? { idName } : {}) };
+}
+
+// ---------------------------------------------------------------------------
+// the default key: ID ＋ name (a row joins only when BOTH agree)
+// ---------------------------------------------------------------------------
+
+/** the ID pair the plan uses (see planTiers): must overlap, be key-like, and not be two numberings that merely overlap */
+function pickIdSingle(singles: PairStats[]): PairStats | undefined {
+  const usable = (s: PairStats, minRate = 0.1) => Math.max(s.matchRate, s.coverageA) >= minRate;
+  // one side (nearly) unique, the other may repeat (one row per interview): an explicit 学籍番号 / 社員番号 / 応募者ID header on both
+  // sides makes a repeating ID a foreign key (VLOOKUP / duplicate policy); a vaguer header needs ≥ 50% uniqueness on both
+  const explicitId = (s: PairStats) => [...s.a.cols, ...s.b.cols].every((p) => p.type !== 'unknown' && (p.headerScores[p.type] ?? 0) >= 0.85);
+  const keyish = (s: PairStats) => Math.max(s.uniqA, s.uniqB) >= 0.9 && (Math.min(s.uniqA, s.uniqB) >= 0.5 || (Math.min(s.uniqA, s.uniqB) >= 0.1 && explicitId(s)));
+  const ok = singles.filter((s) => s.a.sig === 'idFamily' && usable(s, 0.2) && keyish(s) && (s.nameConflict ?? 0) < 0.5);
+  // a column headed 部品ID / 学生ID … beats a number column that merely looks like an ID (単価, 金額 …) even when the latter overlaps more
+  const idHeader = (s: PairStats) => [...s.a.cols, ...s.b.cols].every((p) => /(id|番号|品番|コード|code|no\.?)$/i.test(p.header.trim()));
+  return ok.find(explicitId) ?? ok.find(idHeader) ?? ok[0];
+}
+
+/**
+ * ID ＋ name as ONE key ('ID＋氏名', 'ID＋部品名'): the name is the typed person name (氏名 / ローマ字) when both files have one, else the
+ * value-overlap column that pairs up two name-like text columns (部品名 ⟷ 品名). Only built when an ID pair is usable and the name
+ * pair overlaps well; a row whose ID agrees but whose name does not (or the other way round) is then NOT joined.
+ */
+function idNameComposite(singles: PairStats[], discovered: PairStats[]): PairStats | undefined {
+  const id = pickIdSingle(singles);
+  if (!id || id.a.cols.length !== 1 || id.b.cols.length !== 1) return undefined;
+  const rate = (s: PairStats) => Math.max(s.matchRate, s.coverageA);
+  const typed = singles.find((s) => (s.a.sig === 'name' || s.a.sig === 'roman') && s.a.cols.length === 1 && s.b.cols.length === 1 && rate(s) >= 0.5);
+  const idish = (p: ColumnProfile) => ID_TYPES.has(p.type) || p.type === 'orgCode';
+  const found = discovered.find((d) => d.a.cols.length === 1 && d.b.cols.length === 1 && rate(d) >= 0.5
+    && d.a.cols[0].col !== id.a.cols[0].col && d.b.cols[0].col !== id.b.cols[0].col
+    && !idish(d.a.cols[0]) && !idish(d.b.cols[0]) && (d.a.cols[0].entity ?? 'subject') === (d.b.cols[0].entity ?? 'subject'));
+  const nm = typed ?? found;
+  if (!nm) return undefined;
+  const x = compositeSpec([id.a, nm.a]);
+  const y = compositeSpec([id.b, nm.b]);
+  x.label = y.label = `ID＋${typed ? '氏名' : nm.a.cols[0].header}`;
+  x.fixedLabel = y.fixedLabel = true;
+  return pairStats(x, y);
 }
 
 // ---------------------------------------------------------------------------
@@ -586,17 +631,18 @@ export interface Side {
 export function planTiers(c: Candidates): Tier[] {
   const tiers: Tier[] = [];
   const usable = (s: PairStats, minRate = 0.1) => Math.max(s.matchRate, s.coverageA) >= minRate;
-  // one side (nearly) unique, the other may repeat (one row per interview): an explicit 学籍番号 / 社員番号 / 応募者ID header on both
-  // sides makes a repeating ID a foreign key (VLOOKUP / duplicate policy); a vaguer header needs ≥ 50% uniqueness on both
-  const explicitId = (s: PairStats) => [...s.a.cols, ...s.b.cols].every((p) => p.type !== 'unknown' && (p.headerScores[p.type] ?? 0) >= 0.85);
-  const keyish = (s: PairStats) => Math.max(s.uniqA, s.uniqB) >= 0.9 && (Math.min(s.uniqA, s.uniqB) >= 0.5 || (Math.min(s.uniqA, s.uniqB) >= 0.1 && explicitId(s)));
   // 1. ID family (応募者ID ⟷ 受験番号 ⟷ 学生ID …): must actually overlap (different ID systems → skipped)
-  const id = c.singles.find((s) => s.a.sig === 'idFamily' && usable(s, 0.2) && keyish(s) && (s.nameConflict ?? 0) < 0.5);
+  const id = pickIdSingle(c.singles);
+  // 1'. default: ID ＋ name together (氏名 / 部品名) is the FIRST tier. A row whose ID agrees but whose name does not (or the other way
+  //     round) has two DIFFERENT first-tier keys, so the veto of executeJoin keeps every later tier (ID alone, name alone …) from joining
+  //     it: it stays unmatched (reported as a conflict). Rows where the ID or the name is blank on one side still fall back to the rest.
+  const idName = id && c.idName && c.idName.a.parts?.[0] === id.a && c.idName.b.parts?.[0] === id.b ? c.idName : undefined;
+  if (idName) tiers.push({ name: idName.a.label, a: idName.a, b: idName.b, stats: idName });
   if (id) tiers.push({ name: 'ID', a: id.a, b: id.b, stats: id });
   // 2. composite keys (氏名＋大学, 氏名＋生年月日, 氏名カナ＋大学 …): best one per person-part
   // kanji name before kana: kana collides more (伊藤/井藤), and a name-tier mismatch then vetoes the kana tier
   const ORDER: Record<string, number> = { name: 0, roman: 1, kana: 2 };
-  const comps = [...c.composites].sort((p, q) => (ORDER[p.a.sig.split('+')[0]] ?? 9) - (ORDER[q.a.sig.split('+')[0]] ?? 9) || q.score - p.score);
+  const comps = [...c.composites].filter((s) => s !== idName).sort((p, q) => (ORDER[p.a.sig.split('+')[0]] ?? 9) - (ORDER[q.a.sig.split('+')[0]] ?? 9) || q.score - p.score);
   const seen = new Set<string>();
   for (const s of comps) {
     const person = s.a.sig.split('+')[0];
@@ -744,7 +790,8 @@ export function executeJoin(A: Side, B: Side, tiers: Tier[], opts: JoinOptions =
 
   for (let t = 0; t < tiers.length; t++) {
     const tier = tiers[t];
-    const isIdTier = tier.a.sig === 'idFamily';
+    // the default ID＋名前 key carries an ID: it is decided like an ID (several base rows of one person all receive the row)
+    const isIdTier = tier.a.sig === 'idFamily' || tier.a.sig.startsWith('idFamily+');
     // a key that names a PERSON (not a workplace / organisation / discovered foreign key): rows sharing it may be different people
     const isPersonKey = /^(name|roman|kana|email|phone)(\+|$)/.test(tier.a.sig);
     perTier[tier.name] = perTier[tier.name] ?? 0;
